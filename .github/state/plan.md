@@ -65,17 +65,16 @@
   - Playwright E2E Tests: [Status]
   - Responsive Testing: [Mobile/Tablet/Desktop status]
 
-### **🎭 MANDATORY VISUAL REGRESSION & TDD REQUIREMENTS**
+### **🎭 MANDATORY VISUAL REGRESSION REQUIREMENTS**
 
-**🚨 CRITICAL**: All testing must follow TDD principles and comprehensive visual regression
+**🚨 CRITICAL**: All components must undergo comprehensive visual regression testing
 
 **Every use case MUST have**:
-1. **🔴 TDD Red Phase**: Write tests FIRST based on design requirements
-2. **Frontend Implementation**: All required UI components and user interactions
-3. **Backend Implementation**: All API endpoints and business logic
-4. **Database Integration**: Proper data persistence and retrieval
-5. **🎭 VISUAL REGRESSION TESTING**: Focused element layout assertions, css etc assertions
-6. **🎭 VISUAL FIDELITY REGRESSION TESTING**: 
+1. **Frontend Implementation**: All required UI components and user interactions
+2. **Backend Implementation**: All API endpoints and business logic
+3. **Database Integration**: Proper data persistence and retrieval
+4. **🎭 VISUAL REGRESSION TESTING**: Focused element layout assertions, css etc assertions
+5. **🎭 VISUAL FIDELITY REGRESSION TESTING**: 
 - **🚨 MANDATORY PLAYWRIGHT SCREENSHOT ANALYSIS**:
   - You MUST use Playwright tools to launch, navigate and TAKE SCREENSHOTS
   - **Critical UI/UX Analysis Required** (not agreeable stance):
@@ -89,9 +88,7 @@
     - Cycle 2: Re-screenshot, critique improvements, implement refinements  
     - Cycle 3: Final screenshots, validate visual perfection achieved
   - Screenshots stored in `/tests/visual-regression/screenshots/[component-name]/`
-7. **✅ TDD Green Phase**: Implementation makes tests pass
-8. **🔄 TDD Refactor Phase**: Code cleanup while maintaining test coverage
-9. **Component(s) Catelog Update**: Add the respective component(s) to the regression testing dashboard / components catelog page.
+6. **Component(s) Catelog Update**: Add the respective component(s) to the regression testing dashboard / components catelog page.
 
 **🔍 Visual Regression Testing Strategy**:
 
@@ -136,8 +133,6 @@
 **Test Structure**: `src/.../tests/use-cases/uc-001-[name].spec.ts`
 
 **Coverage Requirements**:
-- 🔴 **TDD Red Phase**: Tests written FIRST from design specifications
-- 🔴 **Backend Unit Tests**: 90%+ coverage for Manager/Engine/Data layers
 - ✅ **Happy Path**: Complete successful user journey
 - ✅ **Error Scenarios**: Validation failures and edge cases  
 - ✅ **Integration Points**: Frontend-backend-database connectivity
@@ -148,7 +143,6 @@
 - 🖱️ **Interaction States**: Hover, focus, active, visited states
 - 🌓 **Theme Coverage**: Light and dark mode visual regression testing
 - 🎨 **Semantic HTML Validation**: Proper element usage, no unnecessary divs
-- ✅ **TDD Green/Refactor**: Implementation and cleanup phases with maintained coverage
 
 ## 🏗️ Implementation Milestones
 
@@ -335,7 +329,7 @@
 2. [Following action with expected outcome]
 3. [Subsequent action with dependencies]
 
-**🏗️ Use Case Implementation Protocol - TDD + Design-Driven**:
+**🏗️ Use Case Implementation Protocol - Design-Driven**:
 
 - [ ] **UC-001**: [Use Case Name from **use cases**]
   - [ ] **📖 READ Design Documents**:
@@ -343,34 +337,14 @@
     - [ ] **2-class.md**: Identify required **classes** (Manager/Engine/Data layers)  
     - [ ] **3-sequence.md**: Follow interaction flows for this **use case**
     - [ ] **4-frontend.md**: Review UI components and user flows specified
-  - [ ] **🔴 TDD RED PHASE - Write Tests FIRST**:
-    - [ ] **🚨 BACKEND UNIT TESTS MANDATORY**: 
-      - [ ] Manager layer unit tests (orchestration logic) **← FROM 2-class.md**
-      - [ ] Engine layer unit tests (business logic) **← FROM 2-class.md**
-      - [ ] Data layer unit tests (repository patterns) **← FROM 2-class.md**
-      - [ ] Service interface unit tests **← FROM 2-class.md**
-      - [ ] **90% code coverage minimum** for backend layers
-    - [ ] **Integration Tests**: API endpoint tests (based on the **sequence diagrams**)
-    - [ ] **Component Tests**: UI component tests (based on the **frontend** designs)
-    - [ ] **🎭 PLAYWRIGHT VISUAL REGRESSION TESTS**: 
-      - [ ] Component-level focused screenshots
-      - [ ] **CRITICAL ANALYSIS**: Take screenshots and analyze for:
-        - Layout precision (spacing, alignment, typography)
-        - Visual hierarchy and design consistency  
-        - Interactive states (hover, focus, active, disabled)
-      - [ ] **3x IMPROVEMENT CYCLE**: Repeat analysis and improvements 3 times minimum
-      - [ ] Screenshots stored in `/tests/visual-regression/screenshots/`
-    - [ ] **E2E Tests**: User flow tests (based on the **frontend** flows)
-    - [ ] **CSS Layout Tests**: Explicit layout property assertions
-  - [ ] **🔴 Run Tests**: Verify all tests fail (RED)
-  - [ ] **✅ TDD GREEN PHASE - Implementation**:
-    - [ ] **🔴 STRICT TDD BACKEND IMPLEMENTATION**:
-      - [ ] **Manager layer** (orchestration) **← FROM 2-class.md** - One file per class
-      - [ ] **Engine layer** (business logic) **← FROM 2-class.md** - One file per class  
-      - [ ] **Data layer** (repository) **← FROM 2-class.md** - One file per interface/class
-      - [ ] **API routes and validation** **← FROM 3-sequence.md**
-      - [ ] **DTOs and Models** - One file each (UserDto.cs, LoginDto.cs)
-      - [ ] **Verify 90% unit test coverage** after implementation
+  - [ ] **Implementation Phase**:
+    - [ ] **Backend Implementation**: 
+      - [ ] Manager layer (orchestration logic) **← FROM 2-class.md**
+      - [ ] Engine layer (business logic) **← FROM 2-class.md**
+      - [ ] Data layer (repository patterns) **← FROM 2-class.md**
+      - [ ] Service interfaces **← FROM 2-class.md**
+      - [ ] API routes and validation **← FROM 3-sequence.md**
+      - [ ] DTOs and Models - One file each (UserDto.cs, LoginDto.cs)
     - [ ] **Frontend Implementation**:
       - [ ] **Component creation** **← FROM 4-frontend.md** - One component per file
       - [ ] **State management integration** **← FROM 4-frontend.md**
@@ -385,13 +359,19 @@
         - [ ] **Screenshot Analysis Cycle 2**: Implement fixes, re-screenshot, critique again  
         - [ ] **Screenshot Analysis Cycle 3**: Final improvements, validate visual perfection
         - [ ] **CRITICAL STANCE**: No agreeable feedback - objective critique only
-  - [ ] **✅ Run Tests**: Verify all tests pass (GREEN)
-  - [ ] **🔄 TDD REFACTOR PHASE**:
-    - [ ] Code cleanup and optimization
-    - [ ] Performance improvements
-    - [ ] Accessibility enhancements
-    - [ ] Code organization and patterns
-  - [ ] **🔄 Run Tests**: Verify tests still pass after refactoring
+  - [ ] **Testing & Validation**:
+    - [ ] Integration Tests: API endpoint tests (based on the **sequence diagrams**)
+    - [ ] Component Tests: UI component tests (based on the **frontend** designs)
+    - [ ] **🎭 PLAYWRIGHT VISUAL REGRESSION TESTS**: 
+      - [ ] Component-level focused screenshots
+      - [ ] **CRITICAL ANALYSIS**: Take screenshots and analyze for:
+        - Layout precision (spacing, alignment, typography)
+        - Visual hierarchy and design consistency  
+        - Interactive states (hover, focus, active, disabled)
+      - [ ] **3x IMPROVEMENT CYCLE**: Repeat analysis and improvements 3 times minimum
+      - [ ] Screenshots stored in `/tests/visual-regression/screenshots/`
+    - [ ] **E2E Tests**: User flow tests (based on the **frontend** flows)
+    - [ ] **CSS Layout Tests**: Explicit layout property assertions
   - [ ] **🎭 Visual Regression Validation**:
     - [ ] Component-level focused screenshots
     - [ ] Layout property assertions (width, height, positioning)
@@ -422,19 +402,17 @@
 - [ ] ✅ Database: Connected / ❌ Connection Issues - [Details if issues]
 
 **Tests Status**:
-- [ ] ✅ Backend Unit Tests: XX/XX Passing / ❌ XX Failing (90%+ coverage required)
 - [ ] ✅ Integration Tests: XX/XX Passing / ❌ XX Failing
 - [ ] ✅ E2E Tests: XX/XX Passing / ❌ XX Failing
 - [ ] ✅ Visual Regression Tests: XX/XX Passing / ❌ XX Failing
 - [ ] ✅ CSS Layout Assertions: XX/XX Passing / ❌ XX Failing
 - [ ] ✅ Component Screenshot Tests: XX/XX Passing / ❌ XX Failing
 - [ ] ✅ Theme Coverage Tests: Light/Dark mode visual parity validated
-- [ ] ✅ TDD Cycle Completion: [Red→Green→Refactor] Status per use case
 
 **Code Quality**:
 - [ ] ✅ TypeScript: No Errors / ❌ XX Errors
 - [ ] ✅ ESLint: Clean / ❌ XX Warnings
-- [ ] ✅ Test Coverage: XX% / ❌ Below 90% threshold (TDD should achieve high coverage)
+- [ ] ✅ Test Coverage: XX% / ❌ Below threshold
 - [ ] ✅ Visual Test Coverage: XX components tested / ❌ Missing visual tests
 
 **Visual Regression Metrics**:
@@ -479,15 +457,9 @@
 
 ### **Phase 5: Quality Assurance & Testing** (85-95%)
 
-**🧪 TDD-Driven Testing Implementation** (90%+ coverage target):
+**🧪 Comprehensive Testing Implementation**:
 
-- [ ] **🔴 TDD Red Phase**: Write tests FIRST from design documents
-  - [ ] **🚨 BACKEND UNIT TESTS MANDATORY (90%+ coverage)**:
-    - [ ] Manager layer unit tests (Manager/Engine/Data layers from the **class diagrams**)
-    - [ ] Engine layer business logic unit tests
-    - [ ] Data layer repository pattern unit tests  
-    - [ ] Service interface unit tests
-    - [ ] DTO validation unit tests
+- [ ] **Implementation-First Testing Approach**:
   - [ ] Integration tests (API endpoints from 3-sequence.md)  
   - [ ] Component tests (UI components from the **frontend** designs)
   - [ ] **🎭 PLAYWRIGHT VISUAL REGRESSION TESTS**: 
@@ -495,12 +467,11 @@
     - [ ] **CRITICAL ANALYSIS**: Screenshot analysis with 3x improvement cycles
   - [ ] E2E tests (User flows from the **use cases** + **frontend**)
 
-- [ ] **✅ TDD Green Phase**: Implementation to pass tests
-  - [ ] **🔴 STRICT TDD BACKEND** implementation (make unit/integration tests pass)
+- [ ] **Quality Implementation**: Implementation to pass tests
+  - [ ] **Backend Implementation** (make integration tests pass)
     - [ ] One class per file implementation (Manager/Engine/Data layers)
     - [ ] One interface per file (IUserService.cs, IEmailProvider.cs)
     - [ ] One DTO per file (UserDto.cs, LoginRequestDto.cs)
-    - [ ] Verify 90%+ unit test coverage achieved
   - [ ] **Frontend** implementation (make component/visual tests pass)
     - [ ] One component per file (LoginForm.tsx, UserProfile.tsx)
     - [ ] Semantic HTML implementation (proper elements, minimal divs)
@@ -511,8 +482,8 @@
   - [ ] **Responsive design**: Mobile (375px)/tablet (768px)/desktop (1920px) breakpoint testing
   - [ ] **🎭 PLAYWRIGHT VISUAL FIDELITY**: 3x critical analysis cycles per component
 
-- [ ] **🔄 TDD Refactor Phase**: Code optimization while maintaining coverage
-  - [ ] Performance improvements (maintain 90%+ backend test coverage)
+- [ ] **Refinement Phase**: Code optimization while maintaining quality
+  - [ ] Performance improvements
   - [ ] Accessibility enhancements (WCAG 2.1 AA)
   - [ ] Code organization and patterns (one-class-per-file maintained)
   - [ ] Cross-browser compatibility (Chrome, Firefox, Safari)
