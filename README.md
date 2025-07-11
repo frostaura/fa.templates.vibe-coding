@@ -70,7 +70,7 @@
 
 ## 🌟 Commune with GAIA in 3 Steps
 
-> **🚀 Quick Start**: Already familiar with GAIA? Jump straight to invoking `/gaia_for_new_projects` in Copilot chat in agent mode and describe your vision, after cloning / forking the repository!
+> **🚀 Quick Start**: Already familiar with GAIA? Jump straight to invoking `/gaia-create` in Copilot chat in agent mode and describe your vision, after cloning / forking the repository!
 
 ### Step 1: Preparation (2 minutes)
 
@@ -94,7 +94,7 @@
    - In VS Code: Open GitHub Copilot Chat
    - In Cursor AI: Open the chat panel
 3. **Switch to Agent mode** (if using VS Code with Copilot)
-4. **Invoke GAIA**: Type `/` in the chat input to see available agents, then select `gaia_for_new_projects`
+4. **Invoke GAIA**: Type `/` in the chat input to see available agents, then select `gaia-create`
 5. **Share your vision**: Describe your project in detail and attach 2-3 screenshots of frontend inspiration
 6. **Press ENTER** to begin the creation process
 
@@ -162,7 +162,7 @@
 
 2. Reflect on the [design documentation](./.docs/designs/*.md), and ensure
   2.1. all use cases have properly been implemented across the system, including ALL method bodies and
-  2.2. the UI/UX is properly tested and reflect the frontend design we captured by reflecting on [our massive initial prompt](./.github/prompts/gaia_for_new_projects.prompt.md), [the plan](./.github/state/plan.md) and ensure the entire system is properly implemented.
+  2.2. the UI/UX is properly tested and reflect the frontend design we captured by reflecting on [our massive initial prompt](./.github/prompts/gaia-create.prompt.md), [the plan](./.github/state/plan.md) and ensure the entire system is properly implemented.
 
 3. 🎨 **CRITICAL VISUAL QUALITY ASSURANCE**: Ensure your frontend is genuinely beautiful:
    - Create Playwright visual tests with screenshots at multiple viewport sizes (mobile, tablet, desktop)
