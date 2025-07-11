@@ -1,5 +1,5 @@
 <!-- reference @.github/templates/designs/*.md -->
-<!-- reference @.github/state/plan.md -->
+<!-- reference @.docs/plan.md -->
 <!-- reference @.docs/designs/*.md -->
 <!-- reference @.docs/design.md -->
 
@@ -71,7 +71,7 @@ You should copy the design templates over to '.docs/designs/' and fill them out 
 2. **🏗️ SECOND**: Complete `./.docs/designs/2-class.md` template (depends on use cases)
 3. **🔄 THIRD**: Complete `./.docs/designs/3-sequence.md` template (depends on classes)
 4. **🎨 FOURTH**: Complete `./.docs/designs/4-frontend.md` template (depends on sequences)
-5. **📋 FINALLY**: Generate / populate the `./.github/state/plan.md` from completed designs
+5. **📋 FINALLY**: Generate / populate the `./.docs/plan.md` from completed designs
 
 **⚠️ DEPENDENCY CHAIN**: Each template builds on the previous one. NEVER skip ahead or work out of order.
 

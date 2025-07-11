@@ -162,7 +162,7 @@
 
 2. Reflect on the [design documentation](./.docs/designs/*.md), and ensure
   2.1. all use cases have properly been implemented across the system, including ALL method bodies and
-  2.2. the UI/UX is properly tested and reflect the frontend design we captured by reflecting on [our massive initial prompt](./.github/prompts/gaia-create.prompt.md), [the plan](./.github/state/plan.md) and ensure the entire system is properly implemented.
+  2.2. the UI/UX is properly tested and reflect the frontend design we captured by reflecting on [our massive initial prompt](./.github/prompts/gaia-create.prompt.md), [the plan](./.docs/plan.md) and ensure the entire system is properly implemented.
 
 3. 🎨 **CRITICAL VISUAL QUALITY ASSURANCE**: Ensure your frontend is genuinely beautiful:
    - Create Playwright visual tests with screenshots at multiple viewport sizes (mobile, tablet, desktop)
