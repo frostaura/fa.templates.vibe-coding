@@ -13,16 +13,14 @@ This document describes the preferred repository structure. This may be used for
     - <DOCUMENT_NAME>.md (a system documentation file)
   - /.github (GitHub-related content and AI state management)
     - /prompts (AI framework prompt collection)
-      - gaia_for_new_projects.prompt.md (The specialized AI (Gaia) prompt to start generating a brand new idea)
-      - gaia_for_existing_projects.prompt.md (The specialized AI (Gaia) prompt to analyze and continue a repo)
-      - gaia_optimizer.prompt.md (The specialized prompt to help assist with changing the Gaia framework)
+      - gaia-create.prompt.md (The specialized AI (Gaia) prompt to start generating a brand new idea)
     - /state (AI session and project state tracking)
       - plan.md (system/execution plan, milestones & current session progress tracking)
     - templates
       - /designs (System designs templates)
       - <DESIGN_NAME>.md (A system design file)
     - /workflows (GitHub action workflows)
-      - <WORKFLOW_NAME>\_workflow.yml
+      - <WORKFLOW_NAME>-workflow.yml
   - /.vscode (VS Code workspace settings & recommended extensions)
     - extensions.json (Recommended VSCode extensions)
     - mcp.json (Which MCP server(s) should Copilot Chat have access to)
