@@ -28,5 +28,10 @@
   "chat.mcp.discovery.enabled": true,
   "chat.mcp.enabled": true,
   "chat.promptFiles": true,
-  "chat.agent.maxRequests": 99999
+  "chat.agent.maxRequests": 99999,
+  "explorer.fileNesting.enabled": true,
+    "explorer.fileNesting.expand": false,
+    "explorer.fileNesting.patterns": {
+        "*.csproj": "*.config,*.props,*.targets"
+    }
 }

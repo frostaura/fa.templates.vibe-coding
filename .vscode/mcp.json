@@ -16,6 +16,31 @@
                 "@playwright/mcp@latest",
                 "--vision"
             ]
+        },
+        "sequential-thinking": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-sequential-thinking"
+            ]
+        },
+        "memory": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-memory",
+                "-v",
+                "claude-memory:.github/state/"
+            ]
+        },
+        "Gaia": {
+            "type": "stdio",
+            "command": "dotnet",
+            "args": [
+                "run",
+                "--project",
+                ".github/mcps/gaia/src/fa.mcp.gaia/fa.mcp.gaia.csproj"
+            ]
         }
     }
 }
