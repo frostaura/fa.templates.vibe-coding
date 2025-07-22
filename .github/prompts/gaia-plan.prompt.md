@@ -22,17 +22,31 @@ In this case, there is an existing codebase and design documentation, and you mu
 #### The Repository is Not Empty & Design Documentaion Does Not Exist (Condition: "src/" directory exists and design documents do not exist in ".docs/designs/*.md" - ignore ".docs/designs/README.md")
 In this case, there is an existing codebase but no design documentation. You will have to comprehensively analyze the existing codebase, create the design documentation, and then create a plan to implement the system based on the existing codebase. You must follow a design-first approach and update the design documentation as needed.
 
+### Standards
+A collection of standards that you must follow when generating the plan. These standards are mandatory and must be followed.
+
+#### Default Technology Stack
+The default technology stack must be used unless otherwise specified in the problem description or in the case of a pre-existing system, adhere to the existing stack instead. The default technology stack is:
+- **Frontend**: React with TypeScript & Redux
+- **Backend**: Dotnet, C#
+- **Database**: PostgreSQL
+
+#### Error Handling
+- No errors should ever be swallowed. All errors should result in raised exceptions and non-200 response codes with a standardized payload, in the example of backjend APIs.
+
+#### Temporary Files, Directories, Data etc & Cleanup
+- Any temporary files, directories, data (mock & static, files etc), must be captured in the project plan as TODOs.
+- All cleanup TODOs must be completed before the system is considered production-ready.
+- All temporary files and directories must be added to the `.tmp` directory, or deeper. This directory must be added to `.gitignore` to ensure that temporary files are not committed to the repository.
+
+#### Basic & Minimal Quality Standards
+
+
 ### Mandatory Reflection Process
 - Then once you generated a plan that you thought about heavily, you must reflect on it by asking, do you believe you have enough details to successfully and professionally build this project from the plan? Be very critical. Root-level items as well as children, which massively helps with compartmentalizing complex systems and problems. Produce a report in your head about these critical comments, important implementation details. Echo the rating of the current plan.
 
 Before you start critiquing, you must first get the plan again to fetch all items, and critique that rather than from memory.
 - Finally, resolve for the critical items that you found in the original plan and add the additional details to the plan.
 - WHILE the plan score is < 100%, repeat the process of reflection and resolution until the plan score is 100%. No matter how minor the remaioning issues are, they must be resolved.
-
-### Restrictions
--
-
-### Critical
-- 
 
 ## Problem Description
