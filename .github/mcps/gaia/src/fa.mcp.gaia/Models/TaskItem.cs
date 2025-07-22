@@ -3,27 +3,27 @@ using FrostAura.MCP.Gaia.Enums;
 namespace FrostAura.MCP.Gaia.Models;
 
 /// <summary>
-/// Represents a TODO item with support for nested TODOs
+/// Represents a Task item with support for nested Tasks
 /// </summary>
-public class TodoItem
+public class TaskItem
 {
     /// <summary>
-    /// Unique identifier for the TODO item
+    /// Unique identifier for the Task item
     /// </summary>
     public string Id { get; set; } = Guid.NewGuid().ToString();
 
     /// <summary>
-    /// ID of the project plan this TODO belongs to (kept as SessionId for API compatibility)
+    /// ID of the project plan this Task belongs to
     /// </summary>
-    public string SessionId { get; set; } = string.Empty;
+    public string PlanId { get; set; } = string.Empty;
 
     /// <summary>
-    /// ID of the parent TODO if this is a nested TODO
+    /// ID of the parent Task if this is a nested Task
     /// </summary>
-    public string? ParentTodoId { get; set; }
+    public string? ParentTaskId { get; set; }
 
     /// <summary>
-    /// Title/description of the TODO that an AI can understand
+    /// Title/description of the Task that an AI can understand
     /// </summary>
     public string Title { get; set; } = string.Empty;
 
@@ -33,9 +33,9 @@ public class TodoItem
     public string Description { get; set; } = string.Empty;
 
     /// <summary>
-    /// Status of the TODO
+    /// Status of the Task
     /// </summary>
-    public TodoStatus Status { get; set; } = TodoStatus.Todo;
+    public Enums.TaskStatus Status { get; set; } = Enums.TaskStatus.Todo;
 
     /// <summary>
     /// Tags for grouping and categorization
@@ -43,32 +43,32 @@ public class TodoItem
     public List<string> Tags { get; set; } = new List<string>();
 
     /// <summary>
-    /// Collection of group names this TODO belongs to (e.g., "Release 1.0", "Backend", "Frontend")
+    /// Collection of group names this Task belongs to (e.g., "Release 1.0", "Backend", "Frontend")
     /// </summary>
     public List<string> Groups { get; set; } = new List<string>();
 
     /// <summary>
-    /// Estimated hours for completing this TODO item
+    /// Estimated hours for completing this Task item
     /// </summary>
     public double EstimateHours { get; set; } = 0.0;
 
     /// <summary>
-    /// When this TODO was created
+    /// When this Task was created
     /// </summary>
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
     /// <summary>
-    /// When this TODO was last updated
+    /// When this Task was last updated
     /// </summary>
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
     /// <summary>
-    /// When this TODO was completed
+    /// When this Task was completed
     /// </summary>
     public DateTime? CompletedAt { get; set; }
 
     /// <summary>
-    /// Child TODO items nested under this TODO
+    /// Child Task items nested under this Task
     /// </summary>
-    public List<TodoItem> Children { get; set; } = new List<TodoItem>();
+    public List<TaskItem> Children { get; set; } = new List<TaskItem>();
 }

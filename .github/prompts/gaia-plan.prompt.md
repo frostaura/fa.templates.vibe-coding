@@ -16,4 +16,8 @@ WHILE the plan score is < 100%, repeat the process of reflection and resolution 
 
 ---------------------
 
+You should remember various important details about the system as you plan it out, for recall later.
+
+---------------------
+
 Problem Description:

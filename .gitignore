@@ -53,3 +53,4 @@ CodeCoverage/
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
+.github/state/Gaia.TreePlanner.db.json

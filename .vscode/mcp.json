@@ -1,13 +1,5 @@
 {
     "servers": {
-        "Context7": {
-            "type": "stdio",
-            "command": "npx",
-            "args": [
-                "-y",
-                "@upstash/context7-mcp"
-            ]
-        },
         "playwright-mcp": {
             "type": "stdio",
             "command": "npx",
@@ -15,22 +7,6 @@
                 "-y",
                 "@playwright/mcp@latest",
                 "--vision"
-            ]
-        },
-        "sequential-thinking": {
-            "command": "npx",
-            "args": [
-                "-y",
-                "@modelcontextprotocol/server-sequential-thinking"
-            ]
-        },
-        "memory": {
-            "command": "npx",
-            "args": [
-                "-y",
-                "@modelcontextprotocol/server-memory",
-                "-v",
-                "claude-memory:.github/state/"
             ]
         },
         "Gaia": {

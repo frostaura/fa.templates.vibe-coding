@@ -5,7 +5,6 @@ using FrostAura.MCP.Gaia.Managers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using ModelContextProtocol.Server;
 
 // Normal MCP server execution
@@ -16,26 +15,15 @@ builder.Configuration.AddInMemoryCollection(new Dictionary<string, string?>
 {
     ["Application:Name"] = "fa.mcp.gaia",
     ["Application:Version"] = "1.0.0",
-    ["TreePlanner:DatabasePath"] = ".github/state/Gaia.TreePlanner.db.json",
-    ["Logging:LogLevel:Default"] = "Critical",
-    ["Logging:LogLevel:Microsoft"] = "Critical",
-    ["Logging:LogLevel:FrostAura.Gaia.Data"] = "Critical"
+    ["TaskPlanner:DatabasePath"] = ".github/state/Gaia.TaskPlanner.db.json"
 });
 
-// Configure logging from appsettings.json
-builder.Logging.AddConfiguration(builder.Configuration.GetSection("Logging"));
-// Remove console logging to avoid interfering with MCP JSON-RPC protocol
-// builder.Logging.AddConsole(consoleLogOptions =>
-// {
-//     consoleLogOptions.LogToStandardErrorThreshold = LogLevel.Information;
-// });
-
-// Register TODO Services
-builder.Services.AddScoped<TreePlannerDbContext>();
-builder.Services.AddScoped<ITreePlannerRepository, TreePlannerRepository>();
+// Register Task Services
+builder.Services.AddScoped<TaskPlannerDbContext>();
+builder.Services.AddScoped<ITaskPlannerRepository, TaskPlannerRepository>();
 
 // Register Managers (now includes MCP tools)
-builder.Services.AddScoped<ITreePlannerManager, TreePlannerManager>();
+builder.Services.AddScoped<ITaskPlannerManager, TaskPlannerManager>();
 
 // Configure MCP Server
 builder.Services
@@ -45,5 +33,5 @@ builder.Services
 
 var host = builder.Build();
 
-// Start the host directly without logging startup info
+// Start the host directly
 await host.RunAsync();

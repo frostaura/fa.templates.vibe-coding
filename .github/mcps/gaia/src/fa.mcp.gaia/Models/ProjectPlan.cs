@@ -1,7 +1,7 @@
 namespace FrostAura.MCP.Gaia.Models;
 
 /// <summary>
-/// Represents a project plan for managing TODOs
+/// Represents a project plan for managing Tasks
 /// </summary>
 public class ProjectPlan
 {
@@ -41,7 +41,7 @@ public class ProjectPlan
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
     /// <summary>
-    /// TODO items associated with this plan (populated when needed)
+    /// Task items associated with this plan (populated when needed)
     /// </summary>
-    public List<TodoItem> Todos { get; set; } = new List<TodoItem>();
+    public List<TaskItem> Tasks { get; set; } = new List<TaskItem>();
 }

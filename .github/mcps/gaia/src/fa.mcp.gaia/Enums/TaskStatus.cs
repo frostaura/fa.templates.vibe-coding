@@ -1,32 +1,32 @@
 namespace FrostAura.MCP.Gaia.Enums;
 
 /// <summary>
-/// Status of a TODO item
+/// Status of a Task item
 /// </summary>
-public enum TodoStatus
+public enum TaskStatus
 {
     /// <summary>
-    /// TODO is planned but not started
+    /// Task is planned but not started
     /// </summary>
     Todo = 0,
 
     /// <summary>
-    /// TODO is in progress
+    /// Task is in progress
     /// </summary>
     InProgress = 1,
 
     /// <summary>
-    /// TODO is completed
+    /// Task is completed
     /// </summary>
     Completed = 2,
 
     /// <summary>
-    /// TODO is blocked or on hold
+    /// Task is blocked or on hold
     /// </summary>
     Blocked = 3,
 
     /// <summary>
-    /// TODO has been cancelled
+    /// Task has been cancelled
     /// </summary>
     Cancelled = 4
 }
