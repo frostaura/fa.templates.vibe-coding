@@ -24,6 +24,7 @@ builder.Services.AddScoped<ITaskPlannerRepository, TaskPlannerRepository>();
 
 // Register Managers (now includes MCP tools)
 builder.Services.AddScoped<ITaskPlannerManager, TaskPlannerManager>();
+builder.Services.AddScoped<ILocalMachineManager, LocalMachineManager>();
 
 // Configure MCP Server
 builder.Services

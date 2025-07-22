@@ -337,4 +337,88 @@ public class TaskPlannerManager : ITaskPlannerManager
         
         return JsonSerializer.Serialize(result);
     }
+
+    /// <summary>
+    /// Gets a task with all its children in a hierarchical structure via MCP
+    /// </summary>
+    /// <param name="taskId">ID of the task to retrieve</param>
+    /// <returns>JSON string containing the task with its nested children</returns>
+    [McpServerTool]
+    [Description("Gets a task with all its children in a hierarchical structure. Returns the complete task tree starting from the specified task ID.")]
+    public async Task<string> GetTaskWithChildrenByIdAsync(
+        [Description("ID of the task to retrieve with its children")] string taskId)
+    {
+        // Input validation
+        if (string.IsNullOrWhiteSpace(taskId))
+            throw new ArgumentException("Task ID cannot be null or empty.", nameof(taskId));
+
+        // Get the root task
+        var rootTask = await _repository.GetTaskByIdAsync(taskId);
+        
+        if (rootTask == null)
+        {
+            var notFoundResult = new { 
+                message = "Task not found", 
+                taskId, 
+                task = (TaskItem?)null 
+            };
+            return JsonSerializer.Serialize(notFoundResult);
+        }
+
+        // Get all tasks for the same plan to build the hierarchy
+        var allTasks = await _repository.GetTasksByPlanAsync(rootTask.PlanId);
+        
+        // Build the hierarchical structure starting from the root task
+        var taskWithChildren = await BuildTaskHierarchyAsync(rootTask, allTasks);
+        
+        var result = new { 
+            message = "Task retrieved successfully", 
+            taskId, 
+            task = taskWithChildren 
+        };
+        
+        return JsonSerializer.Serialize(result);
+    }
+
+    /// <summary>
+    /// Recursively builds the task hierarchy by populating children
+    /// </summary>
+    /// <param name="parentTask">The parent task to populate children for</param>
+    /// <param name="allTasks">All tasks in the plan</param>
+    /// <returns>Task with populated children hierarchy</returns>
+    private async Task<TaskItem> BuildTaskHierarchyAsync(TaskItem parentTask, List<TaskItem> allTasks)
+    {
+        // Create a copy of the parent task to avoid modifying the original
+        var taskWithChildren = new TaskItem
+        {
+            Id = parentTask.Id,
+            PlanId = parentTask.PlanId,
+            ParentTaskId = parentTask.ParentTaskId,
+            Title = parentTask.Title,
+            Description = parentTask.Description,
+            Status = parentTask.Status,
+            Tags = new List<string>(parentTask.Tags),
+            Groups = new List<string>(parentTask.Groups),
+            EstimateHours = parentTask.EstimateHours,
+            CreatedAt = parentTask.CreatedAt,
+            UpdatedAt = parentTask.UpdatedAt,
+            CompletedAt = parentTask.CompletedAt,
+            Children = new List<TaskItem>()
+        };
+
+        // Find all direct children of this task
+        var children = allTasks.Where(t => t.ParentTaskId == parentTask.Id).ToList();
+        
+        // Recursively build hierarchy for each child
+        foreach (var child in children)
+        {
+            var childWithHierarchy = await BuildTaskHierarchyAsync(child, allTasks);
+            taskWithChildren.Children.Add(childWithHierarchy);
+        }
+        
+        // Sort children by creation date for consistent ordering
+        taskWithChildren.Children = taskWithChildren.Children.OrderBy(c => c.CreatedAt).ToList();
+        
+        return taskWithChildren;
+    }
 }

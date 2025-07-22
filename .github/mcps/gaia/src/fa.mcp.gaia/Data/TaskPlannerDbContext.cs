@@ -43,32 +43,21 @@ public class TaskPlannerDbContext
     /// <returns>Database content</returns>
     private async Task<TaskDatabase> GetDatabaseAsync()
     {
-        try
+        if (!File.Exists(_databasePath))
         {
-            if (!File.Exists(_databasePath))
-            {
-                await CreateDatabaseFileAsync();
-                return new TaskDatabase();
-            }
+            await CreateDatabaseFileAsync();
+            return new TaskDatabase();
+        }
 
-            var jsonContent = await File.ReadAllTextAsync(_databasePath);
-            
-            if (string.IsNullOrWhiteSpace(jsonContent))
-            {
-                return new TaskDatabase();
-            }
+        var jsonContent = await File.ReadAllTextAsync(_databasePath);
+        
+        if (string.IsNullOrWhiteSpace(jsonContent))
+        {
+            return new TaskDatabase();
+        }
 
-            var database = JsonSerializer.Deserialize<TaskDatabase>(jsonContent, _jsonOptions);
-            return database ?? new TaskDatabase();
-        }
-        catch (JsonException ex)
-        {
-            throw new InvalidOperationException($"Database file is corrupted or contains invalid JSON: {ex.Message}", ex);
-        }
-        catch (Exception ex)
-        {
-            throw new InvalidOperationException($"Failed to read database: {ex.Message}", ex);
-        }
+        var database = JsonSerializer.Deserialize<TaskDatabase>(jsonContent, _jsonOptions);
+        return database ?? new TaskDatabase();
     }
 
     /// <summary>
@@ -77,22 +66,15 @@ public class TaskPlannerDbContext
     /// <param name="database">Database content to save</param>
     private async Task SaveDatabaseAsync(TaskDatabase database)
     {
-        try
+        // Ensure directory exists
+        var directory = Path.GetDirectoryName(_databasePath);
+        if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
         {
-            // Ensure directory exists
-            var directory = Path.GetDirectoryName(_databasePath);
-            if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
+            Directory.CreateDirectory(directory);
+        }
 
-            var jsonContent = JsonSerializer.Serialize(database, _jsonOptions);
-            await File.WriteAllTextAsync(_databasePath, jsonContent);
-        }
-        catch (Exception ex)
-        {
-            throw new InvalidOperationException($"Failed to save database: {ex.Message}", ex);
-        }
+        var jsonContent = JsonSerializer.Serialize(database, _jsonOptions);
+        await File.WriteAllTextAsync(_databasePath, jsonContent);
     }
 
     /// <summary>

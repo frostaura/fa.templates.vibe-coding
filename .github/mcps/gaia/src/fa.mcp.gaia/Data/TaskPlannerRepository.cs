@@ -23,15 +23,8 @@ public class TaskPlannerRepository : ITaskPlannerRepository
     /// <returns>The added plan</returns>
     public async Task<ProjectPlan> AddPlanAsync(ProjectPlan plan)
     {
-        try
-        {
-            await _dbContext.AddPlanAsync(plan);
-            return plan;
-        }
-        catch (Exception ex)
-        {
-            throw new InvalidOperationException($"Failed to add project plan: {ex.Message}", ex);
-        }
+        await _dbContext.AddPlanAsync(plan);
+        return plan;
     }
 
     /// <summary>
@@ -40,14 +33,7 @@ public class TaskPlannerRepository : ITaskPlannerRepository
     /// <param name="task">Task item to add</param>
     public async Task AddTaskAsync(TaskItem task)
     {
-        try
-        {
-            await _dbContext.AddTaskAsync(task);
-        }
-        catch (Exception ex)
-        {
-            throw new InvalidOperationException($"Failed to add Task item: {ex.Message}", ex);
-        }
+        await _dbContext.AddTaskAsync(task);
     }
 
     /// <summary>
@@ -57,14 +43,7 @@ public class TaskPlannerRepository : ITaskPlannerRepository
     /// <param name="newStatus">New status</param>
     public async Task UpdateTaskStatusAsync(string taskId, Enums.TaskStatus newStatus)
     {
-        try
-        {
-            await _dbContext.UpdateTaskStatusAsync(taskId, newStatus);
-        }
-        catch (Exception ex)
-        {
-            throw new InvalidOperationException($"Failed to update Task status: {ex.Message}", ex);
-        }
+        await _dbContext.UpdateTaskStatusAsync(taskId, newStatus);
     }
 
     /// <summary>
@@ -74,14 +53,7 @@ public class TaskPlannerRepository : ITaskPlannerRepository
     /// <returns>The plan or null if not found</returns>
     public async Task<ProjectPlan?> GetPlanByIdAsync(string planId)
     {
-        try
-        {
-            return await _dbContext.GetPlanByIdAsync(planId);
-        }
-        catch (Exception ex)
-        {
-            throw new InvalidOperationException($"Failed to get project plan: {ex.Message}", ex);
-        }
+        return await _dbContext.GetPlanByIdAsync(planId);
     }
 
     /// <summary>
@@ -90,14 +62,7 @@ public class TaskPlannerRepository : ITaskPlannerRepository
     /// <returns>List of all plans</returns>
     public async Task<List<ProjectPlan>> GetAllPlansAsync()
     {
-        try
-        {
-            return await _dbContext.GetAllPlansAsync();
-        }
-        catch (Exception ex)
-        {
-            throw new InvalidOperationException($"Failed to get project plans: {ex.Message}", ex);
-        }
+        return await _dbContext.GetAllPlansAsync();
     }
 
     /// <summary>
@@ -107,16 +72,9 @@ public class TaskPlannerRepository : ITaskPlannerRepository
     /// <returns>List of Task items for the plan</returns>
     public async Task<List<TaskItem>> GetTasksByPlanAsync(string planId)
     {
-        try
-        {
-            var tasks = await _dbContext.GetTasksByPlanIdAsync(planId);
-            
-            return tasks;
-        }
-        catch (Exception ex)
-        {
-            throw new InvalidOperationException($"Failed to get Tasks for plan: {ex.Message}", ex);
-        }
+        var tasks = await _dbContext.GetTasksByPlanIdAsync(planId);
+        
+        return tasks;
     }
 
     /// <summary>
@@ -170,20 +128,13 @@ public class TaskPlannerRepository : ITaskPlannerRepository
     /// <returns>Task item or null if not found</returns>
     public async Task<TaskItem?> GetTaskByIdAsync(string taskId)
     {
-        try
+        if (string.IsNullOrWhiteSpace(taskId))
         {
-            if (string.IsNullOrWhiteSpace(taskId))
-            {
-                throw new ArgumentException("Task ID cannot be null or empty.", nameof(taskId));
-            }
+            throw new ArgumentException("Task ID cannot be null or empty.", nameof(taskId));
+        }
 
-            var task = await _dbContext.GetTaskByIdAsync(taskId);
-            
-            return task;
-        }
-        catch (Exception ex)
-        {
-            throw new InvalidOperationException($"Failed to get Task item: {ex.Message}", ex);
-        }
+        var task = await _dbContext.GetTaskByIdAsync(taskId);
+        
+        return task;
     }
 }

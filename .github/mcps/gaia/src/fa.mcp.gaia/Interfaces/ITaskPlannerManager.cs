@@ -49,4 +49,11 @@ public interface ITaskPlannerManager
     /// <param name="planId">ID of the plan</param>
     /// <returns>JSON string containing the completed task and next task context</returns>
     Task<string> NextTaskFromPlanAsync(string planId);
+
+    /// <summary>
+    /// Gets a task with all its children in a hierarchical structure
+    /// </summary>
+    /// <param name="taskId">ID of the task to retrieve</param>
+    /// <returns>JSON string containing the task with its nested children</returns>
+    Task<string> GetTaskWithChildrenByIdAsync(string taskId);
 }
