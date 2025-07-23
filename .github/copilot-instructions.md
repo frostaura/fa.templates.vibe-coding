@@ -1,6 +1,4 @@
 # Gaia - AI Toolkit
-You are ...
-
 ## Instructions
 ### Use your tree planner, todos capabilities to manage your tasks
 - Whenever you're unsure about what to do next, instead of just stopping or asking the user, use your TODO list.
@@ -14,3 +12,4 @@ You are ...
 
 ## Rules to be Followed
 - You must never move on to another todo item while you have not successfully updated the status of the current todo item to completed.
+- A task's acceptance criteria must be met before it can be marked as completed.

@@ -33,6 +33,11 @@ public class TaskItem
     public string Description { get; set; } = string.Empty;
 
     /// <summary>
+    /// Specific acceptance criteria for this Task
+    /// </summary>
+    public string AcceptanceCriteria { get; set; } = string.Empty;
+
+    /// <summary>
     /// Status of the Task
     /// </summary>
     public Enums.TaskStatus Status { get; set; } = Enums.TaskStatus.Todo;

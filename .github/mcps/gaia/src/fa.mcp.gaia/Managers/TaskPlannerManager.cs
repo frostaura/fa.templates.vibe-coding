@@ -213,7 +213,8 @@ public class TaskPlannerManager : ITaskPlannerManager
     public async Task<string> AddTaskToPlanAsync(
         [Description("ID of the project plan, as from the create new plan response.")] string planId,
         [Description("Title/description of the Task / TODO that an AI can understand")] string title,
-        [Description("Detailed description with acceptance criteria, important references like docs, rules, restrictions, file & directory paths")] string description,
+        [Description("Detailed description with important references like docs, rules, restrictions, file & directory paths")] string description,
+        [Description("Specific acceptance criteria for this Task - clear, measurable criteria that define when the task is complete")] string acceptanceCriteria,
         [Description("Comma-separated tags for categorizing Tasks. Like dev, test, analysis etc")] string tags,
         [Description("Comma-separated groups for organizing Tasks (e.g., releases, components)")] string groups,
         [Description("ID of parent Task if this is a child of another Task")] string? parentTaskId,
@@ -226,6 +227,8 @@ public class TaskPlannerManager : ITaskPlannerManager
             throw new ArgumentException("Title cannot be null or empty.", nameof(title));
         if (description == null)
             throw new ArgumentNullException(nameof(description));
+        if (acceptanceCriteria == null)
+            throw new ArgumentNullException(nameof(acceptanceCriteria));
         if (tags == null)
             throw new ArgumentNullException(nameof(tags));
         if (groups == null)
@@ -242,6 +245,7 @@ public class TaskPlannerManager : ITaskPlannerManager
             PlanId = planId,
             Title = title,
             Description = description,
+            AcceptanceCriteria = acceptanceCriteria,
             Tags = tagList,
             Groups = groupList,
             ParentTaskId = parentTaskId,
@@ -314,6 +318,7 @@ public class TaskPlannerManager : ITaskPlannerManager
             ParentTaskId = parentTask.ParentTaskId,
             Title = parentTask.Title,
             Description = parentTask.Description,
+            AcceptanceCriteria = parentTask.AcceptanceCriteria,
             Status = parentTask.Status,
             Tags = new List<string>(parentTask.Tags),
             Groups = new List<string>(parentTask.Groups),
@@ -354,6 +359,7 @@ public class TaskPlannerManager : ITaskPlannerManager
             planId = t.PlanId,
             title = t.Title,
             description = t.Description,
+            acceptanceCriteria = t.AcceptanceCriteria,
             tags = t.Tags,
             groups = t.Groups,
             parentTaskId = t.ParentTaskId,
