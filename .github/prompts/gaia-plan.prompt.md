@@ -35,7 +35,9 @@ In this case, there is an existing codebase but no design documentation. You wil
 
 ##### The Repository is Not Empty & Design Documentaion Exists
 - Design docs already exist so no need to copy over in this case.
-- TODO: Plan a change in the context of the existing design docs.
+- Think about the problem statement and the existing design documents, and analyze the existing codebase.
+- If the design documents are not sufficient, update them as needed.
+- Now ammend the design documents to implement your solution to the problem statement.
 
 ##### The Repository is Not Empty & Design Documentaion Does Not Exist
 - Copy all design templates from ".github/templates/designs" to ".docs/designs".
@@ -113,7 +115,7 @@ For any and all changes you make, you must ensure that the following quality sta
 - All configuration that makes sense should be in a configuration file, such as `appsettings.json` for backends, or an initial state config for frontends.
 - Leave **zero** build errors, warnings or lints in the codebase. This includes all projects in the solution. This implicitly means, always build the solution before moving on.
 
-##### Frontend
+##### Frontends
 - All code must be written in TypeScript.
 - Always use a well-known `reset.css`.
 - All styling must be using themes and variables, no hardcoded values.
@@ -126,7 +128,7 @@ For any and all changes you make, you must ensure that the following quality sta
 - Follow semantic HTML standards & WCAG standards where possible.
 - Always build for responsiveness, and test on multiple screen sizes.
 
-##### Backend
+##### Backends
 - All endpoints must be tested via CURL with real data and the database backing data.
 - When external integrations are required, integrate with a well known free API(s) where the external system(s) are not specified.
 
@@ -136,6 +138,7 @@ For any and all changes you make, you must ensure that the following quality sta
 Before you start critiquing, you must first get the plan again to fetch all items, and critique that rather than from memory.
 - Finally, resolve for the critical items that you found in the original plan and add the additional details to the plan.
 - WHILE the plan score is < 100%, repeat the process of reflection and resolution until the plan score is 100%. No matter how minor the remaioning issues are, they must be resolved.
+- THEN repeat the process for the children tasks, and their children tasks, and so on.
 
 **NEVER stop reflecting until the plan is at 100% quality.**
 
