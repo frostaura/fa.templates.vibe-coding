@@ -41,7 +41,9 @@ In this case, there is an existing codebase but no design documentation. You wil
 
 ##### The Repository is Not Empty & Design Documentaion Does Not Exist
 - Copy all design templates from ".github/templates/designs" to ".docs/designs".
-- TODO: Analyze the current repo and retrospectively produce the deisgn docs.
+- Analyze the existing codebase comprehensively, thoughtfully and critically and complete the design documentation (.docs/designs) based on the existing codebase. - The idea is to create a design document that describes the existing codebase, its architecture, and how it works.
+- Think about the problem statement and the design documents, and analyze the existing codebase.
+- Now ammend the design documents to implement your solution to the problem statement.
 
 #### Phase 2: Development
 - Implementation
