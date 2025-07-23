@@ -28,7 +28,7 @@ In this case, there is an existing codebase and design documentation, and you mu
 In this case, there is an existing codebase but no design documentation. You will have to comprehensively analyze the existing codebase, create the design documentation, and then create a plan to implement the system based on the existing codebase. You must follow a design-first approach and update the design documentation as needed.
 
 ### Generic Flows, After Entry Flows
-#### Phase 1: Specification & Design
+#### Phase 1: Specification, Design & Architecture
 ##### The Repository is Empty
 - Copy all design templates from ".github/templates/designs" to ".docs/designs".
 - Step through the design templates in ".docs/designs" and complete them throughtfully and sequentially, based on the requirements from the problem statement and any attached information, if applicable. This includes but is not limited to things like API docs, UI/visual inspiration etc.
@@ -45,30 +45,84 @@ In this case, there is an existing codebase but no design documentation. You wil
 - Think about the problem statement and the design documents, and analyze the existing codebase.
 - Now ammend the design documents to implement your solution to the problem statement.
 
-#### Phase 2: Development
-- Implementation
+##### Design Validation Checkpoints
+- Cross-check all design documents for consistency and iterate on them as needed.
 
-#### Phase 3: Testing & Quality Assurance
-- Unit Testing
-- Integration Testing
-- End-to-End Testing
+#### Phase 2: Development Environment Setup
+*Establish the foundational development environment needed for the project. This phase ensures all team members can develop effectively with local tooling.*
+- Development environment configuration - Set up local development environments, IDE configurations, and ensure consistent tooling across team members
+- Repository structure initialization - Create organized folder structure, branching strategy, and establish coding standards
+- Development tooling configuration (linting, formatting, testing frameworks) - Configure ESLint, Prettier, Jest/Vitest, and other development tools for code quality
+- Local database setup - Set up local database structure, initial migrations, and connection configurations for development
+- Authentication/authorization framework setup - Implement JWT, OAuth, or similar authentication systems and role-based access control
 
-#### Phase 4: Feedback Loop & Iteration
-- Review
-- User Acceptance Testing (UAT)
-- Bug Fixing
-- Performance Testing
-- Security Testing
-- Accessibility Testing
-- Usability Testing
-- Feedback Collection
-- Iteration
-- Refinement
+#### Phase 3: Core Development - MVP Foundation
+*Build the essential core functionality that forms the foundation of the system. Focus on creating a working MVP with basic CRUD operations and core business logic.*
+- Core data models and entities - Define and implement primary database entities, DTOs, and domain models
+- Basic API endpoints (CRUD operations) - Create fundamental Create, Read, Update, Delete operations for core entities
+- Authentication/authorization implementation - Build login, registration, password reset, and permission checking functionality
+- Database migrations and seeders - Create database migration scripts and seed data for development and testing
+- Basic frontend scaffolding - Set up React application structure, routing, state management, and component architecture
+- Core business logic implementation - Implement the primary business rules and workflows that drive the application
+- Error handling and logging framework - Establish comprehensive error handling, logging, and monitoring foundation
+- Unit testing implementation - Write comprehensive unit tests for all data models, business logic, and API endpoints
 
-#### Phase 5: Production Readiness
-- Final Review
-- Deployment
-- Maintenance
+#### Phase 4: Feature Development - Iterative
+*Implement features incrementally based on priority, ensuring proper integration between frontend and backend components. Build out the full feature set.*
+- Feature implementation in priority order - Build features based on business value and user needs, starting with highest priority items
+- API endpoint completion - Implement all remaining API endpoints including complex queries, filtering, and business operations
+- Frontend component development - Create reusable UI components, forms, data displays, and interactive elements
+- Integration testing - Test API endpoints, database interactions, and service integrations during feature development
+- Integration between frontend and backend - Ensure seamless data flow, error handling, and state synchronization between layers
+- Real-time features (if applicable) - Implement WebSocket connections, push notifications, or real-time data updates
+- Third-party integrations - Connect with external APIs, payment processors, email services, or other required services
+- File handling and storage - Implement file upload, processing, storage, and retrieval functionality
+
+#### Phase 5: Quality Assurance & Testing
+*Implement comprehensive testing strategies to ensure system reliability, performance, and security. Focus on advanced testing beyond unit/integration.*
+- End-to-end testing - Create automated browser tests using Playwright to verify complete user workflows
+- Performance testing - Conduct load testing, stress testing, and identify performance bottlenecks
+- Security testing - Perform vulnerability scans, penetration testing, and security code reviews
+- Accessibility testing - Ensure WCAG compliance and test with screen readers and other assistive technologies
+- Cross-browser/device testing - Verify functionality across different browsers, devices, and screen sizes
+- Load testing - Test system behavior under expected and peak load conditions
+
+#### Phase 6: User Experience & Polish
+*Refine the user interface and experience based on testing and feedback. Optimize performance and ensure the system meets usability standards.*
+- UI/UX refinement - Improve visual design, user flows, and interface elements based on usability testing
+- Responsive design optimization - Ensure optimal experience across all device sizes and orientations
+- Performance optimization - Optimize bundle sizes, implement lazy loading, caching, and improve page load times
+- User feedback collection and integration - Implement feedback mechanisms and incorporate user suggestions into the system
+- Error message improvements - Create clear, helpful error messages and user guidance for error states
+- Loading states and user feedback - Add loading indicators, progress bars, and success/failure notifications
+- Documentation for end users - Create user manuals, help documentation, and onboarding materials
+
+#### Phase 7: Infrastructure & Deployment Setup
+*Establish production infrastructure and deployment pipelines with comprehensive validation. This phase ensures reliable, scalable infrastructure before production deployment.*
+- Infrastructure as Code (IaC) setup - Define cloud infrastructure using Terraform, CloudFormation, or similar tools for reproducible deployments
+- CI/CD pipeline setup - Configure automated build, test, and deployment pipelines using GitHub Actions or similar tools
+- Production database setup - Configure production database with proper security, backups, and scaling considerations
+- Infrastructure validation - Automated infrastructure health checks and connectivity validation
+- Database connectivity validation - Ensure all database connections and migrations work correctly
+- CI/CD pipeline smoke tests - Validate deployment pipeline with test deployments
+- Environment configuration validation - Verify all environment variables and configurations are correct
+- Automated quality gates - Implement code quality checks, security scanning, and performance regression testing in CI/CD pipeline
+- Deployment validation gates - Add automated checks that prevent broken code from reaching production environments
+- Pipeline failure recovery - Configure automated rollback mechanisms for failed deployments
+
+#### Phase 8: Production Readiness
+*Prepare the system for production deployment by implementing security measures, monitoring, and operational procedures. Ensure the system is maintainable and observable.*
+- Security hardening - Implement security headers, input validation, rate limiting, and other security measures
+- Performance monitoring setup - Configure APM tools, metrics collection, and performance dashboards
+- Logging and alerting configuration - Set up centralized logging, error tracking, and automated alerting systems
+- Backup and disaster recovery - Implement automated backups, recovery procedures, and disaster recovery plans
+- Documentation completion - Finalize technical documentation, deployment guides, and operational runbooks
+- Deployment scripts and procedures - Create automated deployment scripts and standard operating procedures
+- Health checks and monitoring - Implement application health endpoints and comprehensive system monitoring
+- Automated application health monitoring - Configure custom metrics, uptime monitoring, and service dependency checks
+- Proactive alerting with escalation - Set up intelligent alerting with severity levels and escalation procedures
+- Automated incident response - Implement automated incident detection, notification, and initial response procedures
+- Performance baseline establishment - Create performance benchmarks and automated regression detection
 
 ### Standards
 A collection of standards that you must follow when generating the plan. These standards are mandatory and must be followed.
