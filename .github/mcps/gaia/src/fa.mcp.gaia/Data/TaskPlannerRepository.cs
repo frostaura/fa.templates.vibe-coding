@@ -37,16 +37,6 @@ public class TaskPlannerRepository : ITaskPlannerRepository
     }
 
     /// <summary>
-    /// Updates the status of a Task item
-    /// </summary>
-    /// <param name="taskId">ID of the Task to update</param>
-    /// <param name="newStatus">New status</param>
-    public async Task UpdateTaskStatusAsync(string taskId, Enums.TaskStatus newStatus)
-    {
-        await _dbContext.UpdateTaskStatusAsync(taskId, newStatus);
-    }
-
-    /// <summary>
     /// Gets a project plan by ID
     /// </summary>
     /// <param name="planId">ID of the plan to retrieve</param>

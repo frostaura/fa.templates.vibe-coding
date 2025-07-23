@@ -29,12 +29,12 @@ public class TaskPlannerDbContext
     }
 
     /// <summary>
-    /// Represents the database structure - plans with tasks
+    /// Represents the database structure - plans with nested tasks
     /// </summary>
     private class TaskDatabase
     {
         public List<ProjectPlan> Plans { get; set; } = new List<ProjectPlan>();
-        public List<TaskItem> Tasks { get; set; } = new List<TaskItem>();
+        // Tasks are now nested within plans, no separate Tasks collection needed
     }
 
     /// <summary>
@@ -110,38 +110,37 @@ public class TaskPlannerDbContext
     {
         var database = await GetDatabaseAsync();
         
-        if (database.Tasks.Any(t => t.Id == task.Id))
+        // Find the plan this task belongs to
+        var plan = database.Plans.FirstOrDefault(p => p.Id == task.PlanId);
+        if (plan == null)
+        {
+            throw new ArgumentException($"Plan with ID '{task.PlanId}' not found.");
+        }
+
+        // Get all tasks in the plan (flatten hierarchy to check for duplicates)
+        var allTasks = GetAllTasksFromPlan(plan);
+        if (allTasks.Any(t => t.Id == task.Id))
         {
             throw new InvalidOperationException($"A task with ID '{task.Id}' already exists.");
         }
 
-        database.Tasks.Add(task);
-        await SaveDatabaseAsync(database);
-    }
-
-    /// <summary>
-    /// Updates the status of a Task item
-    /// </summary>
-    /// <param name="taskId">ID of the Task to update</param>
-    /// <param name="newStatus">New status</param>
-    public async Task UpdateTaskStatusAsync(string taskId, Enums.TaskStatus newStatus)
-    {
-        var database = await GetDatabaseAsync();
-        var task = database.Tasks.FirstOrDefault(t => t.Id == taskId);
-        
-        if (task == null)
+        // Add task to appropriate location in hierarchy
+        if (string.IsNullOrEmpty(task.ParentTaskId))
         {
-            throw new ArgumentException($"Task with ID '{taskId}' not found.");
+            // Root level task - add directly to plan
+            plan.Tasks.Add(task);
+        }
+        else
+        {
+            // Child task - find parent and add to its children
+            var parentTask = FindTaskInPlan(plan, task.ParentTaskId);
+            if (parentTask == null)
+            {
+                throw new ArgumentException($"Parent task with ID '{task.ParentTaskId}' not found.");
+            }
+            parentTask.Children.Add(task);
         }
 
-        task.Status = newStatus;
-        task.UpdatedAt = DateTime.UtcNow;
-        
-        if (newStatus == Enums.TaskStatus.Completed)
-        {
-            task.CompletedAt = DateTime.UtcNow;
-        }
-        
         await SaveDatabaseAsync(database);
     }
 
@@ -160,12 +159,7 @@ public class TaskPlannerDbContext
             return null;
         }
 
-        // Get all tasks for this plan
-        var planTasks = database.Tasks.Where(t => t.PlanId == planId).ToList();
-        
-        // Build hierarchical structure and assign to plan
-        plan.Tasks = BuildTaskHierarchy(planTasks);
-        
+        // Tasks are already hierarchically structured in the plan
         return plan;
     }
 
@@ -177,13 +171,7 @@ public class TaskPlannerDbContext
     {
         var database = await GetDatabaseAsync();
         
-        // For each plan, populate its hierarchical tasks
-        foreach (var plan in database.Plans)
-        {
-            var planTasks = database.Tasks.Where(t => t.PlanId == plan.Id).ToList();
-            plan.Tasks = BuildTaskHierarchy(planTasks);
-        }
-        
+        // Plans already have their tasks hierarchically structured
         return database.Plans;
     }
 
@@ -195,7 +183,15 @@ public class TaskPlannerDbContext
     public async Task<List<TaskItem>> GetTasksByPlanIdAsync(string planId)
     {
         var database = await GetDatabaseAsync();
-        return database.Tasks.Where(t => t.PlanId == planId).ToList();
+        var plan = database.Plans.FirstOrDefault(p => p.Id == planId);
+        
+        if (plan == null)
+        {
+            return new List<TaskItem>();
+        }
+
+        // Return flattened list of all tasks in the plan
+        return GetAllTasksFromPlan(plan);
     }
 
     /// <summary>
@@ -206,7 +202,15 @@ public class TaskPlannerDbContext
     public async Task<TaskItem?> GetTaskByIdAsync(string taskId)
     {
         var database = await GetDatabaseAsync();
-        return database.Tasks.FirstOrDefault(t => t.Id == taskId);
+        
+        // Search across all plans for the task
+        foreach (var plan in database.Plans)
+        {
+            var task = FindTaskInPlan(plan, taskId);
+            if (task != null) return task;
+        }
+        
+        return null;
     }
 
     /// <summary>
@@ -256,5 +260,69 @@ public class TaskPlannerDbContext
         }
         
         return rootTasks;
+    }
+
+    /// <summary>
+    /// Gets all tasks from a plan (flattened)
+    /// </summary>
+    /// <param name="plan">The plan to get tasks from</param>
+    /// <returns>Flattened list of all tasks in the plan</returns>
+    private List<TaskItem> GetAllTasksFromPlan(ProjectPlan plan)
+    {
+        var allTasks = new List<TaskItem>();
+        foreach (var task in plan.Tasks)
+        {
+            allTasks.Add(task);
+            AddChildTasksRecursively(task, allTasks);
+        }
+        return allTasks;
+    }
+
+    /// <summary>
+    /// Recursively adds child tasks to the list
+    /// </summary>
+    /// <param name="parentTask">Parent task</param>
+    /// <param name="allTasks">List to add tasks to</param>
+    private void AddChildTasksRecursively(TaskItem parentTask, List<TaskItem> allTasks)
+    {
+        foreach (var child in parentTask.Children)
+        {
+            allTasks.Add(child);
+            AddChildTasksRecursively(child, allTasks);
+        }
+    }
+
+    /// <summary>
+    /// Finds a task by ID within a plan's hierarchy
+    /// </summary>
+    /// <param name="plan">The plan to search in</param>
+    /// <param name="taskId">ID of the task to find</param>
+    /// <returns>Task if found, null otherwise</returns>
+    private TaskItem? FindTaskInPlan(ProjectPlan plan, string taskId)
+    {
+        foreach (var task in plan.Tasks)
+        {
+            var found = FindTaskRecursively(task, taskId);
+            if (found != null) return found;
+        }
+        return null;
+    }
+
+    /// <summary>
+    /// Recursively searches for a task in the hierarchy
+    /// </summary>
+    /// <param name="currentTask">Current task to search</param>
+    /// <param name="taskId">ID of the task to find</param>
+    /// <returns>Task if found, null otherwise</returns>
+    private TaskItem? FindTaskRecursively(TaskItem currentTask, string taskId)
+    {
+        if (currentTask.Id == taskId) return currentTask;
+        
+        foreach (var child in currentTask.Children)
+        {
+            var found = FindTaskRecursively(child, taskId);
+            if (found != null) return found;
+        }
+        return null;
     }
 }

@@ -1,9 +1,5 @@
 using FrostAura.MCP.Gaia.Interfaces;
 using FrostAura.MCP.Gaia.Models;
-using Microsoft.Extensions.Configuration;
-using ModelContextProtocol.Server;
-using System.ComponentModel;
-using System.Text.Json;
 
 namespace FrostAura.MCP.Gaia.Managers;
 
@@ -31,15 +27,13 @@ public class TaskPlannerManager : ITaskPlannerManager
     /// <param name="projectName">Name of the project</param>
     /// <param name="description">Brief description that an AI can understand</param>
     /// <param name="aiAgentBuildContext">Concise context that will be needed for when the AI agent later uses the plan to build the solution</param>
-    /// <param name="estimateHours">Estimated total hours for completing the project</param>
     /// <returns>JSON string containing the created project plan</returns>
     [McpServerTool]
-    [Description("Creates a new project plan for managing Tasks & TODOs. Ideal for tracking tasks and features of complex projects and plans. The response is your Task plan id, which you must use to manage your Tasks.")]
+    [Description("Creates a new project plan for managing Tasks & TODOs. Ideal for tracking tasks and features of complex projects and plans. The response is your Task plan id, which you must use to manage your Tasks. Estimate hours are calculated automatically from child tasks.")]
     public async Task<string> NewPlanAsync(
         [Description("Name of the project")] string projectName,
         [Description("Brief description of the project")] string description,
-        [Description("Concise context that will be needed for when the AI agent later uses the plan to build the solution")] string aiAgentBuildContext,
-        [Description("Estimated total hours for completing the project")] double estimateHours)
+        [Description("Concise context that will be needed for when the AI agent later uses the plan to build the solution")] string aiAgentBuildContext)
     {
         // Input validation
         if (string.IsNullOrWhiteSpace(projectName))
@@ -48,8 +42,6 @@ public class TaskPlannerManager : ITaskPlannerManager
             throw new ArgumentException("Description cannot be null or empty.", nameof(description));
         if (string.IsNullOrWhiteSpace(aiAgentBuildContext))
             throw new ArgumentException("AI agent build context cannot be null or empty.", nameof(aiAgentBuildContext));
-        if (estimateHours < 0)
-            throw new ArgumentException("Estimate hours cannot be negative.", nameof(estimateHours));
 
         var plan = new ProjectPlan
         {
@@ -57,7 +49,6 @@ public class TaskPlannerManager : ITaskPlannerManager
             Name = projectName,
             Description = description,
             AiAgentBuildContext = aiAgentBuildContext,
-            EstimateHours = estimateHours,
             CreatedAt = DateTime.UtcNow,
             UpdatedAt = DateTime.UtcNow
         };
@@ -165,9 +156,9 @@ public class TaskPlannerManager : ITaskPlannerManager
     /// </summary>
     /// <param name="planId">ID of the plan to get tasks from</param>
     /// <param name="hideCompleted">Optional string to hide completed tasks ("true" to hide, anything else to show all)</param>
-    /// <returns>JSON string containing all tasks for the specified plan</returns>
+    /// <returns>JSON string containing all tasks for the specified plan in hierarchical structure</returns>
     [McpServerTool]
-    [Description("Gets all tasks from a specific plan with their IDs, titles, descriptions, and status details.")]
+    [Description("Gets all tasks from a specific plan with their IDs, titles, descriptions, and status details in hierarchical structure.")]
     public async Task<string> GetTasksFromPlan(
         [Description("ID of the plan to get tasks from")] string planId,
         [Description("Optional string to hide completed tasks (\"true\" to hide completed tasks, anything else shows all)")] string? hideCompleted = null)
@@ -189,23 +180,10 @@ public class TaskPlannerManager : ITaskPlannerManager
             tasks = tasks.Where(t => t.Status != Enums.TaskStatus.Completed).ToList();
         }
         
-        // Create task summaries
-        var taskSummaries = tasks.Select(task => new
-        {
-            id = task.Id,
-            planId = task.PlanId,
-            title = task.Title,
-            description = task.Description,
-            tags = task.Tags,
-            groups = task.Groups,
-            parentTaskId = task.ParentTaskId,
-            status = task.Status.ToString(),
-            estimateHours = task.EstimateHours,
-            createdAt = task.CreatedAt,
-            updatedAt = task.UpdatedAt
-        }).ToList();
+        // Build hierarchical structure
+        var hierarchicalTasks = BuildTaskHierarchyForPlan(tasks);
         
-        var json = JsonSerializer.Serialize(taskSummaries);
+        var json = JsonSerializer.Serialize(hierarchicalTasks);
         return json;
     }
 
@@ -266,76 +244,6 @@ public class TaskPlannerManager : ITaskPlannerManager
         await _repository.AddTaskAsync(task);
         var json = JsonSerializer.Serialize(task);
         return json;
-    }
-
-    /// <summary>
-    /// Complete the next outstanding leaf node task and return the context of the next outstanding task via MCP
-    /// </summary>
-    /// <param name="planId">ID of the plan</param>
-    /// <returns>JSON string containing the completed task and next task context</returns>
-    [McpServerTool]
-    [Description("Complete the very next outstanding leaf node task and return the context of the next outstanding task. This tool takes in a plan id arg, completes the next leaf task, and returns the next task to work on. Tl;dr complete the first incomplete task and return the one after that.")]
-    public async Task<string> NextTaskFromPlanAsync(
-        [Description("ID of the plan to process the next task for, as from the start plan response.")] string planId)
-    {
-        // Input validation
-        if (string.IsNullOrWhiteSpace(planId))
-            throw new ArgumentException("Plan ID cannot be null or empty.", nameof(planId));
-
-        // Get all tasks for the plan
-        var tasks = await _repository.GetTasksByPlanAsync(planId);
-        
-        if (!tasks.Any())
-        {
-            var noTasksResult = new { 
-                message = "No tasks found in plan", 
-                planId, 
-                completedTask = (TaskItem?)null, 
-                nextTask = (TaskItem?)null 
-            };
-            return JsonSerializer.Serialize(noTasksResult);
-        }
-
-        // Find the next outstanding leaf node task (task with no children that is not completed)
-        var leafTasks = tasks.Where(t => !tasks.Any(child => child.ParentTaskId == t.Id)).ToList();
-        var outstandingLeafTask = leafTasks
-            .Where(t => t.Status != Enums.TaskStatus.Completed && t.Status != Enums.TaskStatus.Cancelled)
-            .OrderBy(t => t.CreatedAt)
-            .FirstOrDefault();
-
-        if (outstandingLeafTask == null)
-        {
-            var allCompletedResult = new { 
-                message = "All leaf tasks are completed", 
-                planId, 
-                completedTask = (TaskItem?)null, 
-                nextTask = (TaskItem?)null 
-            };
-            return JsonSerializer.Serialize(allCompletedResult);
-        }
-
-        // Complete the outstanding leaf task
-        await _repository.UpdateTaskStatusAsync(outstandingLeafTask.Id, Enums.TaskStatus.Completed);
-        
-        // Get the updated task
-        var completedTask = await _repository.GetTaskByIdAsync(outstandingLeafTask.Id);
-
-        // Find the next outstanding task
-        var remainingTasks = await _repository.GetTasksByPlanAsync(planId);
-        var remainingLeafTasks = remainingTasks.Where(t => !remainingTasks.Any(child => child.ParentTaskId == t.Id)).ToList();
-        var nextTask = remainingLeafTasks
-            .Where(t => t.Status != Enums.TaskStatus.Completed && t.Status != Enums.TaskStatus.Cancelled)
-            .OrderBy(t => t.CreatedAt)
-            .FirstOrDefault();
-
-        var result = new { 
-            message = "Task completed successfully", 
-            planId, 
-            completedTask, 
-            nextTask 
-        };
-        
-        return JsonSerializer.Serialize(result);
     }
 
     /// <summary>
@@ -420,5 +328,89 @@ public class TaskPlannerManager : ITaskPlannerManager
         taskWithChildren.Children = taskWithChildren.Children.OrderBy(c => c.CreatedAt).ToList();
         
         return taskWithChildren;
+    }
+
+    /// <summary>
+    /// Builds hierarchical structure for a list of tasks
+    /// </summary>
+    /// <param name="tasks">Flat list of tasks</param>
+    /// <returns>List of hierarchical task objects with nested children</returns>
+    private List<object> BuildTaskHierarchyForPlan(List<TaskItem> tasks)
+    {
+        // Create a dictionary for fast lookup
+        var taskDict = tasks.ToDictionary(t => t.Id, t => new
+        {
+            id = t.Id,
+            planId = t.PlanId,
+            title = t.Title,
+            description = t.Description,
+            tags = t.Tags,
+            groups = t.Groups,
+            parentTaskId = t.ParentTaskId,
+            status = t.Status.ToString(),
+            estimateHours = t.EstimateHours,
+            createdAt = t.CreatedAt,
+            updatedAt = t.UpdatedAt,
+            completedAt = t.CompletedAt,
+            children = new List<object>()
+        });
+        
+        var rootTasks = new List<object>();
+        
+        // Build the hierarchy
+        foreach (var task in tasks)
+        {
+            if (string.IsNullOrEmpty(task.ParentTaskId))
+            {
+                // This is a root task
+                if (taskDict.TryGetValue(task.Id, out var rootTask))
+                {
+                    rootTasks.Add(rootTask);
+                }
+            }
+            else
+            {
+                // This is a child task
+                if (taskDict.TryGetValue(task.Id, out var childTask) && 
+                    taskDict.TryGetValue(task.ParentTaskId, out var parentTask))
+                {
+                    ((List<object>)parentTask.children).Add(childTask);
+                }
+                else if (taskDict.TryGetValue(task.Id, out var orphanTask))
+                {
+                    // Parent not found - treat as root task (orphaned)
+                    rootTasks.Add(orphanTask);
+                }
+            }
+        }
+        
+        // Sort root tasks by creation date for consistent ordering
+        rootTasks = rootTasks.OrderBy(t => ((dynamic)t).createdAt).ToList();
+        
+        // Recursively sort children by creation date
+        SortChildrenRecursively(rootTasks);
+        
+        return rootTasks;
+    }
+
+    /// <summary>
+    /// Recursively sorts children by creation date for consistent ordering
+    /// </summary>
+    /// <param name="tasks">List of task objects to sort children for</param>
+    private void SortChildrenRecursively(List<object> tasks)
+    {
+        foreach (var task in tasks)
+        {
+            var children = (List<object>)((dynamic)task).children;
+            if (children.Any())
+            {
+                var sortedChildren = children.OrderBy(c => ((dynamic)c).createdAt).ToList();
+                children.Clear();
+                children.AddRange(sortedChildren);
+                
+                // Recursively sort grandchildren
+                SortChildrenRecursively(children);
+            }
+        }
     }
 }

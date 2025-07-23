@@ -11,9 +11,8 @@ public interface ITaskPlannerManager
     /// <param name="projectName">Name of the project</param>
     /// <param name="description">Brief description that an AI can understand</param>
     /// <param name="aiAgentBuildContext">Concise context that will be needed for when the AI agent later uses the plan to build the solution</param>
-    /// <param name="estimateHours">Estimated total hours for completing the project</param>
     /// <returns>JSON string containing the created project plan</returns>
-    Task<string> NewPlanAsync(string projectName, string description, string aiAgentBuildContext, double estimateHours);
+    Task<string> NewPlanAsync(string projectName, string description, string aiAgentBuildContext);
 
     /// <summary>
     /// Lists all project plans via MCP
@@ -27,7 +26,7 @@ public interface ITaskPlannerManager
     /// </summary>
     /// <param name="planId">ID of the plan to get tasks from</param>
     /// <param name="hideCompleted">Optional string to hide completed tasks ("true" to hide, anything else to show all)</param>
-    /// <returns>JSON string containing all tasks for the specified plan</returns>
+    /// <returns>JSON string containing all tasks for the specified plan in hierarchical structure</returns>
     Task<string> GetTasksFromPlan(string planId, string? hideCompleted = null);
 
     /// <summary>
@@ -42,13 +41,6 @@ public interface ITaskPlannerManager
     /// <param name="estimateHours">Estimated hours for completing this Task</param>
     /// <returns>JSON string containing the created Task item</returns>
     Task<string> AddTaskToPlanAsync(string planId, string title, string description, string tags, string groups, string? parentTaskId, double estimateHours);
-
-    /// <summary>
-    /// Complete the next outstanding leaf node task and return the context of the next outstanding task via MCP
-    /// </summary>
-    /// <param name="planId">ID of the plan</param>
-    /// <returns>JSON string containing the completed task and next task context</returns>
-    Task<string> NextTaskFromPlanAsync(string planId);
 
     /// <summary>
     /// Gets a task with all its children in a hierarchical structure

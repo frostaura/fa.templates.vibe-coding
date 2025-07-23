@@ -23,14 +23,6 @@ public interface ITaskPlannerRepository
     Task AddTaskAsync(TaskItem task);
 
     /// <summary>
-    /// Updates the status of a Task item
-    /// </summary>
-    /// <param name="taskId">ID of the Task to update</param>
-    /// <param name="newStatus">New status</param>
-    /// <returns>Task representing the operation</returns>
-    Task UpdateTaskStatusAsync(string taskId, Enums.TaskStatus newStatus);
-
-    /// <summary>
     /// Gets a project plan by ID
     /// </summary>
     /// <param name="planId">ID of the plan to retrieve</param>

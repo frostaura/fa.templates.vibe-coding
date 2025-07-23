@@ -26,11 +26,6 @@ public class ProjectPlan
     public string AiAgentBuildContext { get; set; } = string.Empty;
 
     /// <summary>
-    /// Estimated total hours for completing the entire project plan
-    /// </summary>
-    public double EstimateHours { get; set; } = 0.0;
-
-    /// <summary>
     /// When this plan was created
     /// </summary>
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
@@ -44,4 +39,38 @@ public class ProjectPlan
     /// Task items associated with this plan (populated when needed)
     /// </summary>
     public List<TaskItem> Tasks { get; set; } = new List<TaskItem>();
+
+    /// <summary>
+    /// Calculated total estimate hours from all tasks in the plan
+    /// </summary>
+    public double EstimateHours => GetTotalEstimateHours();
+
+    /// <summary>
+    /// Recursively calculates total estimate hours from all tasks
+    /// </summary>
+    /// <returns>Total estimate hours</returns>
+    private double GetTotalEstimateHours()
+    {
+        double total = 0;
+        foreach (var task in Tasks)
+        {
+            total += GetTaskEstimateHoursRecursively(task);
+        }
+        return total;
+    }
+
+    /// <summary>
+    /// Recursively gets estimate hours for a task and all its children
+    /// </summary>
+    /// <param name="task">Task to calculate estimate for</param>
+    /// <returns>Total estimate hours for task and children</returns>
+    private double GetTaskEstimateHoursRecursively(TaskItem task)
+    {
+        double total = task.EstimateHours;
+        foreach (var child in task.Children)
+        {
+            total += GetTaskEstimateHoursRecursively(child);
+        }
+        return total;
+    }
 }
