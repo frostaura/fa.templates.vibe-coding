@@ -26,6 +26,11 @@ public class ProjectPlan
     public string AiAgentBuildContext { get; set; } = string.Empty;
 
     /// <summary>
+    /// Name of the host machine that created this plan
+    /// </summary>
+    public string CreatorHostMachineName { get; set; } = string.Empty;
+
+    /// <summary>
     /// When this plan was created
     /// </summary>
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;

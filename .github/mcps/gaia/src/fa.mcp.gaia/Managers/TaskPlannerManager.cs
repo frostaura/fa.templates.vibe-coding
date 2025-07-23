@@ -1,5 +1,9 @@
 using FrostAura.MCP.Gaia.Interfaces;
 using FrostAura.MCP.Gaia.Models;
+using Microsoft.Extensions.Configuration;
+using ModelContextProtocol.Server;
+using System.ComponentModel;
+using System.Text.Json;
 
 namespace FrostAura.MCP.Gaia.Managers;
 
@@ -27,13 +31,15 @@ public class TaskPlannerManager : ITaskPlannerManager
     /// <param name="projectName">Name of the project</param>
     /// <param name="description">Brief description that an AI can understand</param>
     /// <param name="aiAgentBuildContext">Concise context that will be needed for when the AI agent later uses the plan to build the solution</param>
+    /// <param name="creatorHostMachineName">Name of the host machine creating this plan</param>
     /// <returns>JSON string containing the created project plan</returns>
     [McpServerTool]
     [Description("Creates a new project plan for managing Tasks & TODOs. Ideal for tracking tasks and features of complex projects and plans. The response is your Task plan id, which you must use to manage your Tasks. Estimate hours are calculated automatically from child tasks.")]
     public async Task<string> NewPlanAsync(
         [Description("Name of the project")] string projectName,
         [Description("Brief description of the project")] string description,
-        [Description("Concise context that will be needed for when the AI agent later uses the plan to build the solution")] string aiAgentBuildContext)
+        [Description("Concise context that will be needed for when the AI agent later uses the plan to build the solution")] string aiAgentBuildContext,
+        [Description("Name of the host machine creating this plan")] string creatorHostMachineName)
     {
         // Input validation
         if (string.IsNullOrWhiteSpace(projectName))
@@ -42,6 +48,8 @@ public class TaskPlannerManager : ITaskPlannerManager
             throw new ArgumentException("Description cannot be null or empty.", nameof(description));
         if (string.IsNullOrWhiteSpace(aiAgentBuildContext))
             throw new ArgumentException("AI agent build context cannot be null or empty.", nameof(aiAgentBuildContext));
+        if (string.IsNullOrWhiteSpace(creatorHostMachineName))
+            throw new ArgumentException("Creator host machine name cannot be null or empty.", nameof(creatorHostMachineName));
 
         var plan = new ProjectPlan
         {
@@ -49,6 +57,7 @@ public class TaskPlannerManager : ITaskPlannerManager
             Name = projectName,
             Description = description,
             AiAgentBuildContext = aiAgentBuildContext,
+            CreatorHostMachineName = creatorHostMachineName,
             CreatedAt = DateTime.UtcNow,
             UpdatedAt = DateTime.UtcNow
         };
@@ -127,6 +136,7 @@ public class TaskPlannerManager : ITaskPlannerManager
                 name = plan.Name,
                 description = plan.Description,
                 aiAgentBuildContext = plan.AiAgentBuildContext,
+                creatorHostMachineName = plan.CreatorHostMachineName,
                 estimateHours = plan.EstimateHours,
                 status = planStatus,
                 progress = new

@@ -29,7 +29,7 @@ public class LocalMachineManager : ILocalMachineManager
     /// <returns>JSON string containing the host machine name and additional system information</returns>
     [McpServerTool]
     [Description("Gets the current host machine name and basic system information. Useful for identifying the local environment and system context.")]
-    public Task<string> GetHostMachineName()
+    public Task<string> GetHostMachineNameAsync()
     {
         var hostInfo = new
         {

@@ -11,8 +11,9 @@ public interface ITaskPlannerManager
     /// <param name="projectName">Name of the project</param>
     /// <param name="description">Brief description that an AI can understand</param>
     /// <param name="aiAgentBuildContext">Concise context that will be needed for when the AI agent later uses the plan to build the solution</param>
+    /// <param name="creatorHostMachineName">Name of the host machine creating this plan</param>
     /// <returns>JSON string containing the created project plan</returns>
-    Task<string> NewPlanAsync(string projectName, string description, string aiAgentBuildContext);
+    Task<string> NewPlanAsync(string projectName, string description, string aiAgentBuildContext, string creatorHostMachineName);
 
     /// <summary>
     /// Lists all project plans via MCP

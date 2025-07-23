@@ -29,10 +29,17 @@ In this case, there is an existing codebase but no design documentation. You wil
 
 ### Generic Flows, After Entry Flows
 #### Phase 1: Specification & Design
-- Requirements
-- Architecture
-- Design
-- Frontend
+##### The Repository is Empty
+- Copy all design templates from ".github/templates/designs" to ".docs/designs".
+- Step through the design templates in ".docs/designs" and complete them throughtfully and sequentially, based on the requirements from the problem statement and any attached information, if applicable. This includes but is not limited to things like API docs, UI/visual inspiration etc.
+
+##### The Repository is Not Empty & Design Documentaion Exists
+- Design docs already exist so no need to copy over in this case.
+- TODO: Plan a change in the context of the existing design docs.
+
+##### The Repository is Not Empty & Design Documentaion Does Not Exist
+- Copy all design templates from ".github/templates/designs" to ".docs/designs".
+- TODO: Analyze the current repo and retrospectively produce the deisgn docs.
 
 #### Phase 2: Development
 - Implementation
@@ -63,13 +70,25 @@ In this case, there is an existing codebase but no design documentation. You wil
 A collection of standards that you must follow when generating the plan. These standards are mandatory and must be followed.
 
 #### Plan Structure
-The planning tools should be heavily leveraged to manage plans and tasks / TOOs. The following is a basic structure that is suggested for capturing plans. If you prefer, you may have as many levels of nested tasks as you like.
+The planning tools should be heavily leveraged to manage plans and tasks / TOOs. The following is a basic structure that is suggested for capturing plans. If you prefer, you may have as many levels of nested tasks as you like. The plan fully supports nesting tasks to the N-th degree.
 
-- Project
- - Phase X (Task)
-  - Task X (Task)
-   - TODO X (Task)
+**Plan & Tasks Structure**
+- Project (root-level)
+ - Task Phase X (Task, inside of the Tasks property)
+  - Task Y (Task, inside of the above Task's Children property)
+   - Task Z (Task, inside of the above Task's Children property)
    ...
+  ...
+
+**More Realistic Partial Example**
+- Gaia Toolkit (root-level)
+ - Specification & Design (Task, inside of the Tasks property)
+  - Requirements (Task, inside of the above Task's Children property)
+   - Gather requirements (Task, inside of the above Task's Children property)
+   - Analyze requirements (Task, inside of the above Task's Children property)
+  - Architecture (Task, inside of the above Task's Children property)
+   - Define architecture (Task, inside of the above Task's Children property)
+   - Review architecture (Task, inside of the above Task's Children property)
   ...
 
 #### Default Technology Stack
@@ -112,10 +131,12 @@ For any and all changes you make, you must ensure that the following quality sta
 - When external integrations are required, integrate with a well known free API(s) where the external system(s) are not specified.
 
 ### Mandatory Reflection Process
-- Then once you generated a plan that you thought about heavily, you must reflect on it by asking, do you believe you have enough details to successfully and professionally build this project from the plan? Be very critical. Root-level items as well as children, which massively helps with compartmentalizing complex systems and problems. Produce a report in your head about these critical comments, important implementation details. Echo the rating of the current plan.
+- Then once you generated a plan that you thought about heavily, you must reflect on it by asking, do you believe you have enough details to successfully and professionally build this project from the plan? Be very critical. Root-level items as well as children, which massively helps with compartmentalizing complex systems and problems. Produce a report in your head about these critical comments, important implementation details. Echo the rating of the current plan. Ensure you rate the plan based on task complexity too. Complex tasks should be broken down into smaller tasks. Ensure you leverage the tree-like nature of plans.
 
 Before you start critiquing, you must first get the plan again to fetch all items, and critique that rather than from memory.
 - Finally, resolve for the critical items that you found in the original plan and add the additional details to the plan.
 - WHILE the plan score is < 100%, repeat the process of reflection and resolution until the plan score is 100%. No matter how minor the remaioning issues are, they must be resolved.
+
+**NEVER stop reflecting until the plan is at 100% quality.**
 
 ## Problem Description
