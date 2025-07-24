@@ -10,10 +10,12 @@ namespace FrostAura.MCP.Gaia.Data;
 public class TaskPlannerRepository : ITaskPlannerRepository
 {
     private readonly TaskPlannerDbContext _dbContext;
+    private readonly IWebhookRepository _webhookRepository;
 
-    public TaskPlannerRepository(TaskPlannerDbContext dbContext)
+    public TaskPlannerRepository(TaskPlannerDbContext dbContext, IWebhookRepository webhookRepository)
     {
         _dbContext = dbContext;
+        _webhookRepository = webhookRepository;
     }
 
     /// <summary>
@@ -24,6 +26,10 @@ public class TaskPlannerRepository : ITaskPlannerRepository
     public async Task<ProjectPlan> AddPlanAsync(ProjectPlan plan)
     {
         await _dbContext.AddPlanAsync(plan);
+        
+        // Send webhook notification
+        await _webhookRepository.SendPlanWebhookAsync(plan);
+        
         return plan;
     }
 
@@ -34,6 +40,13 @@ public class TaskPlannerRepository : ITaskPlannerRepository
     public async Task AddTaskAsync(TaskItem task)
     {
         await _dbContext.AddTaskAsync(task);
+        
+        // Send webhook notification with the full plan
+        var plan = await _dbContext.GetPlanByIdAsync(task.PlanId);
+        if (plan != null)
+        {
+            await _webhookRepository.SendPlanWebhookAsync(plan);
+        }
     }
 
     /// <summary>
@@ -140,5 +153,12 @@ public class TaskPlannerRepository : ITaskPlannerRepository
         }
 
         await _dbContext.UpdateTaskAsync(task);
+        
+        // Send webhook notification with the full plan
+        var plan = await _dbContext.GetPlanByIdAsync(task.PlanId);
+        if (plan != null)
+        {
+            await _webhookRepository.SendPlanWebhookAsync(plan);
+        }
     }
 }

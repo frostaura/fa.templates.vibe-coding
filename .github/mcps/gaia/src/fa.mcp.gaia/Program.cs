@@ -18,20 +18,24 @@ builder.Logging.AddConsole(options =>
     options.LogToStandardErrorThreshold = LogLevel.Trace;
 });
 
-// Add configuration - embedded to avoid file loading issues
-builder.Configuration.AddInMemoryCollection(new Dictionary<string, string?>
-{
-    ["Application:Name"] = "fa.mcp.gaia",
-    ["Application:Version"] = "1.0.0",
-    ["TaskPlanner:DatabasePath"] = ".github/state/Gaia.TaskPlanner.db.json",
-    ["Logging:LogLevel:Default"] = "Warning",
-    ["Logging:LogLevel:Microsoft.Hosting.Lifetime"] = "Warning",
-    ["Logging:LogLevel:ModelContextProtocol"] = "Warning"
-});
+// Add configuration - load from appsettings.json and add embedded defaults
+builder.Configuration
+    .AddInMemoryCollection(new Dictionary<string, string?>
+    {
+        ["Application:Name"] = "fa.mcp.gaia",
+        ["Application:Version"] = "1.0.0",
+        ["Logging:LogLevel:Default"] = "Warning",
+        ["Logging:LogLevel:Microsoft.Hosting.Lifetime"] = "Warning",
+        ["Logging:LogLevel:ModelContextProtocol"] = "Warning",
+        ["TaskPlanner:DatabasePath"] = ".github/state/Gaia.TaskPlanner.db.json",
+        ["TaskPlanner:WebhookUrl"] = ""
+    });
 
 // Register Task Services
+builder.Services.AddHttpClient();
 builder.Services.AddScoped<TaskPlannerDbContext>();
 builder.Services.AddScoped<ITaskPlannerRepository, TaskPlannerRepository>();
+builder.Services.AddScoped<IWebhookRepository, WebhookRepository>();
 
 // Register Managers (now includes MCP tools)
 builder.Services.AddScoped<ITaskPlannerManager, TaskPlannerManager>();
