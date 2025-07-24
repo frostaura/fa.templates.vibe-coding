@@ -1,5 +1,6 @@
 using FrostAura.MCP.Gaia.Interfaces;
 using FrostAura.MCP.Gaia.Models;
+using FrostAura.MCP.Gaia.Configuration;
 using Microsoft.Extensions.Configuration;
 using ModelContextProtocol.Server;
 using System.ComponentModel;
@@ -14,6 +15,7 @@ namespace FrostAura.MCP.Gaia.Managers;
 public class TaskPlannerManager : ITaskPlannerManager
 {
     private readonly ITaskPlannerRepository _repository;
+    private readonly JsonSerializerOptions _jsonOptions;
 
     /// <summary>
     /// Initializes a new instance of the TaskPlannerManager
@@ -23,6 +25,7 @@ public class TaskPlannerManager : ITaskPlannerManager
     public TaskPlannerManager(ITaskPlannerRepository repository, IConfiguration configuration)
     {
         _repository = repository;
+        _jsonOptions = JsonConfiguration.GetApiOptions();
     }
 
     /// <summary>
@@ -63,7 +66,7 @@ public class TaskPlannerManager : ITaskPlannerManager
         };
         
         await _repository.AddPlanAsync(plan);
-        var json = JsonSerializer.Serialize(plan);
+        var json = JsonSerializer.Serialize(plan, _jsonOptions);
         return json;
     }
 
@@ -157,7 +160,7 @@ public class TaskPlannerManager : ITaskPlannerManager
             });
         }
         
-        var json = JsonSerializer.Serialize(planSummaries);
+        var json = JsonSerializer.Serialize(planSummaries, _jsonOptions);
         return json;
     }
 
@@ -193,7 +196,7 @@ public class TaskPlannerManager : ITaskPlannerManager
         // Build hierarchical structure
         var hierarchicalTasks = BuildTaskHierarchyForPlan(tasks);
         
-        var json = JsonSerializer.Serialize(hierarchicalTasks);
+        var json = JsonSerializer.Serialize(hierarchicalTasks, _jsonOptions);
         return json;
     }
 
@@ -256,7 +259,7 @@ public class TaskPlannerManager : ITaskPlannerManager
         };
         
         await _repository.AddTaskAsync(task);
-        var json = JsonSerializer.Serialize(task);
+        var json = JsonSerializer.Serialize(task, _jsonOptions);
         return json;
     }
 
@@ -284,7 +287,7 @@ public class TaskPlannerManager : ITaskPlannerManager
                 taskId, 
                 task = (TaskItem?)null 
             };
-            return JsonSerializer.Serialize(notFoundResult);
+            return JsonSerializer.Serialize(notFoundResult, _jsonOptions);
         }
 
         // Get all tasks for the same plan to build the hierarchy
@@ -299,7 +302,7 @@ public class TaskPlannerManager : ITaskPlannerManager
             task = taskWithChildren 
         };
         
-        return JsonSerializer.Serialize(result);
+        return JsonSerializer.Serialize(result, _jsonOptions);
     }
 
     /// <summary>
@@ -327,7 +330,7 @@ public class TaskPlannerManager : ITaskPlannerManager
                 success = false,
                 task = (TaskItem?)null 
             };
-            return JsonSerializer.Serialize(notFoundResult);
+            return JsonSerializer.Serialize(notFoundResult, _jsonOptions);
         }
 
         // Check if task is already completed
@@ -340,7 +343,7 @@ public class TaskPlannerManager : ITaskPlannerManager
                 task,
                 completedAt = task.CompletedAt
             };
-            return JsonSerializer.Serialize(alreadyCompletedResult);
+            return JsonSerializer.Serialize(alreadyCompletedResult, _jsonOptions);
         }
 
         // Update task status and completion timestamp
@@ -359,7 +362,7 @@ public class TaskPlannerManager : ITaskPlannerManager
             completedAt = task.CompletedAt
         };
         
-        return JsonSerializer.Serialize(successResult);
+        return JsonSerializer.Serialize(successResult, _jsonOptions);
     }
 
     /// <summary>
@@ -390,7 +393,7 @@ public class TaskPlannerManager : ITaskPlannerManager
                 providedStatus = status,
                 validStatuses = Enum.GetNames<Enums.TaskStatus>()
             };
-            return JsonSerializer.Serialize(invalidStatusResult);
+            return JsonSerializer.Serialize(invalidStatusResult, _jsonOptions);
         }
 
         // Get the task
@@ -404,7 +407,7 @@ public class TaskPlannerManager : ITaskPlannerManager
                 success = false,
                 task = (TaskItem?)null 
             };
-            return JsonSerializer.Serialize(notFoundResult);
+            return JsonSerializer.Serialize(notFoundResult, _jsonOptions);
         }
 
         var previousStatus = task.Status;
@@ -440,7 +443,7 @@ public class TaskPlannerManager : ITaskPlannerManager
             completedAt = task.CompletedAt
         };
         
-        return JsonSerializer.Serialize(successResult);
+        return JsonSerializer.Serialize(successResult, _jsonOptions);
     }
 
     /// <summary>

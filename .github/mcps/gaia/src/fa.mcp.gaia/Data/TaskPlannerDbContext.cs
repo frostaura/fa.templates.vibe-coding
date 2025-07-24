@@ -1,5 +1,6 @@
 using FrostAura.MCP.Gaia.Models;
 using FrostAura.MCP.Gaia.Enums;
+using FrostAura.MCP.Gaia.Configuration;
 using Microsoft.Extensions.Configuration;
 using System.Text.Json;
 
@@ -20,12 +21,7 @@ public class TaskPlannerDbContext
     public TaskPlannerDbContext(IConfiguration configuration)
     {
         _databasePath = configuration["TaskPlanner:DatabasePath"] ?? throw new ArgumentNullException("TaskPlanner:DatabasePath configuration is required");
-        _jsonOptions = new JsonSerializerOptions
-        {
-            // Use PascalCase to match C# property names exactly - fixes Task persistence
-            PropertyNamingPolicy = null, 
-            WriteIndented = true
-        };
+        _jsonOptions = JsonConfiguration.GetStandardOptions();
     }
 
     /// <summary>

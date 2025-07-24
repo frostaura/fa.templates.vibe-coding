@@ -1,4 +1,5 @@
 using FrostAura.MCP.Gaia.Interfaces;
+using FrostAura.MCP.Gaia.Configuration;
 using Microsoft.Extensions.Configuration;
 using ModelContextProtocol.Server;
 using System.ComponentModel;
@@ -45,11 +46,7 @@ public class LocalMachineManager : ILocalMachineManager
             timestamp = DateTime.UtcNow
         };
 
-        var json = JsonSerializer.Serialize(hostInfo, new JsonSerializerOptions
-        {
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            WriteIndented = true
-        });
+        var json = JsonSerializer.Serialize(hostInfo, JsonConfiguration.GetApiOptions());
 
         return Task.FromResult(json);
     }
