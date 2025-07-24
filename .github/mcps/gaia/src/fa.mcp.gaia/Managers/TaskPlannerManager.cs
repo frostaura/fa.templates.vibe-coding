@@ -368,7 +368,7 @@ public class TaskPlannerManager : ITaskPlannerManager
     /// <param name="taskId">ID of the task to update</param>
     /// <param name="status">New status for the task</param>
     /// <returns>JSON string containing the updated task</returns>
-    [McpServerTool]
+    // [McpServerTool]
     [Description("Updates the status of a task. Available statuses are: Todo, InProgress, Completed, Blocked, Cancelled. When marking as Completed, automatically sets completion timestamp.")]
     public async Task<string> UpdateTaskStatusAsync(
         [Description("ID of the task to update")] string taskId,
