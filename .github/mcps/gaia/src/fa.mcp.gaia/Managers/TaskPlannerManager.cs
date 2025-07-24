@@ -303,6 +303,147 @@ public class TaskPlannerManager : ITaskPlannerManager
     }
 
     /// <summary>
+    /// Marks a task as completed via MCP
+    /// </summary>
+    /// <param name="taskId">ID of the task to mark as completed</param>
+    /// <returns>JSON string containing the updated task</returns>
+    [McpServerTool]
+    [Description("Marks a task as completed and sets the completion timestamp. This tool updates the task status to 'Completed' and records when it was completed.")]
+    public async Task<string> MarkTaskAsCompletedAsync(
+        [Description("ID of the task to mark as completed")] string taskId)
+    {
+        // Input validation
+        if (string.IsNullOrWhiteSpace(taskId))
+            throw new ArgumentException("Task ID cannot be null or empty.", nameof(taskId));
+
+        // Get the task
+        var task = await _repository.GetTaskByIdAsync(taskId);
+        
+        if (task == null)
+        {
+            var notFoundResult = new { 
+                message = "Task not found", 
+                taskId, 
+                success = false,
+                task = (TaskItem?)null 
+            };
+            return JsonSerializer.Serialize(notFoundResult);
+        }
+
+        // Check if task is already completed
+        if (task.Status == Enums.TaskStatus.Completed)
+        {
+            var alreadyCompletedResult = new { 
+                message = "Task is already completed", 
+                taskId, 
+                success = false,
+                task,
+                completedAt = task.CompletedAt
+            };
+            return JsonSerializer.Serialize(alreadyCompletedResult);
+        }
+
+        // Update task status and completion timestamp
+        task.Status = Enums.TaskStatus.Completed;
+        task.UpdatedAt = DateTime.UtcNow;
+        task.CompletedAt = DateTime.UtcNow;
+
+        // Save the updated task
+        await _repository.UpdateTaskAsync(task);
+
+        var successResult = new { 
+            message = "Task marked as completed successfully", 
+            taskId, 
+            success = true,
+            task,
+            completedAt = task.CompletedAt
+        };
+        
+        return JsonSerializer.Serialize(successResult);
+    }
+
+    /// <summary>
+    /// Updates the status of a task via MCP
+    /// </summary>
+    /// <param name="taskId">ID of the task to update</param>
+    /// <param name="status">New status for the task</param>
+    /// <returns>JSON string containing the updated task</returns>
+    [McpServerTool]
+    [Description("Updates the status of a task. Available statuses are: Todo, InProgress, Completed, Blocked, Cancelled. When marking as Completed, automatically sets completion timestamp.")]
+    public async Task<string> UpdateTaskStatusAsync(
+        [Description("ID of the task to update")] string taskId,
+        [Description("New status for the task (Todo, InProgress, Completed, Blocked, Cancelled)")] string status)
+    {
+        // Input validation
+        if (string.IsNullOrWhiteSpace(taskId))
+            throw new ArgumentException("Task ID cannot be null or empty.", nameof(taskId));
+        if (string.IsNullOrWhiteSpace(status))
+            throw new ArgumentException("Status cannot be null or empty.", nameof(status));
+
+        // Parse and validate status
+        if (!Enum.TryParse<Enums.TaskStatus>(status, true, out var taskStatus))
+        {
+            var invalidStatusResult = new { 
+                message = $"Invalid status '{status}'. Valid statuses are: {string.Join(", ", Enum.GetNames<Enums.TaskStatus>())}", 
+                taskId, 
+                success = false,
+                providedStatus = status,
+                validStatuses = Enum.GetNames<Enums.TaskStatus>()
+            };
+            return JsonSerializer.Serialize(invalidStatusResult);
+        }
+
+        // Get the task
+        var task = await _repository.GetTaskByIdAsync(taskId);
+        
+        if (task == null)
+        {
+            var notFoundResult = new { 
+                message = "Task not found", 
+                taskId, 
+                success = false,
+                task = (TaskItem?)null 
+            };
+            return JsonSerializer.Serialize(notFoundResult);
+        }
+
+        var previousStatus = task.Status;
+        var wasCompleted = task.Status == Enums.TaskStatus.Completed;
+
+        // Update task status and timestamps
+        task.Status = taskStatus;
+        task.UpdatedAt = DateTime.UtcNow;
+
+        // Handle completion timestamp logic
+        if (taskStatus == Enums.TaskStatus.Completed && !wasCompleted)
+        {
+            // Task is being marked as completed for the first time
+            task.CompletedAt = DateTime.UtcNow;
+        }
+        else if (taskStatus != Enums.TaskStatus.Completed && wasCompleted)
+        {
+            // Task is being moved away from completed status
+            task.CompletedAt = null;
+        }
+        // If already completed and staying completed, keep existing CompletedAt
+
+        // Save the updated task
+        await _repository.UpdateTaskAsync(task);
+
+        var successResult = new { 
+            message = $"Task status updated successfully from '{previousStatus}' to '{taskStatus}'", 
+            taskId, 
+            success = true,
+            task,
+            previousStatus = previousStatus.ToString(),
+            newStatus = taskStatus.ToString(),
+            completedAt = task.CompletedAt
+        };
+        
+        return JsonSerializer.Serialize(successResult);
+    }
+
+    /// <summary>
     /// Recursively builds the task hierarchy by populating children
     /// </summary>
     /// <param name="parentTask">The parent task to populate children for</param>

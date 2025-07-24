@@ -48,4 +48,11 @@ public interface ITaskPlannerRepository
     /// <param name="taskId">ID of the Task item</param>
     /// <returns>Task item or null if not found</returns>
     Task<TaskItem?> GetTaskByIdAsync(string taskId);
+
+    /// <summary>
+    /// Updates a Task item in the database
+    /// </summary>
+    /// <param name="task">Updated Task item</param>
+    /// <returns>Task representing the operation</returns>
+    Task UpdateTaskAsync(TaskItem task);
 }

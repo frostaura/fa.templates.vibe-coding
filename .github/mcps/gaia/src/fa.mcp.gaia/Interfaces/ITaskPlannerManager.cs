@@ -50,4 +50,19 @@ public interface ITaskPlannerManager
     /// <param name="taskId">ID of the task to retrieve</param>
     /// <returns>JSON string containing the task with its nested children</returns>
     Task<string> GetTaskWithChildrenByIdAsync(string taskId);
+
+    /// <summary>
+    /// Marks a task as completed via MCP
+    /// </summary>
+    /// <param name="taskId">ID of the task to mark as completed</param>
+    /// <returns>JSON string containing the updated task</returns>
+    Task<string> MarkTaskAsCompletedAsync(string taskId);
+
+    /// <summary>
+    /// Updates the status of a task via MCP
+    /// </summary>
+    /// <param name="taskId">ID of the task to update</param>
+    /// <param name="status">New status for the task (Todo, InProgress, Completed, Blocked, Cancelled)</param>
+    /// <returns>JSON string containing the updated task</returns>
+    Task<string> UpdateTaskStatusAsync(string taskId, string status);
 }

@@ -127,4 +127,18 @@ public class TaskPlannerRepository : ITaskPlannerRepository
         
         return task;
     }
+
+    /// <summary>
+    /// Updates a Task item in the database
+    /// </summary>
+    /// <param name="task">Updated Task item</param>
+    public async Task UpdateTaskAsync(TaskItem task)
+    {
+        if (task == null)
+        {
+            throw new ArgumentNullException(nameof(task));
+        }
+
+        await _dbContext.UpdateTaskAsync(task);
+    }
 }

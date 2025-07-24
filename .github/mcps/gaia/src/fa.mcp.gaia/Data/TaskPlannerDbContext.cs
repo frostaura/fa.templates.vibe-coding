@@ -325,4 +325,40 @@ public class TaskPlannerDbContext
         }
         return null;
     }
+
+    /// <summary>
+    /// Updates a task in the database
+    /// </summary>
+    /// <param name="task">Updated task item</param>
+    public async Task UpdateTaskAsync(TaskItem task)
+    {
+        var database = await GetDatabaseAsync();
+        
+        // Find the plan this task belongs to
+        var plan = database.Plans.FirstOrDefault(p => p.Id == task.PlanId);
+        if (plan == null)
+        {
+            throw new ArgumentException($"Plan with ID '{task.PlanId}' not found.");
+        }
+
+        // Find the existing task in the plan
+        var existingTask = FindTaskInPlan(plan, task.Id);
+        if (existingTask == null)
+        {
+            throw new ArgumentException($"Task with ID '{task.Id}' not found.");
+        }
+
+        // Update the task properties
+        existingTask.Title = task.Title;
+        existingTask.Description = task.Description;
+        existingTask.AcceptanceCriteria = task.AcceptanceCriteria;
+        existingTask.Status = task.Status;
+        existingTask.Tags = new List<string>(task.Tags);
+        existingTask.Groups = new List<string>(task.Groups);
+        existingTask.EstimateHours = task.EstimateHours;
+        existingTask.UpdatedAt = task.UpdatedAt;
+        existingTask.CompletedAt = task.CompletedAt;
+
+        await SaveDatabaseAsync(database);
+    }
 }
