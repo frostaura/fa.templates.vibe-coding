@@ -370,18 +370,45 @@ public class TaskPlannerManager : ITaskPlannerManager
     /// </summary>
     /// <param name="taskId">ID of the task to update</param>
     /// <param name="status">New status for the task</param>
+    /// <param name="hasPassedMinimalQualityGates">String indicating that the caller has confirmed the solution builds and all tests pass ("true" to confirm quality gates passed)</param>
     /// <returns>JSON string containing the updated task</returns>
     // [McpServerTool]
     [Description("Updates the status of a task. Available statuses are: Todo, InProgress, Completed, Blocked, Cancelled. When marking as Completed, automatically sets completion timestamp.")]
     public async Task<string> UpdateTaskStatusAsync(
         [Description("ID of the task to update")] string taskId,
-        [Description("New status for the task (Todo, InProgress, Completed, Blocked, Cancelled)")] string status)
+        [Description("New status for the task (Todo, InProgress, Completed, Blocked, Cancelled)")] string status,
+        [Description("String indicating that the caller has confirmed the entire solution builds successfully and all tests pass before changing task status (\"true\" to confirm quality gates passed)")] string hasPassedMinimalQualityGates)
     {
         // Input validation
         if (string.IsNullOrWhiteSpace(taskId))
             throw new ArgumentException("Task ID cannot be null or empty.", nameof(taskId));
         if (string.IsNullOrWhiteSpace(status))
             throw new ArgumentException("Status cannot be null or empty.", nameof(status));
+
+        // Parse hasPassedMinimalQualityGates parameter
+        bool qualityGatesPassed = !string.IsNullOrEmpty(hasPassedMinimalQualityGates) && 
+                                  hasPassedMinimalQualityGates.Equals("true", StringComparison.OrdinalIgnoreCase);
+
+        // Quality gates validation
+        if (!qualityGatesPassed)
+        {
+            var qualityGatesResult = new { 
+                message = "Quality gates validation failed. You must ensure the entire solution builds successfully and all tests pass before attempting to change task status. Set hasPassedMinimalQualityGates to \"true\" only after confirming the solution is in a stable state.", 
+                taskId, 
+                success = false,
+                error = "QualityGatesNotMet",
+                requirements = new[] 
+                {
+                    "Solution must build successfully without errors",
+                    "All unit tests must pass",
+                    "All integration tests must pass",
+                    "Code quality checks must pass"
+                },
+                providedQualityGatesStatus = hasPassedMinimalQualityGates,
+                parsedQualityGatesStatus = qualityGatesPassed
+            };
+            return JsonSerializer.Serialize(qualityGatesResult, _jsonOptions);
+        }
 
         // Parse and validate status
         if (!Enum.TryParse<Enums.TaskStatus>(status, true, out var taskStatus))

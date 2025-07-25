@@ -63,6 +63,7 @@ public interface ITaskPlannerManager
     /// </summary>
     /// <param name="taskId">ID of the task to update</param>
     /// <param name="status">New status for the task (Todo, InProgress, Completed, Blocked, Cancelled)</param>
+    /// <param name="hasPassedMinimalQualityGates">String indicating that the caller has confirmed the solution builds and all tests pass ("true" to confirm quality gates passed)</param>
     /// <returns>JSON string containing the updated task</returns>
-    Task<string> UpdateTaskStatusAsync(string taskId, string status);
+    Task<string> UpdateTaskStatusAsync(string taskId, string status, string hasPassedMinimalQualityGates);
 }

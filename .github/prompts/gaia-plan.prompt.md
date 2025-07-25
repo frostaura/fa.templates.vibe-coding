@@ -162,8 +162,9 @@ The default technology stack must be used unless otherwise specified in the prob
 
 #### Temporary Files, Directories, Data etc & Cleanup
 - Any temporary files, directories, data (mock & static, files etc), shortcuts, must be captured in the project plan as TODOs.
-- All cleanup TODOs must be completed before the system is considered production-ready.
+- All cleanup tasks must be completed before the system is considered production-ready.
 - All temporary files and directories must be added to the `.tmp` directory, or deeper. This directory must be added to `.gitignore` to ensure that temporary files are not committed to the repository.
+- Clean up and remove all out-of-the-box template files and components that aren't in use.
 
 #### Basic & Minimal Quality Standards
 For any and all changes you make, you must ensure that the following quality standards are met / followed:
@@ -197,6 +198,8 @@ Before you start critiquing, you must first get the plan again to fetch all item
 - Finally, resolve for the critical items that you found in the original plan and add the additional details to the plan.
 - WHILE the plan score is < 100%, repeat the process of reflection and resolution until the plan score is 100%. No matter how minor the remaioning issues are, they must be resolved.
 - THEN repeat the process for the children tasks, and their children tasks, and so on.
+
+**MANDATORY:** As you assess the plan and tasks, ensure that each task ensures that each task aligns with the system design documents (.docs/designs).
 
 **NEVER stop reflecting until the plan is at 100% quality.**
 

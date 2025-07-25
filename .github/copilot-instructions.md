@@ -1,6 +1,6 @@
 # Gaia - AI Toolkit
 ## Instructions
-### Use your tree planner, todos capabilities to manage your tasks
+### Use your tree planner, task capabilities to manage your tasks
 - Whenever you're unsure about what to do next, instead of just stopping or asking the user, use your plan.
 - Use the plan to track your progress and plan your next steps.
 - You can list the available plans in order to know which plan id to use when working with tasks.
@@ -13,3 +13,5 @@
 ## Rules to be Followed
 - You must never move on to another todo item while you have not successfully updated the status of the current todo item to completed.
 - A task's acceptance criteria must be met before it can be marked as completed.
+- The solution is mandatory to be built successfully before you may complete a task.
+- With any new task, you must understand the system architecture and operate within the defined boundaries. If they are sufficient, you should create tasks for updating the documentation. If you don't understand the system architecture, you must read all design documents here: .docs/designs
