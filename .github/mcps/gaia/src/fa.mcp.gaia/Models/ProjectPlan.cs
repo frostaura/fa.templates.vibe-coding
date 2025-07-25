@@ -26,9 +26,9 @@ public class ProjectPlan
     public string AiAgentBuildContext { get; set; } = string.Empty;
 
     /// <summary>
-    /// Name of the host machine that created this plan
+    /// A best attempt at a derived user name / context, typically from the host machine details
     /// </summary>
-    public string CreatorHostMachineName { get; set; } = string.Empty;
+    public string CreatorIdentity { get; set; } = string.Empty;
 
     /// <summary>
     /// When this plan was created
