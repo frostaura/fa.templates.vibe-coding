@@ -15,7 +15,7 @@ This document describes the preferred repository structure. This may be used for
     - /prompts (AI framework prompt collection)
       - gaia-create.prompt.md (The specialized AI (Gaia) prompt to start generating a brand new idea)
     - /state (AI session and project state tracking)
-      - plan.md (system/execution plan, milestones & current session progress tracking)
+      - Gaia.TaskPlanner.db.json (system/execution plan, milestones & current session progress tracking)
     - templates
       - /designs (System designs templates)
       - <DESIGN_NAME>.md (A system design file)
@@ -108,7 +108,7 @@ The heart of the AI coding framework and automation, containing both the orchest
   - **gaia_for_new_projects.prompt.md**: The master prompt containing comprehensive instructions for AI agents, for brand new projects.
   - **gaia_for_existing_projects.prompt.md**: The master prompt containing comprehensive instructions for AI agents, for continuing on an existing system.
 - **state/**: AI planning, session and project state tracking
-  - **plan.md**: Auto-generated project plan with milestones, deliverables & tracking of development progress and current status
+  - **Gaia.TaskPlanner.db.json**: Auto-generated project plan with milestones, deliverables & tracking of development progress and current status
 - **workflows/**: Automated build, test, and deployment processes
 
 ### `.docs/` - Documentation Hub

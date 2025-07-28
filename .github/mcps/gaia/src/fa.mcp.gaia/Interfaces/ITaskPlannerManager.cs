@@ -55,8 +55,9 @@ public interface ITaskPlannerManager
     /// Marks a task as completed via MCP
     /// </summary>
     /// <param name="taskId">ID of the task to mark as completed</param>
+    /// <param name="hasPassedMinimalQualityGates">String indicating that the caller has confirmed the solution builds and all tests pass ("true" to confirm quality gates passed)</param>
     /// <returns>JSON string containing the updated task</returns>
-    Task<string> MarkTaskAsCompletedAsync(string taskId);
+    Task<string> MarkTaskAsCompletedAsync(string taskId, string hasPassedMinimalQualityGates);
 
     /// <summary>
     /// Updates the status of a task via MCP

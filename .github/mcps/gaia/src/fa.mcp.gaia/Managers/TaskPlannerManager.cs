@@ -309,15 +309,42 @@ public class TaskPlannerManager : ITaskPlannerManager
     /// Marks a task as completed via MCP
     /// </summary>
     /// <param name="taskId">ID of the task to mark as completed</param>
+    /// <param name="hasPassedMinimalQualityGates">String indicating that the caller has confirmed the solution builds and all tests pass ("true" to confirm quality gates passed)</param>
     /// <returns>JSON string containing the updated task</returns>
     [McpServerTool]
     [Description("Marks a task as completed and sets the completion timestamp. This tool updates the task status to 'Completed' and records when it was completed.")]
     public async Task<string> MarkTaskAsCompletedAsync(
-        [Description("ID of the task to mark as completed")] string taskId)
+        [Description("ID of the task to mark as completed")] string taskId,
+        [Description("String indicating that the caller has confirmed the entire solution builds successfully and all tests pass before marking task as completed (\"true\" to confirm quality gates passed)")] string hasPassedMinimalQualityGates)
     {
         // Input validation
         if (string.IsNullOrWhiteSpace(taskId))
             throw new ArgumentException("Task ID cannot be null or empty.", nameof(taskId));
+
+        // Parse hasPassedMinimalQualityGates parameter
+        bool qualityGatesPassed = !string.IsNullOrEmpty(hasPassedMinimalQualityGates) && 
+                                  hasPassedMinimalQualityGates.Equals("true", StringComparison.OrdinalIgnoreCase);
+
+        // Quality gates validation
+        if (!qualityGatesPassed)
+        {
+            var qualityGatesResult = new { 
+                message = "Quality gates validation failed. You must ensure the entire solution builds successfully and all tests pass before attempting to mark task as completed. Set hasPassedMinimalQualityGates to \"true\" only after confirming the solution is in a stable state.", 
+                taskId, 
+                success = false,
+                error = "QualityGatesNotMet",
+                requirements = new[] 
+                {
+                    "Solution must build successfully without errors",
+                    "All unit tests must pass",
+                    "All integration tests must pass",
+                    "Code quality checks must pass"
+                },
+                providedQualityGatesStatus = hasPassedMinimalQualityGates,
+                parsedQualityGatesStatus = qualityGatesPassed
+            };
+            return JsonSerializer.Serialize(qualityGatesResult, _jsonOptions);
+        }
 
         // Get the task
         var task = await _repository.GetTaskByIdAsync(taskId);

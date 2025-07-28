@@ -1,5 +1,4 @@
 <!-- reference @.github/templates/designs/*.md -->
-<!-- reference @.docs/plan.md -->
 <!-- reference @.docs/designs/*.md -->
 <!-- reference @.docs/design.md -->
 
@@ -155,7 +154,7 @@ The planning tools should be heavily leveraged to manage plans and tasks / TOOs.
 
 #### Default Technology Stack
 The default technology stack must be used unless otherwise specified in the problem description or in the case of a pre-existing system, adhere to the existing stack instead. The default technology stack is:
-- **Frontend**: React with TypeScript & Redux. UntitledUI by default as the design system.
+- **Frontend**: React with TypeScript & Redux. UntitledUI by default as the design system or another well-known design/component system. Dont reinvent the wheel and make your own component when amazing free components are available to use. Use hashtag routing.
 - **Backend**: Dotnet, C#
 - **Database**: PostgreSQL
 
@@ -172,9 +171,11 @@ The default technology stack must be used unless otherwise specified in the prob
 For any and all changes you make, you must ensure that the following quality standards are met / followed:
 
 ###### General
-- All classes, DTOs, components, interfaces etc should live in one-file-each.
+- All classes, DTOs, components, interfaces etc should live in one-file-each. Never multiple per/file and never nested.
 - All configuration that makes sense should be in a configuration file, such as `appsettings.json` for backends, or an initial state config for frontends.
 - Leave **zero** build errors, warnings or lints in the codebase. This includes all projects in the solution. This implicitly means, always build the solution before moving on.
+- Use camelCasing for JSON requests and responses.
+- Never use any/dynamic types. All types should be strongly-typed.
 
 ##### Frontends
 - All code must be written in TypeScript.
@@ -186,8 +187,9 @@ For any and all changes you make, you must ensure that the following quality sta
  - Plan to fix any issues, and fix them.
  - REPEAT WHILE the score is < 100%. No matter how minor the remaining issues are, they must be resolved.
 - Support light and dark mode by default
-- Follow semantic HTML standards & WCAG standards where possible.
+- Follow semantic HTML standards & WCAG standards where possible (with the exception of the contrast standards - a beautiful elegant interface is our first priority over getting constrast correct for challenged users).
 - Always build for responsiveness, and test on multiple screen sizes.
+- All frontends must use hashtag routing to ensure compatibility with a wide range of webservers.
 
 ##### Backends
 - All endpoints must be tested via CURL with real data and the database backing data.

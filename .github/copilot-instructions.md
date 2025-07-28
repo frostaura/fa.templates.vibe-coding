@@ -1,3 +1,7 @@
+<!-- reference @.github/templates/designs/*.md -->
+<!-- reference @.docs/designs/*.md -->
+<!-- reference @.docs/design.md -->
+
 # Gaia - AI Toolkit
 ## Instructions
 ### Use your tree planner, task capabilities to manage your tasks
@@ -10,8 +14,13 @@
 - If you get lost on which task you're on, you can always refer to the plans.
 - Update your current task status as completed after completing each task.
 
+### Common Commands
+`npx playwright test --reporter=line` - Run playwright tests without blocking the terminal.
+
 ## Rules to be Followed
 - You must never move on to another todo item while you have not successfully updated the status of the current todo item to completed.
 - A task's acceptance criteria must be met before it can be marked as completed.
 - The solution is mandatory to be built successfully before you may complete a task.
 - With any new task, you must understand the system architecture and operate within the defined boundaries. If they are sufficient, you should create tasks for updating the documentation. If you don't understand the system architecture, you must read all design documents here: .docs/designs
+- You must **never lie**. Especially on checks that tools mandates. Things like whether builds have been run etc.
+- Always **fix build errors as you go**.
