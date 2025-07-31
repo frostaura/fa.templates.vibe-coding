@@ -154,9 +154,13 @@ The planning tools should be heavily leveraged to manage plans and tasks / TOOs.
 
 #### Default Technology Stack
 The default technology stack must be used unless otherwise specified in the problem description or in the case of a pre-existing system, adhere to the existing stack instead. The default technology stack is:
-- **Frontend**: React with TypeScript & Redux. UntitledUI by default as the design system or another well-known design/component system. Dont reinvent the wheel and make your own component when amazing free components are available to use. Use hashtag routing.
+- **Frontend**:
+ - React with TypeScript & Redux.
+ - Use Chakra UI's component library and design system. **Never make your own components when there are already-made components by the library we are using (Chakra UI by default).
+ - Always use hashtag routing (for example https://my-app.com/#/my-route).
 - **Backend**: Dotnet, C#
 - **Database**: PostgreSQL
+- **Infrastructure as Code**: Terraform for Microsoft Azure.
 
 #### Error Handling
 - No errors should ever be swallowed. All errors should result in raised exceptions and non-200 response codes with a standardized payload, in the example of backjend APIs.

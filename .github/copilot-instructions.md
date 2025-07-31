@@ -15,7 +15,7 @@
 - Update your current task status as completed after completing each task.
 
 ### Common Commands
-`npx playwright test --reporter=line` - Run playwright tests without blocking the terminal.
+`npx playwright test --reporter=line` - Run playwright tests without blocking the terminal. Always headless and **never** `--reporter=html`
 
 ## Rules to be Followed
 - You must never move on to another todo item while you have not successfully updated the status of the current todo item to completed.
@@ -24,3 +24,5 @@
 - With any new task, you must understand the system architecture and operate within the defined boundaries. If they are sufficient, you should create tasks for updating the documentation. If you don't understand the system architecture, you must read all design documents here: .docs/designs
 - You must **never lie**. Especially on checks that tools mandates. Things like whether builds have been run etc.
 - Always **fix build errors as you go**.
+- You should always use **3001 for frontends** and **5001 for backends**. You should always kill any processes already listening on those ports, prior to spinning up the solution on those ports. This is important in order to get a consistent testing experience.
+- You must always use terminal to execute commands. **Never shell**.

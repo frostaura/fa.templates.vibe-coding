@@ -6,7 +6,7 @@
             "args": [
                 "-y",
                 "@playwright/mcp@latest",
-                "--vision"
+                "--caps=vision"
             ]
         },
         "Gaia": {

@@ -310,12 +310,15 @@ public class TaskPlannerManager : ITaskPlannerManager
     /// </summary>
     /// <param name="taskId">ID of the task to mark as completed</param>
     /// <param name="hasPassedMinimalQualityGates">String indicating that the caller has confirmed the solution builds and all tests pass ("true" to confirm quality gates passed)</param>
+    /// <param name="hasAddedCleanupTasks">String indicating that the caller has added the necessary cleanup tasks for any potential shortcuts taken, dummy or mock data used, code commented out etc. ("true" to confirm cleanup tasks added)</param>
     /// <returns>JSON string containing the updated task</returns>
     [McpServerTool]
     [Description("Marks a task as completed and sets the completion timestamp. This tool updates the task status to 'Completed' and records when it was completed.")]
     public async Task<string> MarkTaskAsCompletedAsync(
         [Description("ID of the task to mark as completed")] string taskId,
-        [Description("String indicating that the caller has confirmed the entire solution builds successfully and all tests pass before marking task as completed (\"true\" to confirm quality gates passed)")] string hasPassedMinimalQualityGates)
+        [Description("String indicating that the caller has confirmed the entire solution builds successfully and all tests pass before marking task as completed (\"true\" to confirm quality gates passed). You **must be honest and truthful**.")] string hasPassedMinimalQualityGates,
+        [Description("String indicating that the caller has added the necessary cleanup tasks for any potential shortcuts taken, dummy or mock data used, code commented out etc. (\"true\" to confirm cleanup tasks added).  You **must be honest and truthful**.")]
+        string hasAddedCleanupTasks)
     {
         // Input validation
         if (string.IsNullOrWhiteSpace(taskId))
@@ -344,6 +347,31 @@ public class TaskPlannerManager : ITaskPlannerManager
                 parsedQualityGatesStatus = qualityGatesPassed
             };
             return JsonSerializer.Serialize(qualityGatesResult, _jsonOptions);
+        }
+
+        // Parse hasAddedCleanupTasks parameter
+        bool cleanupTasksAdded = !string.IsNullOrEmpty(hasAddedCleanupTasks) && 
+                                 hasAddedCleanupTasks.Equals("true", StringComparison.OrdinalIgnoreCase);
+
+        // Cleanup tasks validation
+        if (!cleanupTasksAdded)
+        {
+            var cleanupTasksResult = new { 
+                message = "Cleanup tasks validation failed. You must add the necessary cleanup tasks for any potential shortcuts taken, dummy or mock data used, code commented out etc. before attempting to mark task as completed. Set hasAddedCleanupTasks to \"true\" only after confirming cleanup tasks have been added.", 
+                taskId, 
+                success = false,
+                error = "CleanupTasksNotAdded",
+                requirements = new[] 
+                {
+                    "All shortcuts must have corresponding cleanup tasks",
+                    "Any dummy or mock data usage must have cleanup tasks",
+                    "Any commented out code must have cleanup tasks",
+                    "Any temporary solutions must have proper implementation tasks"
+                },
+                providedCleanupTasksStatus = hasAddedCleanupTasks,
+                parsedCleanupTasksStatus = cleanupTasksAdded
+            };
+            return JsonSerializer.Serialize(cleanupTasksResult, _jsonOptions);
         }
 
         // Get the task

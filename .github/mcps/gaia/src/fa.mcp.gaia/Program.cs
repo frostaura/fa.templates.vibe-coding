@@ -28,7 +28,7 @@ builder.Configuration
         ["Logging:LogLevel:Microsoft.Hosting.Lifetime"] = "Warning",
         ["Logging:LogLevel:ModelContextProtocol"] = "Warning",
         ["TaskPlanner:DatabasePath"] = ".github/state/Gaia.TaskPlanner.db.json",
-        ["TaskPlanner:WebhookUrl"] = ""
+        ["TaskPlanner:WebhookUrl"] = "http://localhost:5001/api/webhook"
     });
 
 // Register Task Services
