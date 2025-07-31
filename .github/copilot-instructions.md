@@ -24,5 +24,6 @@
 - With any new task, you must understand the system architecture and operate within the defined boundaries. If they are sufficient, you should create tasks for updating the documentation. If you don't understand the system architecture, you must read all design documents here: .docs/designs
 - You must **never lie**. Especially on checks that tools mandates. Things like whether builds have been run etc.
 - Always **fix build errors as you go**.
+- Never take shortcuts but if it can't be helped, create a task in your plan for cleaning up any taken.
 - You should always use **3001 for frontends** and **5001 for backends**. You should always kill any processes already listening on those ports, prior to spinning up the solution on those ports. This is important in order to get a consistent testing experience.
 - You must always use terminal to execute commands. **Never shell**.

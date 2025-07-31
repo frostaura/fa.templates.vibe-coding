@@ -1,4 +1,5 @@
 ﻿using FrostAura.Gaia.Tools.API.Data;
+using FrostAura.Gaia.Tools.API.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Register application services
+builder.Services.AddScoped<ProjectPlanService>();
 
 // Add CORS
 builder.Services.AddCors(options =>
@@ -21,7 +25,7 @@ builder.Services.AddCors(options =>
 
 // Add Entity Framework with PostgreSQL
 builder.Services.AddDbContext<GaiaToolsDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql("Host=localhost;Database=gaia_tools_test;Username=deanmartin;Port=5432;Trust Server Certificate=true;"));
 
 // Configure logging
 builder.Logging.ClearProviders();
@@ -41,6 +45,7 @@ if (app.Environment.IsDevelopment())
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<GaiaToolsDbContext>();
+
     try
     {
         context.Database.Migrate();
@@ -48,7 +53,8 @@ using (var scope = app.Services.CreateScope())
     catch (Exception ex)
     {
         var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-        logger.LogWarning(ex, "Could not migrate database. This is expected if PostgreSQL is not running.");
+        logger.LogError(ex, "Failed to migrate database. Ensure PostgreSQL is running and accessible.");
+        throw;
     }
 }
 
