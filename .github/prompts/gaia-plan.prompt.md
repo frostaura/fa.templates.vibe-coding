@@ -16,6 +16,10 @@ The below are the steps you must follow to generate a plan. There are various gu
 
 **MANDATORY:** Before thinking about a solution plan, you must read all and understand the mandated design principals as found in ".github/templates/designs". You may choose to include references to these docs in fields like acceptance criteria and task ai build contexts. It is absolutely curtial to understand the design principals before you start generating a plan. You must also print your understanding of the design principals in the plan description and how it will affect your plan, before you start generating the plan.
 
+**THIS INCLUDES .docs/design.md, which describes the mandatory design and architectural patterns that must be followed.**
+
+**This MUST happen before starting a plan or tasks so that you can carefully think aboutn the plan and tasks, in the context of the produced system and architectural designs, found at ".docs/designs".**
+
 ### Conditional, Entry Flows
 This section describes the two main conditional flows / entry points. Around these flows are various guidelines, restrictions and requirements that you must follow to generate a plan.
 
