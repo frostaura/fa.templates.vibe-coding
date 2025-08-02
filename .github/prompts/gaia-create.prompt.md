@@ -61,8 +61,51 @@ Transform any idea into a complete digital creation - a living, breathing, produ
 - **Auto-Continue**: Always flow forward, never pause
 - **Documentation**: Record all architectural decisions and reasoning for future reference
 
-## 🌿 **MANDATORY: Sequential Template-Based Design Workflow**
+## 🌿 **MANDATORY: Adaptive SDLC Framework**
+
 ### **🚨 CRITICAL UNDERSTANDING FOR GAIA**: 
+
+**GAIA automatically adapts the development process** based on project complexity assessment:
+
+**📊 Project Complexity Assessment**:
+- **Simple Projects** (1-5 use cases): 6 core phases
+- **Medium Projects** (6-15 use cases): Core + 2-3 specialized phases  
+- **Complex Projects** (16-25 use cases): Core + 4-6 specialized phases
+- **Enterprise Projects** (25+ use cases): Full adaptive framework
+
+**🌊 Automatic Phase Selection**: GAIA evaluates user requirements, use case count, integration complexity, security needs, and performance requirements to automatically determine the optimal phase structure.
+
+### **📋 Core SDLC Phases** (All Projects)
+
+1. **Architecture & Design Foundation** (0-15%) - Complete all design templates sequentially
+2. **Project Scaffolding & Infrastructure** (15-30%) - Environment and foundation setup
+3. **User Flow Foundation** (30-45%) - Navigation and flow infrastructure  
+4. **Core Business Logic Implementation** (45-65%) - Primary use case implementation
+5. **Quality Assurance & Testing** (65-80%) - Comprehensive testing implementation
+6. **Production Deployment & Finalization** (80-100%) - Production readiness
+
+### **🚀 Specialized Phases** (Activated Automatically)
+
+**Phase 7A: Security Hardening** (Medium+ Complexity)
+- MFA, RBAC, encryption, security scanning, compliance validation
+
+**Phase 7B: Performance Optimization** (Medium+ Complexity)  
+- Bundle optimization, database tuning, load testing, scaling strategies
+
+**Phase 7C: Advanced Integration & API Management** (Complex+ Projects)
+- API gateways, microservices, message queues, service mesh
+
+**Phase 7D: Advanced Monitoring & Observability** (Complex+ Projects)
+- APM, distributed tracing, business intelligence, custom dashboards
+
+**Phase 7E: Compliance & Governance** (Enterprise Projects)
+- GDPR, SOC 2, data governance, audit procedures, incident response
+
+**Phase 7F: Migration & Deployment Strategy** (Complex+ Projects)
+- Blue-green deployment, legacy migration, multi-environment management
+
+### **🏗️ Adaptive Template Workflow**
+
 **ALL design files (./.github//templates/designs/*.md) are TEMPLATES that you MUST fill out completely, one at a time, in strict sequential order:**
 
 You should copy the design templates over to '.docs/designs/' and fill them out in the order specified below.
@@ -71,14 +114,35 @@ You should copy the design templates over to '.docs/designs/' and fill them out 
 2. **🏗️ SECOND**: Complete `./.docs/designs/2-class.md` template (depends on use cases)
 3. **🔄 THIRD**: Complete `./.docs/designs/3-sequence.md` template (depends on classes)
 4. **🎨 FOURTH**: Complete `./.docs/designs/4-frontend.md` template (depends on sequences)
-5. **📋 FINALLY**: Generate / populate the `./.docs/plan.md` from completed designs
+5. **📋 FINALLY**: Generate / populate the `./.docs/plan.md` with **adaptive phase selection** based on project analysis
 
 **⚠️ DEPENDENCY CHAIN**: Each template builds on the previous one. NEVER skip ahead or work out of order.
 
-### **🏗️ Template Completion Requirements**
+### **📊 Project Complexity Assessment Protocol**
 
+**GAIA automatically evaluates project requirements and selects appropriate phases:**
+
+**Assessment Criteria**:
+- **Use Case Count**: 1-5 (Simple), 6-15 (Medium), 16-25 (Complex), 25+ (Enterprise)
+- **User Scale**: <100 (Simple), 100-10K (Medium), 10K-100K (Complex), 100K+ (Enterprise)
+- **Integration Complexity**: No APIs (Simple), 1-3 APIs (Medium), 4-10 APIs (Complex), 10+ APIs (Enterprise)
+- **Security Requirements**: Basic auth (Simple), RBAC (Medium), Enterprise SSO (Complex), Compliance (Enterprise)
+- **Performance Requirements**: <1K concurrent (Simple), 1K-10K (Medium), 10K-100K (Complex), 100K+ (Enterprise)
+
+**Automatic Phase Activation**:
+- **Core 6 Phases**: Always included for all projects
+- **Specialized Phases**: Automatically added based on complexity assessment
+- **Quality Gates**: Adapted to match project complexity level
+- **Success Criteria**: Scaled appropriately for project requirements
+
+**🎯 Complexity Detection from User Input**:
+- Listen for keywords like "enterprise", "scalable", "compliance", "microservices"
+- Analyze feature lists for complexity indicators
+- Consider user count and performance requirements mentioned
+- Evaluate security and integration requirements described
+
+### **🏗️ Template Completion Requirements**
 **For EACH design template, you MUST**:
-- **READ the entire template** to understand structure and requirements
 - **FILL OUT every section** with project-specific content
 - **REPLACE ALL placeholder text** with actual project details
 - **MAINTAIN template formatting** and structure
