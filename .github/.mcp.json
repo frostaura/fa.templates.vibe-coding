@@ -1,0 +1,25 @@
+{
+    "mcpServers": {
+        "playwright": {
+            "transport": "stdio",
+            "type": "stdio",
+            "command": "npx",
+            "args": [
+                "@playwright/mcp@latest"
+            ]
+        },
+        "gaia-remote": {
+            "url": "https://gaia.frostaura.net/mcp",
+            "type": "http"
+        },
+        "gaia-workflows": {
+            "type": "stdio",
+            "command": "dotnet",
+            "args": [
+                "run",
+                "--project",
+                ".github/mcp-workflows/src/Gaia.Workflows.Server"
+            ]
+        }
+    }
+}

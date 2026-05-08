@@ -1,7 +1,8 @@
 {
-    "name": "frostaura-gaia",
+    "_": "This file defines the plugin marketplace for FrostAura Labs, for GitHub Copilot support. It includes metadata about the marketplace and a list of available plugins with their details and source information.",
+    "name": "frostaura",
     "owner": {
-        "name": "FrostAura Dynamics",
+        "name": "FrostAura Technologies",
         "email": "support-gaia@frostaura.net"
     },
     "metadata": {
@@ -10,10 +11,16 @@
     },
     "plugins": [
         {
-            "name": "gaia",
+            "name": "gaia-foundation",
             "description": "Spec-driven AI agents for software architecture, planning, engineering, testing, and release workflows.",
             "version": "8.1.0",
-            "source": "."
+            "source": {
+                "source": "git-subdir",
+                "url": "https://github.com/frostaura/ai.toolkit.gaia.git",
+                "path": ".github",
+                "ref": "main",
+                "_sha": "56273e0e20762d76640838300a7431c4260cad32"
+            }
         }
     ]
 }
