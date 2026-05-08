@@ -1,3 +1,4 @@
+---
 name: gaia-default-tech-stack
 description: Provides Gaia's default full-stack baseline with React, TypeScript, Redux Toolkit, Tailwind CSS, and shadcn/ui on the frontend plus .NET, EF Core, PostgreSQL, and MCP exposure on the backend. Use it by adopting the documented baseline (versions, scaffolds, references) for any new app or unspecified-stack request, and by declaring the stack explicitly before planning when the request leaves it implicit. Use it when the request or repo leaves stack choice open, when bootstrapping a new application, or when standardizing an existing codebase onto Gaia's preferred platform.
 license: MIT
@@ -64,12 +65,12 @@ Do not use this skill when:
 
 ## Failure recovery
 
-| Failure mode | Recovery | Owner | Escalation |
-|---|---|---|---|
-| stack already fixed elsewhere | treat Gaia defaults as non-applicable | architect or engineer | document the override |
-| design-system sprawl | return to the foundation phase and token model | engineer | re-plan migration order |
-| backend lacks MCP exposure | add the MCP branch or block completeness claims | engineer or planner | escalate if platform constraints forbid it |
-| migration scope explodes | phase the work more narrowly instead of broad rewrite | planner | route back to process if ownership changed |
+| Failure mode                  | Recovery                                              | Owner                 | Escalation                                 |
+| ----------------------------- | ----------------------------------------------------- | --------------------- | ------------------------------------------ |
+| stack already fixed elsewhere | treat Gaia defaults as non-applicable                 | architect or engineer | document the override                      |
+| design-system sprawl          | return to the foundation phase and token model        | engineer              | re-plan migration order                    |
+| backend lacks MCP exposure    | add the MCP branch or block completeness claims       | engineer or planner   | escalate if platform constraints forbid it |
+| migration scope explodes      | phase the work more narrowly instead of broad rewrite | planner               | route back to process if ownership changed |
 
 ## Anti-patterns
 

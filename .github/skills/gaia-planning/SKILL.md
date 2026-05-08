@@ -1,3 +1,4 @@
+---
 name: gaia-planning
 description: Provides execution planning guidance that turns approved architecture into a branch-aware plan with dependencies, QA checkpoints, release gates, and proof expectations. Use it by translating the current architecture into MCP tasks (tasks_create) sequenced by branch, with explicit required_gates and blockers, then keeping the plan current as new work is discovered. Use it after architecture is current, when work needs explicit sequencing instead of informal next steps, or when new branches, blockers, or gate definitions require re-planning.
 license: MIT
@@ -63,12 +64,12 @@ Do not use this skill when:
 
 ## Failure recovery
 
-| Failure mode | Recovery | Owner | Escalation |
-|---|---|---|---|
-| stale architecture | stop and request design clarification | planner | send to architect |
-| missing acceptance criteria | write or request testable outcomes | planner | block downstream work |
-| dependency loop | split or re-sequence the work | planner | escalate if no clean branch model exists |
-| gate ambiguity | assign gate ownership and evidence | planner | involve release if needed |
+| Failure mode                | Recovery                              | Owner   | Escalation                               |
+| --------------------------- | ------------------------------------- | ------- | ---------------------------------------- |
+| stale architecture          | stop and request design clarification | planner | send to architect                        |
+| missing acceptance criteria | write or request testable outcomes    | planner | block downstream work                    |
+| dependency loop             | split or re-sequence the work         | planner | escalate if no clean branch model exists |
+| gate ambiguity              | assign gate ownership and evidence    | planner | involve release if needed                |
 
 ## Anti-patterns
 

@@ -1,3 +1,4 @@
+---
 name: gaia-process
 description: Provides Gaia's end-to-end workflow orchestration guidance for intake, routing, QA checkpoints, release gates, and proof expectations. Use it by routing every meaningful request through the intake → architecture → planning → engineering → testing → release sequence and only completing tasks once the corresponding gates and proof are recorded. Use it for meaningful requests, workflow resets after drift or blockers, and maintenance work that changes Gaia's operating model.
 ---
@@ -68,12 +69,12 @@ Do not use this skill when:
 
 ## Failure recovery
 
-| Failure mode | Recovery | Owner | Escalation |
-|---|---|---|---|
-| request ambiguity | clarify scope and constraints | intake | stay upstream until stable |
-| docs or definition drift | repair the correct source of truth first | architect or maintainer | block downstream delivery |
-| repeated rework loop | re-open failure ownership and complexity | intake | re-classify the work |
-| missing gate model | require planning update | planner | block release claims |
+| Failure mode             | Recovery                                 | Owner                   | Escalation                 |
+| ------------------------ | ---------------------------------------- | ----------------------- | -------------------------- |
+| request ambiguity        | clarify scope and constraints            | intake                  | stay upstream until stable |
+| docs or definition drift | repair the correct source of truth first | architect or maintainer | block downstream delivery  |
+| repeated rework loop     | re-open failure ownership and complexity | intake                  | re-classify the work       |
+| missing gate model       | require planning update                  | planner                 | block release claims       |
 
 ## Anti-patterns
 

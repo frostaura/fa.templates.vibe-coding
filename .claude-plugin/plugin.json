@@ -3,7 +3,7 @@
     "description": "Gaia is a powerful automated, enterprise-grade software architecture, engineering, and development agent designed to streamline the software development lifecycle. It leverages advanced AI capabilities to assist developers in creating high-quality software efficiently and consistently.",
     "version": "8.1.0",
     "author": {
-        "name": "FrostAura Dynamics",
+        "name": "FrostAura Technologies",
         "email": "support-gaia@frostaura.net"
     },
     "homepage": "https://gaia.frostaura.net",
@@ -30,11 +30,12 @@
     ],
     "category": "full-stack-software-development",
     "tags": [],
-    "agents": ".github/agents",
-    "_agentsDocumentationLink": "https://docs.github.com/en/copilot/reference/custom-agents-configuration",
-    "skills": ".github/skills",
+    "agents": "../.github/agents",
+    "_agentsDocumentationLink": "https://docs.claude.com/en/docs/claude-code/sub-agents",
+    "skills": "../.github/skills",
     "_skillsDocumentationLink": "https://agentskills.io/specification",
-    "hooks": ".github/hooks.json",
-    "_hooksDocumentationLink": "https://docs.github.com/en/copilot/reference/hooks-configuration",
-    "mcpServers": ".mcp.json"
+    "hooks": "../.github/hooks.json",
+    "_hooksDocumentationLink": "https://docs.claude.com/en/docs/claude-code/hooks",
+    "mcpServers": "../.mcp.json",
+    "_mcpServersDocumentationLink": "https://docs.claude.com/en/docs/claude-code/mcp"
 }

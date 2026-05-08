@@ -1,0 +1,19 @@
+{
+    "name": "frostaura",
+    "owner": {
+        "name": "FrostAura Labs",
+        "email": "support-gaia@frostaura.net"
+    },
+    "metadata": {
+        "description": "Curated plugins from the FrostAura team.",
+        "version": "0.1.0"
+    },
+    "plugins": [
+        {
+            "name": "gaia-foundation",
+            "description": "Spec-driven AI agents for software architecture, planning, engineering, testing, and release workflows.",
+            "version": "8.1.0",
+            "source": "https://github.com/frostaura/ai.toolkit.gaia"
+        }
+    ]
+}

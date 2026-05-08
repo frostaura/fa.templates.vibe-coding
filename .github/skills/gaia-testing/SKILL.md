@@ -1,3 +1,4 @@
+---
 name: gaia-testing
 description: Provides Gaia's formal validation guidance across unit, integration, manual regression, automated regression, and evidence review. Use it by running the test layers required by each task's gates (unit → integration → e2e → manual regression), recording proof labels (e.g. 'curl', 'playwright-mcp') on tasks_complete, and vetoing completion when evidence is missing. Use it when a branch is stable enough for hardening, when high-risk behavior needs targeted early validation, or when release readiness depends on a clear QA signal.
 license: MIT
@@ -62,12 +63,12 @@ Do not use this skill when:
 
 ## Failure recovery
 
-| Failure mode | Recovery | Owner | Escalation |
-|---|---|---|---|
-| unstable branch | stop formal QA and request stabilization | tester | engineer |
-| missing criteria | request plan clarification | tester | planner |
-| design mismatch | surface architecture drift | tester | architect |
-| weak evidence | strengthen validation before passing the work | tester | stay in QA |
+| Failure mode     | Recovery                                      | Owner  | Escalation |
+| ---------------- | --------------------------------------------- | ------ | ---------- |
+| unstable branch  | stop formal QA and request stabilization      | tester | engineer   |
+| missing criteria | request plan clarification                    | tester | planner    |
+| design mismatch  | surface architecture drift                    | tester | architect  |
+| weak evidence    | strengthen validation before passing the work | tester | stay in QA |
 
 ## Anti-patterns
 

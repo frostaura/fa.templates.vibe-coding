@@ -1,3 +1,4 @@
+---
 name: gaia-engineering
 description: Provides planned implementation delivery guidance that keeps a branch coherent, stabilized, and ready for testing without redefining the target solution. Use it by implementing the planned tasks against existing repo conventions, keeping diffs scoped, running lint/build locally, and updating tasks_update as work progresses. Use it when a current plan branch is ready for code or definition-file edits, when implementation-side cleanup is needed, or when targeted early QA support is useful during delivery.
 license: MIT
@@ -63,11 +64,11 @@ Do not use this skill when:
 
 ## Failure recovery
 
-| Failure mode | Recovery | Owner | Escalation |
-|---|---|---|---|
-| design mismatch | stop and surface the contradiction | engineer | send to architect |
-| sequencing gap | request a plan update | engineer | send to planner |
-| unstable branch | continue local stabilization | engineer | block formal QA handoff |
+| Failure mode         | Recovery                            | Owner    | Escalation               |
+| -------------------- | ----------------------------------- | -------- | ------------------------ |
+| design mismatch      | stop and surface the contradiction  | engineer | send to architect        |
+| sequencing gap       | request a plan update               | engineer | send to planner          |
+| unstable branch      | continue local stabilization        | engineer | block formal QA handoff  |
 | release-only blocker | surface the concern for gate review | engineer | involve release after QA |
 
 ## Anti-patterns

@@ -1,3 +1,4 @@
+---
 name: gaia-architecture
 description: Provides Gaia architecture documentation guidance that keeps docs, README messaging, and design decisions aligned to the current operating model. Use it by updating the relevant files under /docs/architecture/ (system components, use cases, class diagrams, UI) before any planning or implementation that changes structure, then resolving doc↔code drift before resuming feature work. Use it when system structure, trust boundaries, interfaces, workflows, ownership, or architectural assumptions change, or when architecture drift blocks planning or delivery.
 license: MIT
@@ -62,12 +63,12 @@ Do not use this skill when:
 
 ## Failure recovery
 
-| Failure mode | Recovery | Owner | Escalation |
-|---|---|---|---|
-| missing baseline | create the baseline from current repo behavior | architect | block planning until complete |
-| unclear request | obtain clearer scope or constraints | intake | stay upstream |
-| downstream role requests design workaround | restate the design or reject the workaround | architect | escalate unresolved contradictions |
-| README drift after design change | update README after architecture stabilizes | architect | block release messaging claims |
+| Failure mode                               | Recovery                                       | Owner     | Escalation                         |
+| ------------------------------------------ | ---------------------------------------------- | --------- | ---------------------------------- |
+| missing baseline                           | create the baseline from current repo behavior | architect | block planning until complete      |
+| unclear request                            | obtain clearer scope or constraints            | intake    | stay upstream                      |
+| downstream role requests design workaround | restate the design or reject the workaround    | architect | escalate unresolved contradictions |
+| README drift after design change           | update README after architecture stabilizes    | architect | block release messaging claims     |
 
 ## Anti-patterns
 

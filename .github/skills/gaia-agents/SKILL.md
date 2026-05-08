@@ -1,3 +1,4 @@
+---
 name: gaia-agents
 description: Provides Gaia custom-agent definition guidance with clear role boundaries, strong descriptions, valid tool scopes, delegation rules, and overlap control. Use it by following the agents-specification reference (frontmatter, role contract, tool allow-list, delegation rules) when adding or revising an agent file, and by mirroring changes across both /agents/ and /.github/agents/ trees. Use it when adding, revising, auditing, or rationalizing agent files, role ownership, naming, or contract alignment.
 license: MIT
@@ -61,12 +62,12 @@ Do not use this skill when:
 
 ## Failure recovery
 
-| Failure mode | Recovery | Owner | Escalation |
-|---|---|---|---|
-| overlap with existing role | merge or narrow the proposal | maintainer | reject new role if still redundant |
-| unclear tool scope | define least-privilege access | maintainer | block adoption until explicit |
-| weak description | rewrite for invocation quality | maintainer | compare against neighboring roles |
-| contract mismatch | update local role or contract as appropriate | maintainer | involve architecture if the operating model changed |
+| Failure mode               | Recovery                                     | Owner      | Escalation                                          |
+| -------------------------- | -------------------------------------------- | ---------- | --------------------------------------------------- |
+| overlap with existing role | merge or narrow the proposal                 | maintainer | reject new role if still redundant                  |
+| unclear tool scope         | define least-privilege access                | maintainer | block adoption until explicit                       |
+| weak description           | rewrite for invocation quality               | maintainer | compare against neighboring roles                   |
+| contract mismatch          | update local role or contract as appropriate | maintainer | involve architecture if the operating model changed |
 
 ## Anti-patterns
 
