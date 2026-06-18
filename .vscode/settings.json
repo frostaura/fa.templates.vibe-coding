@@ -29,7 +29,6 @@
         "**/Directory.Build.*": true,
         "**/*py": true,
         "**/*.icon.gif": true,
-        ".claude": true,
         ".vs": true,
         "LICENSE": true
     },
