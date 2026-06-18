@@ -23,7 +23,7 @@ public sealed class TasksTool
     [McpServerTool(Name = "tasks_create"), Description(
         "Provides a new tracked task in the Gaia task graph for a project, with a unique id, an initial 'todo' status, and optional gates that must be satisfied before completion. " +
         "How to use: pass project, a short action-oriented title, an optional description, and an optional requiredGates list (e.g. ['ci-green','docs-updated']); the returned TaskItem includes the generated id used by every other tasks_* call. " +
-        "Use when the Workload Orchestrator breaks a plan into trackable work items, when new work is discovered mid-flight, or when a NEEDS_INPUT answer reveals additional scope. " +
+        "Use when the Workload Coordinator breaks a plan into trackable work items, when new work is discovered mid-flight, or when a NEEDS_INPUT answer reveals additional scope. " +
         "Example: tasks_create(project='my-api', title='Add Playwright specs for login flow', requiredGates=['ci-green','docs-updated']).")]
     public async Task<TaskItem> Create(
         [Description("Project identifier that scopes this task. Must match the project name used across all Gaia tools (tasks, memory, evolve) for consistency. Example: 'my-api'.")] string project,
@@ -51,7 +51,7 @@ public sealed class TasksTool
     [McpServerTool(Name = "tasks_list"), Description(
         "Provides every task for a project with its current status, blockers, required/satisfied gates, and proof args. " +
         "How to use: pass the project identifier; returns the full task list regardless of status so you can pick what to work on next. " +
-        "Use at the start of every orchestration cycle, before planning new work, and whenever you need to confirm whether a task is unblocked or still has NEEDS_INPUT. " +
+        "Use at the start of every coordination cycle, before planning new work, and whenever you need to confirm whether a task is unblocked or still has NEEDS_INPUT. " +
         "Example: tasks_list(project='my-api').")]
     public async Task<List<TaskItem>> List(
         [Description("Project identifier to list tasks for. Returns all tasks regardless of status (todo, doing, done).")] string project) => await _store.LoadAsync(project);

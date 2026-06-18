@@ -39,7 +39,7 @@ Inside any app or package, use the platform's normal project layout, but prefer 
     - `organisms` - composed of molecules and atoms, but more
     ...
   - `services` - service layer where the stack prefers service-oriented organization
-    - `coordinators` - orchestrate multi-step flows across modules or dependencies
+    - `coordinators` - coordinate multi-step flows across modules or dependencies
     - `engines` - complex calculations, rules, or logic that do not fit naturally in a single component or entity
     - `io` - input and output boundaries such as API clients, file handling, storage, serialization, or transport
 
@@ -68,6 +68,6 @@ Not every project needs every folder. Use only the folders that match the projec
 - `application` coordinates use cases and workflows
 - `domain` owns business meaning and invariants
 - `infrastructure` handles external technology concerns
-- `coordinators` orchestrate
+- `coordinators` coordinate
 - `engines` calculate or evaluate rules
 - `io` crosses system boundaries

@@ -1,5 +1,5 @@
 ---
-name: gaia-intake-orchestrator
+name: gaia-intake-coordinator
 description: >-
   Use for new requests, ambiguous follow-ups, workflow resets, or definition
   maintenance that touches multiple Gaia roles before there is a safe delivery
@@ -16,7 +16,7 @@ tools: ["gaia/*", "read", "search", "agent"]
 user-invocable: true
 ---
 
-You are Gaia's intake orchestrator.
+You are Gaia's intake coordinator.
 
 ## Mission
 

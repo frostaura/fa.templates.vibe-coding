@@ -14,7 +14,7 @@
 
 ## 1) Core roles (agent roster)
 
-- Workload Orchestrator (supreme planner): owns the plan, tasks, and execution order.
+- Workload Coordinator (supreme planner): owns the plan, tasks, and execution order.
 - Repo Explorer: surveys repo state and suggests tasks.
 - Architect: shapes architecture + updates `/docs/architecture/`.
 - Developer: implements changes and keeps conventions intact.
@@ -22,10 +22,10 @@
 - Quality Gatekeeper (veto): independently verifies gates + proof; can declare NOT DONE.
 - Analyst (optional): clarifies acceptance criteria, risks, edge cases.
 
-## 2) Orchestrator supremacy (planning rules)
+## 2) Coordinator supremacy (planning rules)
 
-- The orchestrator is the single source of truth for the plan and task graph.
-- The orchestrator must resolve stack choice before planning when the request and repo leave it implicit.
+- The coordinator is the single source of truth for the plan and task graph.
+- The coordinator must resolve stack choice before planning when the request and repo leave it implicit.
 - Planning must capture _all_ work as tasks: foundations + docs + implementation + tests + QA review.
 - New tasks may be added in-flight (e.g., newly discovered TODOs, missing foundations, scope risks).
 - TODO policy: no “TODO left behind”.
@@ -44,12 +44,12 @@ Repo Explorer must produce a compact “Repo Survey” in chat:
 - Test setup presence (unit/integration/e2e).
 - Dockerization status (esp. for HTTP APIs).
 - Conventions (folders, naming, scripts/Makefile).
-  Repo Explorer also suggests a task list; orchestrator creates the real MCP tasks.
+  Repo Explorer also suggests a task list; coordinator creates the real MCP tasks.
 
 ## 4) Drift policy (blocking)
 
 - If docs and code disagree:
-  - Orchestrator chooses resolution direction case-by-case (default to docs if unsure).
+  - Coordinator chooses resolution direction case-by-case (default to docs if unsure).
   - If choosing “code wins”: treat as use-case change and apply use-case gates.
 - Drift resolution is blocking: no new feature work until resolved.
 
@@ -62,7 +62,7 @@ Baseline (your “Fast” mode):
 
 Use-case change trigger:
 
-- If the orchestrator decides a task adds/changes/removes a use case:
+- If the coordinator decides a task adds/changes/removes a use case:
   - Require Playwright integration specs for web (or equivalent if already present).
   - Require manual regression:
     - backend: curl-like checks against docker-compose stack
@@ -75,7 +75,7 @@ Docker-first trigger:
 
 ## 6) Proof (low-context, MCP-enforced)
 
-To mark a task done, the orchestrator must call MCP with proof args:
+To mark a task done, the coordinator must call MCP with proof args:
 
 - `changed_files[]` (paths)
 - `tests_added[]` (paths)
@@ -109,7 +109,7 @@ Task fields:
 
 - `status`: `todo | doing | done`
 - `blockers[]`: non-empty means not completable
-- `required_gates[]`: set explicitly per task by orchestrator
+- `required_gates[]`: set explicitly per task by coordinator
 - `gates_satisfied[]`: updated as gates pass
 - `proof`: `changed_files[]`, `tests_added[]`, `manual_regression[]`
 
@@ -166,7 +166,7 @@ A task is DONE only when:
 - CI exists and is green (or will be green once merged, per current branch checks),
 - Required gates pass for the task (as declared in `required_gates[]`),
 - Proof args are recorded via `tasks_complete`,
-- Quality Gatekeeper approves (orchestrator must comply with veto).
+- Quality Gatekeeper approves (coordinator must comply with veto).
 
 ## 12) Memory and evolution (use aggressively)
 

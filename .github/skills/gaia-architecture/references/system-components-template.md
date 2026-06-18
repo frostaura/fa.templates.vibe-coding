@@ -86,7 +86,7 @@ flowchart TB
 
     subgraph App[{{system_name}}]
         UI[UI / Entry Point]
-        Orchestrator[Orchestration Layer]
+        Coordinator[Coordination Layer]
         Domain[Business Logic]
         Integration[Integration Layer]
         Queue[[Queue / Event Bus]]
@@ -97,11 +97,11 @@ flowchart TB
 
     External[External Service]
 
-    Client --> UI --> Orchestrator --> Domain
+    Client --> UI --> Coordinator --> Domain
     Domain --> DB
     Domain --> Cache
     Domain --> Integration --> External
-    Orchestrator --> Queue --> Worker --> External
+    Coordinator --> Queue --> Worker --> External
 ```
 
 ## 6. Component Detail Template

@@ -82,7 +82,7 @@ system they are trying to build or preserve.
 | Failure signal | Meaning | Route to | Architect response |
 |---|---|---|---|
 | missing repo baseline | there is no usable design source of truth | stay in architecture | create the baseline before handing work onward |
-| unclear user intent | architecture cannot decide the target solution safely | `gaia-intake-orchestrator` | request tighter scope or constraints |
+| unclear user intent | architecture cannot decide the target solution safely | `gaia-intake-coordinator` | request tighter scope or constraints |
 | only sequencing is missing | design is sufficient but execution order is not | `gaia-implementation-planner` | hand off the current target solution |
 | local implementation defect | design is not the problem | `gaia-software-engineer` | avoid redesigning a code-level issue |
 | repeated downstream bounce-backs | the design still leaves major ambiguity | stay in architecture | refine the decision and document the missing invariant |

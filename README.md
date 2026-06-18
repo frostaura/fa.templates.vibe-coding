@@ -21,6 +21,8 @@ Gaia is a **team of AI agents** that builds and evolves software using **spec-dr
 
 The workflow contract lives in [`AGENTS.md`](./AGENTS.md).
 
+Beyond software delivery, Gaia includes a **consumer product-discovery team** — a `gaia-product-coordinator` that takes a one-off or in-app/in-game-purchase product from idea to a money-validated bet across discovery, monetization design, validation, launch, and live-ops. See [`docs/architecture/product-discovery-team.md`](./docs/architecture/product-discovery-team.md).
+
 ---
 
 ## Install
@@ -56,6 +58,22 @@ Gaia will refine the request, draft architecture into `docs/`, plan the work, im
 ```bash
 copilot -p "Create a REST API for a blog with posts and comments" --yolo
 ```
+
+---
+
+## Product discovery (one-off / in-app purchases)
+
+Gaia also runs a money-gated **product-discovery pipeline** for consumer products that monetize via one-off purchases or in-app / in-game purchases (not SaaS). Kick it off with the slash command (Claude Code) or prompt file (GitHub Copilot):
+
+```bash
+/gaia-product-coordinator premium one-off puzzle game for iOS + Steam, ~$200k net in year one
+```
+
+…or just describe the goal in natural language:
+
+> **"Use gaia-product-coordinator to find a premium one-off cozy roguelite for Steam I could ship solo and clear ~$150k net in year one."**
+
+The `gaia-product-coordinator` frames the brief, then runs the 10 money-gated stages — each as fan-out → adversarial review → synthesis against one shared unit-economics model — and returns an Opportunity Thesis with a go / loop-back / kill decision. See [`docs/architecture/product-discovery-team.md`](./docs/architecture/product-discovery-team.md).
 
 ---
 

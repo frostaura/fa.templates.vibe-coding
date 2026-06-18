@@ -84,7 +84,7 @@ what can run in parallel, and what evidence will prove the work is complete.
 | Failure signal | Meaning | Route to | Planner response |
 |---|---|---|---|
 | stale architecture | the target solution is not trustworthy yet | `gaia-solutions-architect` | block planning and name the missing design basis |
-| unclear intent | the plan cannot safely decide scope | `gaia-intake-orchestrator` | request tighter scope or new decisions |
+| unclear intent | the plan cannot safely decide scope | `gaia-intake-coordinator` | request tighter scope or new decisions |
 | missing acceptance criteria | branch completion cannot be tested | stay in planning | write criteria before delegating |
 | dependency loop | the current branch model is wrong | stay in planning | split, re-sequence, or escalate the blocker |
 | release gate ambiguity | downstream readiness cannot be evaluated | stay in planning or involve release | make gate ownership explicit before delivery |

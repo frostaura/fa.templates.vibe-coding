@@ -6,7 +6,7 @@ Use this reference when deciding which skill should own a change, which reposito
 
 | Skill | Primary ownership |
 |---|---|
-| `gaia-process` | Complexity classification, execution path, orchestration, handoffs, and closure expectations |
+| `gaia-process` | Complexity classification, execution path, coordination, handoffs, and closure expectations |
 | `gaia-architecture` | `docs/architecture`, architecture drift resolution, and README sync after architecture changes |
 | `gaia-planning` | The repository's `gaia_plan.md`, branching plan structure, dependencies, QA checkpoints, release gates, and proof expectations |
 | `gaia-engineering` | Planned implementation work, rapid iteration, implementation stabilization, and engineering standards during delivery |
