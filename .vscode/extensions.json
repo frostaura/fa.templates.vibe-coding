@@ -16,11 +16,9 @@
         "ms-azuretools.vscode-docker",
         "github.vscode-github-actions",
         // UI/UX
-        "gruntfuggly.todo-tree",
         "illixion.vscode-vibrancy-continued",
         "oderwat.indent-rainbow",
         "ritwickdey.liveserver",
-        "tal7aouy.icons",
         // Diagrams
         "bpruitt-goddard.mermaid-markdown-syntax-highlighting",
         "bierner.markdown-mermaid"
