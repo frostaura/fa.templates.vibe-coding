@@ -1,0 +1,6 @@
+# Keep the .claude -> .github symlinks as real symlinks in the git index.
+# These are committed with mode 120000; the setup scripts in /scripts repair
+# them on platforms where git checks symlinks out as plain text files
+# (Windows without Developer Mode / core.symlinks=false).
+.claude/agents text eol=lf
+.claude/skills text eol=lf
