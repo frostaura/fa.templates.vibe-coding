@@ -1,0 +1,44 @@
+{
+    "name": "gaia-foundation",
+    "description": "Foundational components that may be used across any solutions. Includes skills to create agents, skills. It includes a custom planner and so on.",
+    "version": "10.0.1",
+    "author": {
+        "name": "FrostAura Technologies",
+        "email": "support-gaia@frostaura.net"
+    },
+    "homepage": "https://gaia.frostaura.net",
+    "repository": "https://github.com/frostaura/ai.toolkit.gaia",
+    "license": "MIT",
+    "keywords": [
+        "foundation", 
+        "ai", 
+        "contribution", 
+        "toolset", 
+        "frostaura", 
+        "gaia", 
+        "technologies",
+        "planning",
+        "skills",
+        "agents"
+    ],
+    "category": "foundational-ai-contribution-toolset",
+    "tags": ["foundation", "ai", "contribution", "toolset", "frostaura", "gaia", "technologies", "planning", "skills", "agents"],
+    "_agentsDocumentationLink": "https://docs.claude.com/en/docs/claude-code/sub-agents",
+    "_skillsDocumentationLink": "https://agentskills.io/specification",
+    "_hooksDocumentationLink": "https://docs.claude.com/en/docs/claude-code/hooks",
+    "_mcpServersDocumentationLink": "https://docs.claude.com/en/docs/claude-code/mcp",
+    "mcpServers": {
+        "playwright": {
+            "transport": "stdio",
+            "type": "stdio",
+            "command": "npx",
+            "args": [
+                "@playwright/mcp@latest"
+            ]
+        },
+        "fa-gaia-remote": {
+            "url": "https://gaia.frostaura.net/mcp",
+            "type": "http"
+        }
+    }
+}

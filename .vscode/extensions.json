@@ -5,20 +5,15 @@
         // .NET / C# Development
         "ms-dotnettools.csharp",
         "ms-dotnettools.csdevkit",
-        // Code Coverage
-        // "ryanluker.vscode-coverage-gutters",
         // Frontend Development
         "dbaeumer.vscode-eslint",
         "orta.vscode-jest",
-        "styled-components.vscode-styled-components",
         "ms-playwright.playwright",
         // DevOps & Docker
         "ms-azuretools.vscode-docker",
         "github.vscode-github-actions",
         // UI/UX
-        "illixion.vscode-vibrancy-continued",
         "oderwat.indent-rainbow",
-        "ritwickdey.liveserver",
         // Diagrams
         "bpruitt-goddard.mermaid-markdown-syntax-highlighting",
         "bierner.markdown-mermaid"

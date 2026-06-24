@@ -100,6 +100,17 @@ copilot plugin install /absolute/path/to/ai.toolkit.gaia
 
 ### Claude Code
 
+Claude Code clones the marketplace source, so the published `.claude-plugin/marketplace.json` points the `gaia-foundation` plugin at the remote repo. For local dev you must temporarily point the source at the in-repo plugin directory so your local edits are picked up:
+
+```jsonc
+// .claude-plugin/marketplace.json
+"source": "./plugins/foundation"
+```
+
+> ⚠️ This change is for local development only — **do not commit it.** Revert to the published remote source before pushing.
+
+Then install from your local clone:
+
 ```bash
 /plugin marketplace add /absolute/path/to/ai.toolkit.gaia
 
