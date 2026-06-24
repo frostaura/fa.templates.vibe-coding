@@ -1,0 +1,5 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Gaia.Mcp.Server/Gaia.Mcp.Server.csproj" />
+  </Folder>
+</Solution>
