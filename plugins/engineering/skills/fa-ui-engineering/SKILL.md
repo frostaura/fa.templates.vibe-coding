@@ -75,12 +75,12 @@ Do not use this skill when:
 
 ## Failure recovery
 
-| Failure mode | Recovery | Owner | Escalation |
-|---|---|---|---|
-| missing primitive | compose from existing `shadcn/ui` parts first | UI engineer | route upstream only if the library truly lacks the pattern |
-| token mismatch | map to the nearest semantic token and document the substitution | UI engineer | involve design-system ownership if no approved token exists |
-| rigid layout request | redesign around content flow and responsive wrapping | UI engineer | require explicit justification for fixed sizing |
-| legacy arbitrary values in touched code | refactor the local slice to approved utilities | UI engineer | widen only if cleanup becomes a separate branch |
+| Failure mode                            | Recovery                                                        | Owner       | Escalation                                                  |
+| --------------------------------------- | --------------------------------------------------------------- | ----------- | ----------------------------------------------------------- |
+| missing primitive                       | compose from existing `shadcn/ui` parts first                   | UI engineer | route upstream only if the library truly lacks the pattern  |
+| token mismatch                          | map to the nearest semantic token and document the substitution | UI engineer | involve design-system ownership if no approved token exists |
+| rigid layout request                    | redesign around content flow and responsive wrapping            | UI engineer | require explicit justification for fixed sizing             |
+| legacy arbitrary values in touched code | refactor the local slice to approved utilities                  | UI engineer | widen only if cleanup becomes a separate branch             |
 
 ## Anti-patterns
 
@@ -112,4 +112,4 @@ Do not use this skill when:
 
 ## References
 
-- [Gaia ownership and conventions](../references/fa-ownership-and-conventions.md)
+- [Gaia ownership and conventions](references/fa-ownership-and-conventions.md)

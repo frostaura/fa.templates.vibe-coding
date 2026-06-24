@@ -88,4 +88,4 @@ Do not use this skill when:
 ## References
 
 - [Default stack baseline](references/default-stack-baseline.md)
-- [Gaia ownership and conventions](../references/fa-ownership-and-conventions.md)
+- [Gaia ownership and conventions](references/fa-ownership-and-conventions.md)

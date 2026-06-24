@@ -99,7 +99,7 @@ Do not use this skill when:
 
 ## References
 
-- [Gaia ownership and conventions](../references/fa-ownership-and-conventions.md)
+- [Gaia ownership and conventions](references/fa-ownership-and-conventions.md)
 - [System Components Template](references/system-components-template.md)
 - [Use Cases Template](references/use-cases-template.md)
 - [Class Diagrams Template](references/class-diagrams-template.md)

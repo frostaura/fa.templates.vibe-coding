@@ -100,6 +100,6 @@ Do not use this skill when:
 
 ## References
 
-- [Gaia delivery policy](../references/fa-delivery-policy.md)
-- [Gaia ownership and conventions](../references/fa-ownership-and-conventions.md)
+- [Gaia delivery policy](references/fa-delivery-policy.md)
+- [Gaia ownership and conventions](references/fa-ownership-and-conventions.md)
 - [Plan template](references/plan-template.md)

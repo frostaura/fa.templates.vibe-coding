@@ -39,14 +39,6 @@
     "_hooksDocumentationLink": "https://docs.claude.com/en/docs/claude-code/hooks",
     "_mcpServersDocumentationLink": "https://docs.claude.com/en/docs/claude-code/mcp",
     "mcpServers": {
-        "playwright": {
-            "transport": "stdio",
-            "type": "stdio",
-            "command": "npx",
-            "args": [
-                "@playwright/mcp@latest"
-            ]
-        },
         "fa-gaia-remote": {
             "url": "https://gaia.frostaura.net/mcp",
             "type": "http"

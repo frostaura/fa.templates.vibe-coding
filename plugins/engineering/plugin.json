@@ -1,16 +1,16 @@
 {
-    "name": "foundation",
-    "description": "Foundational components that may be used across any solutions. Includes skills to create agents, skills. It includes a custom planner and so on.",
+    "name": "engineering",
+    "description": "Gaia's spec-driven software delivery lifecycle: intake, architecture, planning, implementation, testing, and release. Provides stage playbooks (architecture documentation, default tech stack, execution planning, engineering delivery, UI engineering, formal testing, and end-to-end process orchestration) plus the specialist agents (intake coordinator, solutions architect, implementation planner, software engineer, tester, release engineer) that take a goal from request to validated, released software through enforced QA and release gates.",
     "version": "10.0.1",
     "author": {
         "name": "FrostAura Technologies",
-        "email": "support-plugins-foundation@frostaura.net"
+        "email": "support-plugins-engineering@frostaura.net"
     },
     "homepage": "https://gaia.frostaura.net",
     "repository": "https://github.com/frostaura/ai.toolkit.gaia",
     "license": "MIT",
     "keywords": [
-        "foundation",
+        "engineering",
         "ai",
         "contribution",
         "toolset",
@@ -23,7 +23,7 @@
     ],
     "category": "foundational-ai-contribution-toolset",
     "tags": [
-        "foundation",
+        "engineering",
         "ai",
         "contribution",
         "toolset",
@@ -39,9 +39,13 @@
     "_hooksDocumentationLink": "https://docs.claude.com/en/docs/claude-code/hooks",
     "_mcpServersDocumentationLink": "https://docs.claude.com/en/docs/claude-code/mcp",
     "mcpServers": {
-        "fa-gaia-remote": {
-            "url": "https://gaia.frostaura.net/mcp",
-            "type": "http"
+        "playwright": {
+            "transport": "stdio",
+            "type": "stdio",
+            "command": "npx",
+            "args": [
+                "@playwright/mcp@latest"
+            ]
         }
     }
 }

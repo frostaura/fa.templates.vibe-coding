@@ -33,6 +33,18 @@
                 "ref": "main"
             },
             "_source_for_local_development": "./plugins/product"
+        },
+        {
+            "name": "engineering",
+            "description": "Gaia's spec-driven software delivery lifecycle: intake, architecture, planning, implementation, testing, and release. Provides stage playbooks (architecture documentation, default tech stack, execution planning, engineering delivery, UI engineering, formal testing, and end-to-end process orchestration) plus the specialist agents (intake coordinator, solutions architect, implementation planner, software engineer, tester, release engineer) that take a goal from request to validated, released software through enforced QA and release gates.",
+            "version": "10.0.1",
+            "source": {
+                "source": "git-subdir",
+                "url": "https://github.com/frostaura/ai.toolkit.gaia.git",
+                "path": "./plugins/engineering",
+                "ref": "main"
+            },
+            "_source_for_local_development": "./plugins/engineering"
         }
     ]
 }
