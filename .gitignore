@@ -1,4 +1,4 @@
-## Comprehensive .gitignore for Gaia AI Toolkit
+## Comprehensive .gitignore
 ## .NET MCP server and workflows
 ## Based on .NET best practices
 
@@ -137,8 +137,6 @@ temp/
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
-.github/state/Gaia.TreePlanner.db.json
-.github/state/Gaia.TaskPlanner.db.json
 
 # Playwright
 /test-results/

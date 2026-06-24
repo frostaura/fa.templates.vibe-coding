@@ -94,8 +94,10 @@ Working on Gaia itself? Install the plugin from a local clone so changes are pic
 
 ### GitHub Copilot
 
+Point the install at the plugin directory (where `plugin.json` lives), not the repo root:
+
 ```bash
-copilot plugin install /absolute/path/to/ai.toolkit.gaia
+copilot plugin install /absolute/path/to/ai.toolkit.gaia/plugins/foundation
 ```
 
 ### Claude Code

@@ -3,7 +3,7 @@
     "name": "frostaura",
     "owner": {
         "name": "FrostAura Labs",
-        "email": "support-gaia@frostaura.net"
+        "email": "support-plugins@frostaura.net"
     },
     "metadata": {
         "description": "Curated plugins from the FrostAura team.",
@@ -11,15 +11,16 @@
     },
     "plugins": [
         {
-            "name": "gaia-foundation",
-            "description": "Spec-driven AI agents for software architecture, planning, engineering, testing, and release workflows.",
+            "name": "foundation",
+            "description": "Foundational components that may be used across any solutions. Includes skills to create agents, skills. It includes a custom planner and so on.",
             "version": "10.0.1",
             "source": {
                 "source": "git-subdir",
                 "url": "https://github.com/frostaura/ai.toolkit.gaia.git",
-                "path": ".github",
+                "path": "./plugins/foundation",
                 "ref": "main"
-            }
+            },
+            "_source_for_local_development": "./plugins/foundation"
         }
     ]
 }

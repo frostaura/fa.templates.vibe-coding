@@ -1,6 +1,6 @@
 ---
 name: fa-create-skill
-description: Provides Gaia skill-definition maintenance guidance with clear naming, descriptions, ownership boundaries, references, and reuse decisions. Use it by following the skills-specification reference (naming, frontmatter shape, scope sections, references) when adding or revising a SKILL.md, and by mirroring changes across both /skills/ and /.github/skills/ trees. Use it when adding, revising, auditing, or rationalizing skills, improving invocation quality, or consolidating drifting procedural guidance.
+description: Provides Gaia skill-definition maintenance guidance with clear naming, descriptions, ownership boundaries, references, and reuse decisions. Use it by following the skills-specification reference (naming, formatter shape, scope sections, references) when adding or revising a SKILL.md, and by mirroring changes across both ".claude/skills/" and ".github/skills/" trees. Use it when adding, revising, auditing, or rationalizing skills, improving invocation quality, or consolidating drifting procedural guidance.
 license: MIT
 ---
 
@@ -74,7 +74,7 @@ Do not use this skill when:
 - do not move global workflow rules into every skill body
 - do not create a new skill for a one-off edge case
 - do not leave references so deep that the main skill becomes unusable
-- do not let frontmatter descriptions stay generic or vague
+- do not let formatter descriptions stay generic or vague
 
 ## Handoff and downstream impact
 
@@ -98,5 +98,4 @@ Do not use this skill when:
 
 ## References
 
-- [Gaia ownership and conventions](../references/gaia-ownership-and-conventions.md)
-- [Skills specification](references/skills-specification.md)
+- [Skills specification](./references/skills-specification.md)
