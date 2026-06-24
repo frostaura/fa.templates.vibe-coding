@@ -6,15 +6,15 @@
         "email": "support-gaia@frostaura.net"
     },
     "metadata": {
-        "description": "Curated plugins from the FrostAura team.",
-        "version": "0.2.0"
+        "description": "Curated plugins from the FrostAura community team.",
+        "version": "1.0.0"
     },
     "plugins": [
         {
             "name": "gaia-foundation",
-            "description": "Spec-driven AI agents for software architecture, planning, engineering, testing, and release workflows.",
-            "version": "9.0.0",
-            "source": ".github"
+            "description": "Foundational components that may be used across any solutions. Includes skills to create agents, skills. It includes a custom planner and so on.",
+            "version": "10.0.1",
+            "source": "plugins/foundation"
         }
     ]
 }

@@ -7,19 +7,18 @@
     },
     "metadata": {
         "description": "Curated plugins from the FrostAura team.",
-        "version": "0.2.0"
+        "version": "1.0.0"
     },
     "plugins": [
         {
             "name": "gaia-foundation",
             "description": "Spec-driven AI agents for software architecture, planning, engineering, testing, and release workflows.",
-            "version": "9.0.0",
+            "version": "10.0.1",
             "source": {
                 "source": "git-subdir",
                 "url": "https://github.com/frostaura/ai.toolkit.gaia.git",
                 "path": ".github",
-                "ref": "main",
-                "_sha": "56273e0e20762d76640838300a7431c4260cad32"
+                "ref": "main"
             }
         }
     ]

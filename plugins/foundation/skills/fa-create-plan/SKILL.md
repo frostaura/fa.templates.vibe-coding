@@ -1,5 +1,5 @@
 ---
-name: "fa-planner"
+name: "fa-create-plan"
 description: Researches and outlines multi-step plans. Use this skill when you want to create a detailed, actionable plan for a complex task or feature. The skill will research the codebase, clarify requirements with the user, and produce a comprehensive plan that can be executed by others.
 license: MIT
 metadata:

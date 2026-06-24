@@ -147,3 +147,4 @@ nunit-*.xml
 /playwright/.cache/
 
 **/*.db*
+.claude/settings.json
