@@ -23,7 +23,7 @@
 
 Gaia is a **team of AI agents** that builds and evolves software using **spec-driven development**. You describe your goal; Gaia coordinates intake, architecture, planning, implementation, testing, and release — enforcing QA and release gates along the way.
 
-The workflow contract lives in [`AGENTS.md`](./AGENTS.md). Gaia ships as three composable plugins, backed by a custom **.NET MCP server** ([`src/`](./src)) that persists tasks, memory, and self-evolution lessons across machines and sessions.
+The workflow contract lives in [`AGENTS.md`](./AGENTS.md). Gaia ships as four composable plugins, backed by a custom **.NET MCP server** ([`src/`](./src)) that persists tasks, memory, and self-evolution lessons across machines and sessions.
 
 ---
 
