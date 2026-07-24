@@ -7,7 +7,7 @@
     },
     "metadata": {
         "description": "Curated plugins from the FrostAura community team.",
-        "version": "1.0.0"
+        "version": "1.1.0"
     },
     "plugins": [
         {
@@ -15,6 +15,12 @@
             "description": "Foundational components that may be used across any solutions. Includes skills to create agents, skills. It includes a custom planner and so on.",
             "version": "10.0.1",
             "source": "./plugins/foundation"
+        },
+        {
+            "name": "personal",
+            "description": "My personal collection of components I leverage in my personali life and work. Includes skills to create agents, skills. It includes a custom planner and so on.",
+            "version": "10.0.1",
+            "source": "./plugins/personal"
         },
         {
             "name": "product",

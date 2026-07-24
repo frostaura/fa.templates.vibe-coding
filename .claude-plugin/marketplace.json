@@ -7,7 +7,7 @@
     },
     "metadata": {
         "description": "Curated plugins from the FrostAura team.",
-        "version": "1.0.0"
+        "version": "1.1.0"
     },
     "plugins": [
         {
@@ -21,6 +21,18 @@
                 "ref": "main"
             },
             "_source_for_local_development": "./plugins/foundation"
+        },
+        {
+            "name": "personal",
+            "description": "My personal collection of components I leverage in my personali life and work. Includes skills to create agents, skills. It includes a custom planner and so on.",
+            "version": "10.0.1",
+            "source": {
+                "source": "git-subdir",
+                "url": "https://github.com/frostaura/ai.toolkit.gaia.git",
+                "path": "./plugins/personal",
+                "ref": "main"
+            },
+            "_source_for_local_development": "./plugins/personal"
         },
         {
             "name": "product",
