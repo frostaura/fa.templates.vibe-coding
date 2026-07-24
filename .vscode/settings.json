@@ -4,7 +4,6 @@
         "**/.gitattributes": true,
         "**/LICENSE": true,
         "**/.ipynb_checkpoints": true,
-        "**/.claude": true,
         "**/__pycache__": true,
         "*.egg*/**": true,
         "**/build/**": true,
