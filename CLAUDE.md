@@ -4,19 +4,21 @@
 **Answered, and the program knows it.** The original question — can a spec-driven, role-decomposed agent workflow with an enforced completion contract produce more reliable software delivery than ad-hoc prompting — has been settled affirmatively in practice: Gaia is the workflow FrostAura actually builds with. What remains is distribution and durability, not research. Treat any new "research question" framing here with suspicion; the honest read is that this graduated and the paperwork lagged.
 
 ## What this program is
-FrostAura's spec-driven AI development toolkit, shipped as **three installable plugins** — `foundation` (the context layer: establishing it across a whole tree, authoring, memory, session close-out, auditing, repo durability), `engineering` (delivery) and `product` — for **both** Claude Code and GitHub Copilot, backed by a small .NET 10 MCP server hosted at `https://gaia.frostaura.net/mcp`. The plugins carry the skills and agent definitions that encode FrostAura's delivery method (intake → architecture → planning → engineering → testing → release). The server exposes tools across tasks, memory and evolution, and enforces a **completion contract**: a task cannot be marked done with unresolved blockers, missing proof arguments, or unsatisfied gates. Gaia is simultaneously the tool FrostAura uses and a public developer product.
+FrostAura's spec-driven AI development toolkit, shipped as **three installable plugins** — `foundation` (the context layer: establishing it across a whole tree, authoring, memory, session close-out, auditing, repo durability), `engineering` (delivery) and `product` — for **both** Claude Code and GitHub Copilot. The plugins carry the skills and agent definitions that encode FrostAura's delivery method (intake → architecture → planning → engineering → testing → release), and they are **self-contained**: the plan is the session's native todo list, and everything durable is files in the consuming repository. Gaia is simultaneously the tool FrostAura uses and a public developer product.
+
+The repository also holds a small .NET 10 MCP server, hosted at `https://gaia.frostaura.net/mcp`, which exposes **third-party consumer integrations** as agent tools and a REST API. **The server and the plugins are separate concerns and neither requires the other** — as of v13.0.0 no plugin wires it, and its only integration is Woolworths South Africa grocery, migrated whole from the retired `fa.integrations`. That the two live in one repository under one brand is a real coherence question, recorded as open in `MEMORY.md`, not settled here.
 
 ## Stack & repo
-`github.com/frostaura/ai.toolkit.gaia` (public). **.NET 10 only.** There is **no EF Core, no PostgreSQL, no React, and no frontend of any kind** — persistence is flat JSON files on disk via `ThreadSafeJsonStore<T>`. This is a deliberate deviation from the mandated stack, justified by the size and shape of the service, and it is worth naming plainly: this repo ships the `fa-engineering-default-tech-stack` skill telling every other FrostAura project to use EF Core + PostgreSQL + React + Tailwind + shadcn, while using none of them itself. That irony is acceptable; leaving it undocumented is not.
+`github.com/frostaura/ai.toolkit.gaia` (public). **.NET 10 only.** There is **no EF Core, no PostgreSQL, no React, and no frontend of any kind — and since v13.0.0 no persistence at all.** The server is stateless by design: no database, no credential store, no data directory. This is a deliberate deviation from the mandated stack, justified by the size and shape of the service, and it is worth naming plainly: this repo ships the `fa-engineering-default-tech-stack` skill telling every other FrostAura project to use EF Core + PostgreSQL + React + Tailwind + shadcn, while using none of them itself. That irony is acceptable; leaving it undocumented is not.
 
-Layout: `plugins/{foundation,engineering,product}/` hold the shipped skill and agent definitions; `src/` holds the MCP server; `.claude-plugin/` and `.github/plugin/` hold the two marketplace manifests. `foundation` additionally carries `references/` (shared doctrine), `agents/` and `scripts/`.
+Layout: `plugins/{foundation,engineering,product}/` hold the shipped skill and agent definitions; `src/Gaia.Mcp.Server/` holds the MCP server (`Integrations/` for the provider-neutral seam and each provider, `Tools/` for the `[McpServerToolType]` classes); `src/Gaia.Mcp.Tests/` holds the xUnit suite; `.claude-plugin/` and `.github/plugin/` hold the two marketplace manifests. `foundation` additionally carries `references/` (shared doctrine), `agents/` and `scripts/`.
 
 ## Owner & key people
 Dean Martin (founder). Gaia is the delivery substrate for every other FrostAura program, which makes its blast radius larger than its LOC suggests.
 
 ## Milestones
 1. **Two-ecosystem distribution** — installable and working in both Claude Code and GitHub Copilot from a published marketplace.
-2. **Hosted MCP reliability** — the remote server is the default persistence backend for foundation-plugin users and must behave like a service, not a prototype.
+2. **Hosted MCP reliability** — the remote server is a live integration gateway handling other people's provider credentials in transit, and must behave like a service, not a prototype.
 3. **A real test suite** — see kill criteria; a delivery-discipline product with no tests of its own is a credibility problem, not just a quality one.
 4. **Placement resolved** — moved to `Technologies/` or explicitly retained in Labs with a reason.
 
@@ -26,25 +28,27 @@ Dean Martin (founder). Gaia is the delivery substrate for every other FrostAura 
 - Maintaining plugin parity across two ecosystems costs more than the second ecosystem returns.
 
 ## Graduation pathway
-`Technologies/`, and overdue. This is a versioned, publicly distributed, multi-ecosystem developer product on v10 with a live hosted service, CI/CD and a support address. It has no research character left, and it is the only Labs program with a granted stealth exception — which is precisely the signature of something that already graduated. Keep the OSS posture; move the home. Placement is parent-controlled: recommend, escalate, do not move it from inside Labs.
+`Technologies/`, and overdue. This is a versioned, publicly distributed, multi-ecosystem developer product with a live hosted service, CI/CD and a support address. It has no research character left, and it is the only Labs program with a granted stealth exception — which is precisely the signature of something that already graduated. Keep the OSS posture; move the home. Placement is parent-controlled: recommend, escalate, do not move it from inside Labs.
 
 ## Conventions & invariants
 - **Every skill and agent is named `fa-<plugin>-<name>`, and a skill's directory name must equal its frontmatter `name`.** The loader matches on the directory; a mismatch silently produces a skill that cannot be invoked. Renaming one therefore means moving the directory, editing the frontmatter and repairing every cross-reference in the same pass.
 - **A skill's `description` is a trigger, not a summary.** It is the only thing that decides whether the skill ever fires. This is not stylistic: a generation of these files shipped with frontmatter whose opening `---` was missing, which made every description parse as the literal string `name: <skill>` — inert, while still looking present in a listing.
 - **Markdown links never escape the plugin root, but scripts are referenced with `${CLAUDE_PLUGIN_ROOT}`.** Both rules hold at once: the first governs relative links between skills and references, the second is how a skill invokes a file under `plugins/<name>/scripts/`.
-- **The plugins are the product; `src/` is supporting infrastructure.** A change to a skill or agent definition ships to every installed user on the next resolve — treat plugin content edits with production seriousness.
+- **The plugins are the product.** A change to a skill or agent definition ships to every installed user on the next resolve — treat plugin content edits with production seriousness. `src/` is no longer *supporting* infrastructure for them; since v13.0.0 it is an independent service that happens to share the repository.
 - **Plugin sources are pinned to `ref: main`, not to a tag.** Installs therefore float with `main`. Any breaking change to a skill or agent contract lands on users immediately. Either respect that or move to tags deliberately.
-- **The completion contract is the point.** Tasks cannot complete with unresolved blockers, missing proof, or unsatisfied gates. Do not add an escape hatch to make a workflow feel smoother — the friction is the feature.
+- **The completion contract is still the point, but nothing enforces it mechanically any more.** Tasks cannot complete with unresolved blockers, missing proof, or unsatisfied gates. Until v13.0.0 the server's task tools *refused* it; those tools are gone, so the contract now rests entirely on the skills and the roles that apply them. Do not add an escape hatch to make a workflow feel smoother — the friction is the feature, and weaker enforcement is a reason to write it more literally, not less.
+- **The plan is the session's native todo list; durable state is files in the consuming repository.** Never reintroduce a hosted store for plans, memory or lessons — that was removed deliberately, and the plugins' independence from any server is now a property worth protecting.
 - **The two marketplace manifests must agree.** `.claude-plugin/marketplace.json` and `.github/plugin/marketplace.json` describe the same product to two ecosystems, and every plugin additionally has a byte-identical duplicate `plugin.json` at two paths. Nothing in CI checks any of this; check it by hand on every change.
-- **Hosted-service disclosure is a commitment.** The README states the remote MCP stores evolution suggestions, task plans and project memory segregated by project name, and does **not** store user PII, code, specs or docs. Do not add persistence that breaks that statement without changing the statement first.
+- **Hosted-service disclosure is a commitment.** The README now states that the plugins send nothing anywhere and the server stores nothing at all — no credentials, no data, no session reuse. Do not add persistence of any kind, or credential caching of any kind, without changing that statement in the same change.
+- **The integration invariants are inherited, load-bearing, and non-obvious.** Add cart items one at a time — the upstream batch endpoint discards the whole batch if any one product is unavailable, and returns HTTP 200 while doing it. Never trust an upstream status code; inspect the body. Search and preview must stay anonymous. MCP errors must be `McpException` or the SDK replaces the text with a generic message. Full reasoning and the captured endpoint contract: [`docs/integrations/`](docs/integrations/architecture.md).
 - **Shared reference docs are duplicated by design of the plugin format**, not by accident — the same file exists in several plugin trees. When editing one, edit all copies or the plugins disagree with each other.
 
 ## Build / test / run
 | Task | Command |
 | --- | --- |
 | Build | `dotnet build Gaia.slnx` |
-| Test | `dotnet test` — the test gate asserts nothing until real test projects exist, so **green is not coverage**; check `MEMORY.md` for what actually runs |
-| Run (HTTP) | `dotnet run --project src/...` — the web host is the default |
+| Test | `dotnet test Gaia.slnx` — a **real** gate since v13.0.0 (`src/Gaia.Mcp.Tests`); it was vacuous before, so any older note treating green as meaningful is out of date |
+| Run (HTTP) | `dotnet run --project src/Gaia.Mcp.Server` — the web host is the default; serves `/mcp` and `/api` |
 | Run (stdio) | requires `MCP_TRANSPORT=stdio`; without it `Program.cs` starts the HTTP web host on stdio and misbehaves |
 
 Container image publishing goes to Docker Hub under a namespace derived from a CI secret, so the published image name is not discoverable from the repo alone.
@@ -55,8 +59,10 @@ The README is the entry point and is deliberately an **install-and-first-run doc
 ## Never do this here
 - Never change a skill or agent definition without checking every duplicated copy across plugin trees.
 - Never let the two marketplace manifests or the duplicated `plugin.json` files drift.
-- Never treat a green `dotnet test` as evidence of anything until real test projects exist.
-- Never weaken the completion contract to unblock a stuck workflow.
+- Never store, log, cache or echo back a caller's provider credential, and never expose the server over plain HTTP — TLS is the only thing protecting credentials in transit.
+- Never batch cart additions, and never put a checkout or payment step behind an automated call; this service fills a cart and stops, deliberately.
+- Never weaken the completion contract to unblock a stuck workflow — nothing will stop you now, which is exactly why.
+- Never change the MCP session mode without re-verifying that header credentials still resolve; it is a two-minute check and the failure mode looks like a caller-side configuration problem.
 - Never add persistence of user code, specs or docs to the hosted service without amending the README's disclosure.
 
 ## Upkeep

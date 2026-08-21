@@ -9,7 +9,7 @@
 ---
 
 <p align="center">
-  <a href="./CHANGELOG.md"><img src="https://img.shields.io/badge/Version-12.1.0-purple.svg" alt="Version 12.1.0" /></a>
+  <a href="./CHANGELOG.md"><img src="https://img.shields.io/badge/Version-13.0.0-purple.svg" alt="Version 13.0.0" /></a>
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT" /></a>
   <a href="https://github.com/features/copilot"><img src="https://img.shields.io/badge/GitHub-Copilot-blue.svg" alt="GitHub Copilot" /></a>
   <a href="https://www.claude.com/product/claude-code"><img src="https://img.shields.io/badge/Claude-Code-orange.svg" alt="Claude Code" /></a>
@@ -25,11 +25,13 @@ Gaia is a **team of AI agents** that builds and evolves software using **spec-dr
 
 It also does the part that comes first: giving your assistant a **context layer** it can actually work from — instruction and memory files at every directory that earns one, so an agent understands your whole tree rather than the one file it was pointed at.
 
-Gaia ships as three composable plugins, backed by a custom **.NET MCP server** ([`src/`](./src)) that persists tasks, memory, and evolution lessons across machines and sessions.
+Gaia ships as three composable plugins. The plugins are self-contained: your plan is your assistant's own todo list, and everything durable — memory, decisions, lessons — is written as files in your repository, so it versions with your code and there is nothing to sync.
+
+The repository also hosts a small **.NET MCP server** ([`src/`](./src)) that exposes third-party consumer services as agent tools. It is a separate concern from the plugins and neither requires the other.
 
 | Plugin | What it covers |
 | --- | --- |
-| **`foundation`** | The context layer — establishing, maintaining and auditing instruction and memory files across a tree — plus authoring new skills, agents and plans, and the remote MCP wiring. Required by the other two. |
+| **`foundation`** | The context layer — establishing, maintaining and auditing instruction and memory files across a tree — plus authoring new skills, agents and plans. Required by the other two. |
 | **`engineering`** | Spec-driven delivery end-to-end: architecture, planning, implementation, UI, testing, containerization, deploy, and per-language repository baselines. |
 | **`product`** | A money-gated lifecycle for consumer one-off / in-app-purchase products, from discovery through launch and live-ops. |
 
@@ -122,19 +124,23 @@ The `product` plugin runs a money-gated pipeline for consumer products that mone
 | [`docs/catalog.md`](./docs/catalog.md) | Dated snapshot of every plugin, skill and agent. The live roster is always `/plugin`. |
 | [`docs/development.md`](./docs/development.md) | Working on Gaia itself: releases and the 12 version sites, the two marketplace manifests, local-clone installs, authoring invariants, the pre-ship checks, contributing. |
 | [`CHANGELOG.md`](./CHANGELOG.md) | Every user-visible change, lockstep across the three plugins. |
-| [`src/README.md`](./src/README.md) | The .NET MCP server — tools, transports, configuration. |
+| [`src/README.md`](./src/README.md) | The .NET MCP server — integration tools, transports, credentials. |
+| [`docs/integrations/`](./docs/integrations/architecture.md) | How the integrations work: the credential model, the captured upstream contract, use cases, and the end-to-end QA procedure. |
 | [`CLAUDE.md`](./CLAUDE.md) | How agents should work in this repository. |
 
 ---
 
 ## Data & privacy
 
-Gaia uses a **remote MCP server** by default so plans, memories, and evolution lessons persist across machines and sessions (including GitHub Copilot's web coding agent).
+**The plugins send nothing anywhere.** They are skill and agent definitions that run inside your assistant. Your plan lives in your assistant's own todo list, and your memory lives in `MEMORY.md` and `memory/` files inside your repository. There is no hosted store, no account, and nothing segregated by project name because nothing leaves your machine.
 
-- **Stored:** evolution suggestions, task plans, project memory — all segregated by project name.
-- **Not stored:** user PII, project code, specs, or documentation.
+**The MCP server stores nothing either.** It is stateless by design: it holds no database and no credential store, so a compromise of the host leaks no standing access to anyone's account.
 
-Prefer fully local? Point the MCP config at a local STDIO server instead. The server source lives in [`src/Gaia.Mcp.Server`](./src/Gaia.Mcp.Server).
+- **Never stored, logged, or echoed:** your provider credentials. You supply them per request — as HTTP headers over streamable HTTP, or in the process environment over stdio — and they live only for the duration of that one call.
+- **Sent onward:** only what the tool you invoked requires, and only to that tool's provider.
+- **Sessions are per-operation:** sign in, do the work, sign out. Sessions are never pooled or cached, so one caller's session can never serve another's call.
+
+Because credentials travel in headers, **never expose this server over plain HTTP** — TLS is the only thing protecting them. The server source lives in [`src/Gaia.Mcp.Server`](./src/Gaia.Mcp.Server).
 
 ---
 

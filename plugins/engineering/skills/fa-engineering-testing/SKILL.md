@@ -1,6 +1,6 @@
 ---
 name: fa-engineering-testing
-description: Provides Gaia's formal validation guidance across unit, integration, manual regression, automated regression, and evidence review. Use it by running the test layers required by each task's gates (unit → integration → e2e → manual regression), recording proof labels (e.g. 'curl', 'playwright-mcp') on tasks_complete, and vetoing completion when evidence is missing. Use it when a branch is stable enough for hardening, when high-risk behavior needs targeted early validation, or when release readiness depends on a clear QA signal. It decides which layers a task's gates require and never authors the browser specs or runs the hand-executed checks itself — those are `fa-engineering-e2e-testing` and `fa-engineering-manual-regression`.
+description: Provides Gaia's formal validation guidance across unit, integration, manual regression, automated regression, and evidence review. Use it by running the test layers required by each task's gates (unit → integration → e2e → manual regression), recording proof labels (e.g. 'curl', 'playwright-mcp') when closing a todo item, and vetoing completion when evidence is missing. Use it when a branch is stable enough for hardening, when high-risk behavior needs targeted early validation, or when release readiness depends on a clear QA signal. It decides which layers a task's gates require and never authors the browser specs or runs the hand-executed checks itself — those are `fa-engineering-e2e-testing` and `fa-engineering-manual-regression`.
 license: MIT
 ---
 

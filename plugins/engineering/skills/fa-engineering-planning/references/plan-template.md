@@ -1,10 +1,10 @@
 # Gaia Plan Template
 
-> Use this structure when translating approved architecture into the MCP task plan. The task graph published through `tasks_create` — and kept current with `tasks_update` — is the authoritative plan; this template defines what a complete plan must capture before the first task is created. Keep it concise, current, and aligned to the latest architecture decision.
+> Use this structure when translating approved architecture into the todo plan. The session's native todo list — kept current as work progresses — is the authoritative plan; this template defines what a complete plan must capture before the first item is created. Keep it concise, current, and aligned to the latest architecture decision.
 
 ## Plan Header
 
-Capture these once per plan, in the plan summary or the root task's description:
+Capture these once per plan, in the plan summary or the root todo item:
 
 | Field | Value |
 |---|---|
@@ -35,20 +35,20 @@ Capture these once per plan, in the plan summary or the root task's description:
 
 ## 3. Task Breakdown
 
-Publish one MCP task per branch of work via `tasks_create`. Each task must carry:
+Publish one todo item per branch of work. Each item must carry:
 
-| Task field | Content |
+| Item field | Content |
 |---|---|
 | Title | {{branch name and expected outcome}} |
 | Description | {{scope, owning role, and skills to invoke}} |
-| Dependencies | {{tasks that must complete first, or none}} |
-| `required_gates` | {{the QA and release gates this task must satisfy}} |
-| Blockers | {{current blockers, recorded on the task, or none}} |
+| Dependencies | {{items that must complete first, or none}} |
+| Required gates | {{the QA and release gates this item must satisfy}} |
+| Blockers | {{current blockers, recorded on the item, or none}} |
 | Acceptance criteria | {{the completion test, stated so QA can verify it}} |
 
 **Parallel Branches and Dependency Edges**
 
-A complete plan partitions the work into explicitly declared parallel branches; a plan that serializes independent work is a defect. Register mutually independent branches as sibling tasks via `tasks_create` so they can start concurrently — gates, blockers, and proof stay per-task, so siblings complete independently without softening the completion contract.
+A complete plan partitions the work into explicitly declared parallel branches; a plan that serializes independent work is a defect. Register mutually independent branches as sibling todo items so they can start concurrently — gates, blockers, and proof stay per-item, so siblings complete independently without softening the completion contract.
 
 - Parallel branches: {{branches that are mutually independent — disjoint file scopes, no shared state — and may run concurrently}}
 - True dependency edges: {{branch A → branch B, and why the dependency is real}}
@@ -86,11 +86,11 @@ Encode each gate in the owning task's `required_gates` so completion is mechanic
 - {{implemented outcome}}
 - {{qa expectation met}}
 - {{ci or deployment gate passed}}
-- {{required proof recorded on `tasks_complete`}}
+- {{required proof recorded when the item is closed}}
 
 ## 8. Proof of Completion
 
-Proof is recorded on `tasks_complete`, per task. A task cannot complete with unresolved blockers, missing proof, or unsatisfied gates.
+Proof is recorded when an item is closed, per item. A task cannot complete with unresolved blockers, missing proof, or unsatisfied gates. A todo list dies with the session, so proof that must outlive it goes to the repository's memory store or the PR description — the table below is where you name that location.
 
 | Proof Item | Location / Reference |
 |---|---|
@@ -100,7 +100,7 @@ Proof is recorded on `tasks_complete`, per task. A task cannot complete with unr
 
 ## 9. Re-Plan Triggers
 
-Re-plan through `tasks_create` / `tasks_update` — do not patch around the published task graph informally:
+Re-plan by rewriting the todo list — do not patch around the published plan informally:
 
 - when architecture changes
 - when QA discovers a blocking issue or new branch of work

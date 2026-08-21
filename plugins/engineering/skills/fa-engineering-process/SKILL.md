@@ -29,7 +29,7 @@ Do not use this skill when:
 - current repository state across docs, contract, agents, and skills
 - the user request, goals, constraints, and non-goals
 - available CI or release-gate context
-- the current MCP task graph (`tasks_list`), blockers, memory, and any known drift
+- the current todo list, blockers, the repository's memory store, and any known drift
 
 ## Owned outputs
 
@@ -55,11 +55,11 @@ Do not use this skill when:
 2. Resolve whether the user or repo already chose the stack, and use Gaia defaults only when neither did.
 3. Decide whether the request is trivial, standard, or complex, and say why.
 4. Route the work through architecture first when the target solution changes.
-5. Require planning after architecture so the execution tree is published as MCP tasks with explicit gates and explicitly declared parallel branches.
+5. Require planning after architecture so the execution tree is published as native todos with explicit gates and explicitly declared parallel branches.
 6. Fan independent branches out concurrently and re-join them at gates; serialize only on true dependencies.
 7. Keep QA active throughout delivery, not only at the end.
-8. Re-plan through `tasks_create` and `tasks_update` when new branches, blockers, or gate conditions appear.
-9. Treat proof recording on `tasks_complete` as part of delivery, not optional cleanup.
+8. Re-plan by rewriting the todo list when new branches, blockers, or gate conditions appear.
+9. Treat proof recording — on the closing item, and in the repository's memory store when it must outlive the session — as part of delivery, not optional cleanup.
 
 ## Workflow checkpoints
 

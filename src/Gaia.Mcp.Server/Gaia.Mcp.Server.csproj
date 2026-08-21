@@ -9,8 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <InternalsVisibleTo Include="Gaia.Mcp.Server.IntegrationTests" />
-    <InternalsVisibleTo Include="Gaia.Mcp.Server.Tests" />
+    <InternalsVisibleTo Include="Gaia.Mcp.Tests" />
   </ItemGroup>
 
   <ItemGroup>

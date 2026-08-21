@@ -76,8 +76,8 @@ produced concurrently (Stage 1's trend scan, teardowns, and persona work; Stage
 serialize, and a plan that serializes independent work is a defect. Concurrent
 artifact edits get disjoint file scopes per agent — two agents in one scope
 overwrite each other; overlapping scopes require isolated git worktrees merged
-deliberately. Parallel branches are registered as sibling MCP tasks with
-per-task gates, blockers, and proof, so they complete independently.
+deliberately. Parallel branches are registered as sibling todo items with
+per-item gates, blockers, and proof, so they complete independently.
 
 ## The shared unit-economics model
 

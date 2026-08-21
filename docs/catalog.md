@@ -1,6 +1,6 @@
 # Catalog
 
-> **Snapshot taken 2026-08-21 against `12.1.0`.** This page is a hand-maintained snapshot, not the source of truth. The **live roster is `/plugin` in your client** (Claude Code: `/plugin`; Copilot CLI: `copilot plugin list`) — it enumerates exactly what you have installed, at the version you have it. Where this page and your client disagree, your client is right. Anything not listed here may simply be newer than the date above.
+> **Snapshot taken 2026-08-21 against `13.0.0`.** This page is a hand-maintained snapshot, not the source of truth. The **live roster is `/plugin` in your client** (Claude Code: `/plugin`; Copilot CLI: `copilot plugin list`) — it enumerates exactly what you have installed, at the version you have it. Where this page and your client disagree, your client is right. Anything not listed here may simply be newer than the date above.
 
 Nothing routes off this page: skills fire from their own `description`, so you invoke a capability by describing the job, not by looking up a name. The names below exist for when you want to call one explicitly.
 
@@ -8,7 +8,7 @@ Nothing routes off this page: skills fire from their own `description`, so you i
 
 | Plugin | What it covers |
 | --- | --- |
-| **`foundation`** | The context layer and authoring base: establishing and maintaining instruction/memory files across a tree, auditing them, judging repository durability, and authoring new skills, agents and plans. Also wires the remote MCP server. Required by the other two. |
+| **`foundation`** | The context layer and authoring base: establishing and maintaining instruction/memory files across a tree, auditing them, judging repository durability, and authoring new skills, agents and plans. Required by the other two. |
 | **`engineering`** | Spec-driven software delivery end-to-end: intake, architecture documentation, planning, implementation, UI, testing, containerization and deploy — plus per-language repository baselines. |
 | **`product`** | A money-gated lifecycle for consumer one-off / in-app-purchase products: discovery through launch and live-ops, every stage evaluated against one shared net-of-fee unit-economics model. |
 
@@ -104,4 +104,4 @@ Nothing routes off this page: skills fire from their own `description`, so you i
 
 ---
 
-Counts as of the snapshot date: **3 plugins · 40 skills · 20 agents**. Changes are recorded in [`CHANGELOG.md`](../CHANGELOG.md); maintenance of this page is described in [`development.md`](development.md).
+Counts as of the snapshot date: **3 plugins · 40 skills · 20 agents**. The plugins are the product; the MCP server in [`../src/`](../src) is a separate concern and its tools are catalogued in [`../src/README.md`](../src/README.md), not here. Changes are recorded in [`CHANGELOG.md`](../CHANGELOG.md); maintenance of this page is described in [`development.md`](development.md).

@@ -8,7 +8,7 @@ Use this reference when deciding which skill or agent should own a change, which
 |---|---|
 | `fa-engineering-process` | Complexity classification, execution path, coordination, handoffs, and closure expectations |
 | `fa-engineering-architecture` | The consuming repository's `docs/architecture/` tree, architecture drift resolution, and README sync after architecture changes |
-| `fa-engineering-planning` | The MCP task plan (`tasks_create` / `tasks_update` / `tasks_complete`): branch structure, dependencies, QA checkpoints, release gates, and proof expectations |
+| `fa-engineering-planning` | The native todo plan: branch structure, dependencies, QA checkpoints, release gates, and proof expectations |
 | `fa-engineering-implementation` | Planned implementation work, rapid iteration, implementation stabilization, and engineering standards during delivery |
 | `fa-engineering-ui` | React UI implementation, design-system enforcement, token-only styling, responsive layout discipline, and cleanup of legacy arbitrary values |
 | `fa-engineering-testing` | Formal test strategy, test artifacts, regression coverage, and testing evidence |
@@ -38,7 +38,7 @@ Skill-definition and agent-definition maintenance is owned by the **foundation p
 |---|---|
 | `fa-engineering-intake-coordinator` | Request framing, complexity classification, drift detection, and first routing |
 | `fa-engineering-solutions-architect` | Target-solution ownership and architecture documentation in the consuming repository |
-| `fa-engineering-implementation-planner` | Turning approved architecture into the MCP task plan with gates and proof expectations |
+| `fa-engineering-implementation-planner` | Turning approved architecture into the todo plan with gates and proof expectations |
 | `fa-engineering-software-engineer` | Planned implementation delivery and branch stabilization |
 | `fa-engineering-tester` | Formal validation, evidence, and pass-fail-blocked authority |
 | `fa-engineering-release-engineer` | Final gate evaluation, proof recording, and ready-or-not-ready decisions |
@@ -49,7 +49,7 @@ These paths refer to the **consuming repository** — the project Gaia is operat
 
 - `docs/architecture/**` -> `fa-engineering-architecture`
 - `README.md` when architecture messaging changes -> `fa-engineering-architecture`
-- The MCP task graph -> `fa-engineering-planning`
+- The todo plan -> `fa-engineering-planning`
 - Repository code and implementation changes -> `fa-engineering-implementation`
 - React UI implementation and design-system conformance -> `fa-engineering-ui`
 - Formal test files and testing evidence -> `fa-engineering-testing`

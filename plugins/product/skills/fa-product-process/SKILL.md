@@ -65,7 +65,7 @@ Each stage exits only on a willingness-to-PAY gate (see `fa-product-money-gate`)
 - Within a stage, artifacts with no data dependency are produced concurrently (e.g. S1 trend scan, teardowns, and persona/JTBD work; S4 interview, fake-door, and landing-page tracks). Model reads are free; model WRITES serialize through its steward.
 - The money gate is a hard barrier: no work downstream of a gate starts before it passes. Across bets, stages may progress concurrently when they do not contend on the same model.
 - Concurrent artifact edits require disjoint file scopes per agent; overlapping scopes need isolated git worktrees merged deliberately. Two agents in one scope overwrite each other.
-- Register parallel branches as sibling MCP tasks (`tasks_create`); gates, blockers, and proof are per-task, so branches complete independently without softening the completion contract.
+- Register parallel branches as sibling todo items; gates, blockers, and proof are per-task, so branches complete independently without softening the completion contract.
 
 ## Gate and loop-back rules
 

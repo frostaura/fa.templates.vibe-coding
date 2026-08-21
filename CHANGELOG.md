@@ -4,6 +4,35 @@ All notable changes to the Gaia plugins are documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions are lockstep across all plugins. Plugin sources track `ref: main`; the `version` field in each `plugin.json` is the update trigger, and changes reach users when pushed to GitHub.
 
+## [13.0.0] - 2026-08-21
+
+### Removed — BREAKING
+
+- **The MCP server's `tasks_*`, `memory_*` and `evolve_*` tools are gone** — all 15 of them (`tasks_create` / `list` / `update` / `complete` / `request_input` / `delete` / `clear`, `memory_remember` / `recall` / `forget` / `clear`, `evolve_log` / `list` / `apply` / `clear`), along with the flat-JSON stores, the completion validator, the `GAIA_*` error-code namespace and the task schema behind them. Anything calling those tool names now fails. The server keeps no data directory at all, so the container's `/app/data` volume is gone too.
+- **`foundation` no longer declares the remote MCP server.** Its `plugin.json` had wired `fa-gaia-remote` into every install to persist tasks, memory and evolution lessons; there is nothing left there to persist to, and the server's remaining tools have nothing to do with the plugin. Installing `foundation` no longer adds an MCP server to your client.
+
+### Changed — BREAKING
+
+- **The plan is now your assistant's own todo list, and memory is files in your repository.** Nine plugin files that instructed agents to call the removed tools are retargeted: both `delivery-policy.md` references, `ownership-and-conventions.md`, `fa-engineering-planning` (skill and `plan-template.md`), `fa-engineering-process`, `fa-engineering-testing`, `fa-engineering-implementation`, `fa-product-process` and `product-discovery-team.md`. Durable facts, decisions and lessons go to `MEMORY.md` and its `memory/` topic files through `fa-foundation-memory-maintenance`, swept by `fa-foundation-session-close`. Improvements that used to be `evolve_log` entries are now logged as memories, with the reasoning that produced them.
+- **The completion contract survives, but is enforced by the roles rather than by the server.** A task still cannot be closed with unresolved blockers, missing proof, or unsatisfied gates — that friction is still the feature. What changed is that nothing refuses it mechanically any more; the discipline rests on the agents applying the policy, principally QA's veto. Two skill `description` fields changed as part of this, so routing behaviour changed with them.
+- **Two of the three plugins are now fully self-contained** — no network, no account, no hosted state. `engineering` still wires Playwright for browser testing.
+
+### Added
+
+- **The Woolworths South Africa integration**, migrated whole from the retired `fa.integrations` repository, which this server replaces. Four MCP tools — `woolworths_search_products`, `woolworths_preview_shopping_list`, `woolworths_add_shopping_list_to_cart`, `woolworths_add_product_to_cart` — search the grocery catalogue and fill the signed-in customer's cart from a shared shopping list (the text the Cookidoo/Thermomix app puts on the share sheet). Search and preview need no credentials and must stay that way: they are what makes the server safe to expose to an agent that holds none.
+- **The REST surface came with it.** `/api/health`, `/api/integrations`, and `/api/woolworths/*` map the identical services the MCP tools call, so a Siri Shortcut or a curl script reaches the same behaviour without speaking MCP. A behaviour added to one surface must not diverge from the other.
+- **Credentials over stdio.** The migrated service resolved credentials only from HTTP headers; Gaia also serves stdio, where there is no request to read. Each credential field now derives an environment variable from its header so the two cannot drift — `X-Woolworths-Password` becomes `GAIA_WOOLWORTHS_PASSWORD` — and `GET /api/integrations` reports both names. The environment is consulted **only** when the transport supplied no headers, so an HTTP caller who omits one is told so rather than being silently served the host's own environment.
+- **A real test suite.** `src/Gaia.Mcp.Tests` is an actual xUnit project wired into `Gaia.slnx`, carrying the 12 migrated `ShoppingListParser` tests. `dotnet test` was vacuous in every prior version — it asserted nothing, and CI ran it as a gate anyway. Any note claiming a green run proved something before 13.0.0 is out of date.
+
+### Fixed
+
+- **A rejected password now says so.** The MCP SDK replaces arbitrary exception text with a generic "an error occurred", and only the *missing*-credential path was wrapped in `McpException` — so a caller whose password was simply wrong got told nothing at all, which is at least as common a case. Provider rejections are now translated on every credentialed tool. Inherited from `fa.integrations` and found by probing the migrated server, not by reading it.
+- The missing-credential message no longer repeats itself over stdio (`GAIA_WOOLWORTHS_USERNAME (environment variable)` in a sentence already saying "environment variable(s)").
+
+### Migration
+
+If you called the removed tools directly, there is no drop-in replacement by design — that is the point of the change. Track work in your assistant's todo list, and write anything that must outlive the session to `MEMORY.md` and `memory/` in the repository it concerns. `fa-foundation-memory-maintenance` and `fa-foundation-session-close` do both jobs, and neither needs a server.
+
 ## [12.1.0] - 2026-08-21
 
 ### Added

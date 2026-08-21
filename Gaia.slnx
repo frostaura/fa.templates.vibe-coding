@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/src/">
     <Project Path="src/Gaia.Mcp.Server/Gaia.Mcp.Server.csproj" />
+    <Project Path="src/Gaia.Mcp.Tests/Gaia.Mcp.Tests.csproj" />
   </Folder>
 </Solution>

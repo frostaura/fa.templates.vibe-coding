@@ -1,6 +1,6 @@
 ---
 name: fa-engineering-implementation
-description: Provides planned implementation delivery guidance that keeps a branch coherent, stabilized, and ready for testing without redefining the target solution. Use it by implementing the planned tasks against existing repo conventions, keeping diffs scoped, running lint/build locally, and updating tasks_update as work progresses. Use it when a current plan branch is ready for code or definition-file edits, when implementation-side cleanup is needed, or when targeted early QA support is useful during delivery. It delivers against a plan that already exists and never redefines the target solution or the sequencing — those are `fa-engineering-architecture` and `fa-engineering-planning`.
+description: Provides planned implementation delivery guidance that keeps a branch coherent, stabilized, and ready for testing without redefining the target solution. Use it by implementing the planned tasks against existing repo conventions, keeping diffs scoped, running lint/build locally, and keeping the todo list current as work progresses. Use it when a current plan branch is ready for code or definition-file edits, when implementation-side cleanup is needed, or when targeted early QA support is useful during delivery. It delivers against a plan that already exists and never redefines the target solution or the sequencing — those are `fa-engineering-architecture` and `fa-engineering-planning`.
 license: MIT
 ---
 

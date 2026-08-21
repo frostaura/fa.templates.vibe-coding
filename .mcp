@@ -9,7 +9,7 @@
             "type": "stdio",
             "command": "dotnet",
             "env": {
-                "GAIA_DATA_DIR": "docs"
+                "MCP_TRANSPORT": "stdio"
             },
             "args": [
                 "run",

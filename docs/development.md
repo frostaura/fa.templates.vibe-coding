@@ -94,10 +94,18 @@ The context-audit script cannot reach plugin skills: its skill-index check gates
 ## MCP server
 
 ```bash
-dotnet build src/Gaia.Mcp.Server/Gaia.Mcp.Server.csproj
+dotnet build Gaia.slnx
+dotnet test Gaia.slnx
 ```
 
-Server detail — tools, transports, configuration — lives in [`src/README.md`](../src/README.md).
+On this volume both need `MSBuildEnableWorkloadResolver=false` exported first — the
+workload resolver crashes under an iCloud-synced path, and nothing here uses workloads.
+
+`dotnet test` is a **real gate**: `src/Gaia.Mcp.Tests` asserts the `ShoppingListParser`
+contract, and CI runs it before the image builds. It was vacuous until 13.0.0, so any
+older note claiming green proves nothing is out of date.
+
+Server detail — tools, transports, credentials — lives in [`src/README.md`](../src/README.md).
 
 ## Contributing
 
