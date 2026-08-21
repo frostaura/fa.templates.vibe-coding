@@ -1,15 +1,16 @@
 ---
 name: ai-toolkit-gaia-state
-description: "v13.0.0 UNCOMMITTED: tasks/memory/evolve tools removed, the fa.integrations Woolworths capability migrated in whole (MCP + REST), plugins retargeted onto native todos and the file-based memory store, first real test suite. Origin serves 12.1.0"
+description: "v13.0.0 COMMITTED AND PUSHED 2026-08-21: tasks/memory/evolve tools removed, the fa.integrations Woolworths capability migrated in whole (MCP + REST), plugins retargeted onto native todos and the file-based memory store, first real test suite. Origin serves 13.0.0; the hosted service does not yet"
 type: state
 last_verified: 2026-08-21
 ---
 
 # Current state
 
-**v13.0.0 landed in the working tree 2026-08-21, uncommitted. Breaking.** Everything below
-it is committed and pushed — `main` was `8cb1a31`, level with `origin/main` and clean,
-before this change began.
+**v13.0.0 shipped 2026-08-21. Breaking, and live on `origin/main`.** `main` is `b18e101`,
+level with origin, clean tree. Because plugin sources float on `ref: main`, **this reached
+every installed user the moment it was pushed** — anything calling the removed tools now
+fails, by design.
 
 ## What v13.0.0 does
 
@@ -51,13 +52,14 @@ marketplace manifests agree ignoring `source`; zero broken relative links repo-w
 
 ## Not verified
 
-- **Nothing is deployed.** `gaia.frostaura.net/mcp` still serves the 12.1.0-era build, so
-  the hosted service still exposes tools this tree says are gone.
+- **The hosted service is not redeployed.** `gaia.frostaura.net/mcp` still serves the
+  12.1.0-era build, so it still exposes `tasks_*`/`memory_*`/`evolve_*` while the repo says
+  they are gone. **The plugins are current for users and the server is not** — that gap
+  closes only when the image rebuilds and the Portainer stack redeploys.
 - No test covers the HTTP clients or either transport surface.
 
 ## Before the next durability check
 
-**v13.0.0 legitimately deletes 15 files** — the 14 above plus the resolved `do-not-push.md`
-alert. `git diff origin/main...HEAD --diff-filter=D` therefore reports deletions for the
-first time since the `b9d2ee3` incident. **Expected, enumerated above, not a recurrence** —
-do not let a check that flags it trigger a restore.
+**v13.0.0 deleted 15 files** — the 14 above plus the resolved `do-not-push.md` alert. Those
+deletions are now *in origin's history*, so a range comparison against an older ref will show
+them. **Expected, enumerated above, not a recurrence of `b9d2ee3`** — do not restore them.

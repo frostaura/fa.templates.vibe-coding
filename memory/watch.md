@@ -1,25 +1,26 @@
 ---
 name: ai-toolkit-gaia-watch
-description: "BLOCKING: pushing 13.0.0 publishes the Woolworths reverse-engineering from a formerly private repo — see questions.md; 13.0.0 uncommitted and the hosted service still serves the old tool set; the v13 commit deliberately deletes 14 files so a durability check will flag it; the frostaura marketplace was uninstalled from this machine; context-audit.py still cannot see any plugin skill; playwright MCP unpinned"
+description: "13.0.0 is pushed and live to every installed user, but the hosted MCP still serves the OLD tool set — plugins and server now disagree; the v13 commit deliberately deletes 14 files so a durability check will flag it; the frostaura marketplace was uninstalled from this machine; context-audit.py still cannot see any plugin skill; playwright MCP unpinned"
 type: watch
 last_verified: 2026-08-21
 ---
 
 # Watch list
 
-- **⚠ Pushing v13.0.0 publishes work that has only ever been private.** The Woolworths
-  integration and its reverse-engineered endpoint contract came from a **private** repo into
-  this **public** one. That is a decision nobody has made yet, and a push makes it silently.
-  Full reasoning and the options in [`questions.md`](questions.md). **Read that before the
-  first push, not after.**
+- **⚠ The plugins and the hosted server now disagree, and users have the new plugins.**
+  v13.0.0 is on `origin/main`, and because sources float on `ref: main` it reached every
+  installed user immediately — while `gaia.frostaura.net/mcp` still serves the build with
+  `tasks_*`/`memory_*`/`evolve_*`. Nothing in the shipped plugins calls those any more, so
+  the practical risk is low, but the live service contradicts its own repository until it is
+  redeployed. **Highest-priority follow-up.**
 
-- **13.0.0 sits uncommitted, and `gaia.frostaura.net` still serves the 12.1.0-era build.**
-  Until the image is rebuilt and the stack redeployed, the hosted MCP still exposes
-  `tasks_*`, `memory_*` and `evolve_*` while this tree says they are gone. Anyone reading
-  the tree without reading this store will misreport what is actually running.
-- **The 13.0.0 commit deliberately deletes 15 files** (the 14 tasks/memory/evolve sources
-  and schemas, plus the resolved `do-not-push.md` alert). **Expected, enumerated in
-  `state.md`, not a recurrence** — do not let a durability check turn it into a restore.
+- **The Woolworths reverse-engineering is now public.** Founder-authorised 2026-08-21 with
+  the exposure stated. The remaining work is framing, not prevention: the README carries no
+  stance on the integration — no statement that it is a personal-use tool, unaffiliated with
+  and unendorsed by Woolworths. See [`questions.md`](questions.md).
+- **v13.0.0 deleted 15 files on purpose** (the 14 tasks/memory/evolve sources and schemas,
+  plus the resolved `do-not-push.md` alert). Now in origin's history. **Expected, enumerated
+  in `state.md`, not a recurrence** — do not turn it into a restore.
 - **The `frostaura` marketplace was uninstalled from this machine on 2026-08-21** (founder
   request): removed from `~/.claude/settings.json`, from
   `~/.claude/plugins/known_marketplaces.json`, and both `marketplaces/frostaura` and
