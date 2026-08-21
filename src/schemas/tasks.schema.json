@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Gaia TaskItem",
+  "type": "object",
+  "required": ["Id", "Project", "Title", "Status"],
+  "properties": {
+    "Id": {"type": "string"},
+    "Project": {"type": "string"},
+    "Title": {"type": "string"},
+    "Description": {"type": ["string", "null"]},
+    "Status": {"type": "string", "enum": ["todo", "doing", "done"]},
+    "RequiredGates": {"type": "array", "items": {"type": "string"}},
+    "GatesSatisfied": {"type": "array", "items": {"type": "string"}},
+    "Blockers": {"type": "array", "items": {"type": "string"}},
+    "Proof": {
+      "type": "object",
+      "properties": {
+        "ChangedFiles": {"type": "array", "items": {"type": "string"}},
+        "TestsAdded": {"type": "array", "items": {"type": "string"}},
+        "ManualRegression": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 ---
 name: fa-product-compliance
-description: Provides the Stage-7 compliance, ratings, legal and certification playbook for consumer one-off / in-app-purchase products - IARC age ratings and content descriptors, store/console submission and resubmission loops, loot-box/gacha/gambling-law handling (odds disclosure, disable-where-banned, minor spend limits), kids/privacy/consent (COPPA, GDPR-K, ATT, GDPR/CCPA), indirect tax, IP/asset licensing carry-through, and the EULA/ToS/Privacy-Policy set. Use to clear certification before soft-launch and to loop rejections back to production hardening. Money-gated and net-of-fee aware (store-remitted vs developer-remitted tax changes net revenue).
+description: Provides the compliance, ratings, legal and certification playbook (Stage 7) for consumer one-off / in-app-purchase products - IARC age ratings and content descriptors, store and console submission with resubmission loops, loot-box / gacha / gambling-law handling (odds disclosure, disable where banned, minor spend limits), kids / privacy / consent (COPPA, GDPR-K, ATT, GDPR/CCPA), indirect tax, IP and asset licensing carry-through, and the EULA / ToS / privacy-policy set. Use it by clearing certification before soft-launch and looping any rejection back to production hardening, treating store-remitted vs developer-remitted tax as a net-revenue input. Use it when a content-complete build needs ratings, certification or legal review, when loot-box odds, minor spend limits or a banned-geo disable must be decided, or when a store review rejection must be answered. It never fixes the build itself - that loops back to `fa-product-production-hardening`.
 license: MIT
 ---
 
@@ -39,8 +39,8 @@ Do not use when:
 ## Core workflow
 
 1. Run the IARC questionnaire honestly; map to ESRB/PEGI/USK/CERO and attach descriptors ("in-game purchases", "includes random items") truthfully — under-declaring forces resubmission.
-2. Prepare store/console submission packs and budget review/resubmission loops (Apple guidelines incl. 3.x IAP and 4.5.4 odds disclosure, Play, Steamworks, console TRC/TCR/lotcheck).
-3. Decide loot-box/gacha posture per geo: disclose probabilities where required (China/Korea/Apple 4.5.4), DISABLE where banned (Belgium/Netherlands), and apply age-gate + minor spend limits.
+2. Prepare store/console submission packs and budget review/resubmission loops (Apple guidelines — the 3.1.1 IAP family, incl. its loot-box odds-disclosure rule — Play, Steamworks, console TRC/TCR/lotcheck).
+3. Decide loot-box/gacha posture per geo: disclose probabilities where required (China since 2017, Japan — where kompu gacha is banned outright — Apple 3.1.1, Play), DISABLE where treated as unlicensed gambling (Belgium; the Dutch ban fell in 2022), and apply age-gate + minor spend limits — the FTC's 2025 Cognosphere order (no loot-box sales to under-16s without parental consent, mandatory odds and currency-exchange disclosure) is the US benchmark, and PEGI applies a 16 floor to paid random items from June 2026.
 4. Clear kids/privacy/consent: COPPA, GDPR-K, Apple Kids Category, Google Families; wire ATT/IDFA + GDPR/CCPA consent and prove SDKs respect consent state.
 5. Settle indirect tax (VAT/GST) as store-remitted vs developer-remitted and push the resulting net-revenue delta into the unit-economics model.
 6. Confirm IP/trademark/asset/font/music licensing carry-through, then publish the EULA, ToS, and Privacy Policy.
@@ -75,7 +75,7 @@ loot-box that is merely "documented" but still purchasable is a hard fail.
 
 ## References
 
-- [Unit economics model](../fa-unit-economics-model/SKILL.md)
+- [Unit economics model](../fa-product-unit-economics-model/SKILL.md)
 - [Money gate](../fa-product-money-gate/SKILL.md)
 - [Product process](../fa-product-process/SKILL.md)
-- [Product discovery team architecture](../../../docs/architecture/product-discovery-team.md)
+- [Product discovery team architecture](../../references/product-discovery-team.md)

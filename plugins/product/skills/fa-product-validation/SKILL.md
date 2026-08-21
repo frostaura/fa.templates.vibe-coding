@@ -1,6 +1,6 @@
 ---
 name: fa-product-validation
-description: Provides Stage 4 validation guidance for consumer one-off / in-app-purchase products - framing falsifiable money hypotheses under a cost ceiling, IP/trademark/name/domain clearance, problem and solution interviews that probe real past spend, concept tests with a clickable paywall, deflated willingness-to-pay (Van Westendorp, conjoint/MaxDiff), fake-door and painted-price tests, landing-page commitment ladders, ad-creative CPI testing that replaces the placeholder CAC, and community pre-validation. Use to get a go/no-go with at least one money-on-the-line signal before building.
+description: Provides the money-on-the-line validation playbook (Stage 4) for consumer one-off / in-app-purchase products - falsifiable money hypotheses under a cost ceiling, IP / trademark / name / domain clearance, problem and solution interviews that probe real past spend, concept tests with a clickable paywall, deflated willingness-to-pay (Van Westendorp, conjoint / MaxDiff), fake-door and painted-price tests, landing-page commitment ladders, ad-creative CPI tests that replace the placeholder CAC, and community pre-validation. Use it by buying at least one behavioural money signal cheaply and re-running the gate on measured inputs. Use it when a designed money model must be falsified before anything is built, when "they said they would buy it" needs testing against behaviour, or when a measured CPI must replace an assumed CAC. It never designs the price ladder - that is `fa-product-monetization-design`.
 license: MIT
 ---
 
@@ -47,6 +47,8 @@ Do not use when:
 8. Run ad-creative CPI testing that REPLACES the placeholder CAC, then RE-RUN the net LTV:CAC + payback gate.
 9. Pre-validate with community (Discord/subreddit, founder pack) and document the go/no-go.
 
+The tracks are independent until the gate: run interviews, WTP research, fake-door/painted-price tests, the landing-page ladder, and CPI creative tests as concurrent lanes (parallel subagents where delegated) — they share no state. Only the gate re-run (step 8's LTV:CAC on measured CPI) serializes, because it needs the lanes' outputs.
+
 ## Money-on-the-line evidence
 
 - A stated WTP number is a hypothesis; a buy-tap or deposit is evidence.
@@ -76,7 +78,7 @@ Do not use when:
 
 ## References
 
-- [Unit economics model](../fa-unit-economics-model/SKILL.md)
+- [Unit economics model](../fa-product-unit-economics-model/SKILL.md)
 - [Money gate](../fa-product-money-gate/SKILL.md)
 - [Product process](../fa-product-process/SKILL.md)
-- [Product discovery team architecture](../../../docs/architecture/product-discovery-team.md)
+- [Product discovery team architecture](../../references/product-discovery-team.md)

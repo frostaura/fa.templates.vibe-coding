@@ -1,6 +1,6 @@
 ---
 name: fa-product-ideation
-description: Provides Stage 2 ideation guidance for consumer one-off / in-app-purchase products - an ideation frame with a monetization hypothesis and anti-goals (no auto-renew), divergent ideation (brainwriting, Crazy 8s, SCAMPER on top-grossing, genre mashup, forced constraints), a structured backlog with a mandatory monetization seed, hook/core-loop/meta-loop with a monetization overlay, RICE plus desirability/feasibility/net-viability scoring, and selection of ONE concept. Use to converge from an Opportunity Thesis to one concept brief with riskiest assumptions and provisional kill thresholds.
+description: Provides the concept-generation and selection playbook (Stage 2) for consumer one-off / in-app-purchase products - an ideation frame with a monetization hypothesis and an anti-goal on auto-renew, divergent ideation (brainwriting, Crazy 8s, SCAMPER on top-grossing titles, genre mashup, forced constraints), a backlog where every idea carries a mandatory monetization seed, hook / core-loop / meta-loop design with a monetization overlay, and RICE plus desirability / feasibility / net-viability scoring. Use it by diverging widely, screening coarsely, then converging on exactly ONE concept brief with its riskiest assumptions and provisional kill thresholds. Use it when an Opportunity Thesis needs concepts generated and one chosen, when ideas must carry a monetization seed before entering the backlog, or when a team is stuck between several product ideas. It never runs the market scan that produces the thesis - that is `fa-product-discovery`.
 license: MIT
 ---
 
@@ -76,7 +76,7 @@ Do not use when:
 
 ## References
 
-- [Unit economics model](../fa-unit-economics-model/SKILL.md)
+- [Unit economics model](../fa-product-unit-economics-model/SKILL.md)
 - [Money gate](../fa-product-money-gate/SKILL.md)
 - [Product process](../fa-product-process/SKILL.md)
-- [Product discovery team architecture](../../../docs/architecture/product-discovery-team.md)
+- [Product discovery team architecture](../../references/product-discovery-team.md)

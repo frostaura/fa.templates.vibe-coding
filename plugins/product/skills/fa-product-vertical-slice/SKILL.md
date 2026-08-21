@@ -1,6 +1,6 @@
 ---
 name: fa-product-vertical-slice
-description: Provides Stage 5 vertical-slice / MVP guidance for consumer one-off / in-app-purchase products - the spec stack (one-pager -> PRD/GDD -> monetization design doc as a binding instrumentation contract), MLP vs MVG with a designed purchase moment, a prototyping fidelity ladder, tech/billing spikes (StoreKit/Play Billing/Steamworks sandbox), server-authority and anti-cheat decisions, building analytics and IAP/entitlement rails first, and a shippable slice with one of every SKU type. Use to ship a lovable core loop with a live sandbox purchase and a clean reconciled funnel.
+description: Provides the vertical-slice / MVP playbook (Stage 5) for consumer one-off / in-app-purchase products - the spec stack (one-pager -> PRD/GDD -> monetization design doc as a binding instrumentation contract), Minimum Lovable vs Minimum Viable with a designed purchase moment, a prototyping fidelity ladder, tech and billing spikes against StoreKit / Play Billing / Steamworks sandboxes, server-authority and anti-cheat decisions, and analytics plus IAP / entitlement rails built first. Use it by shipping a lovable core loop that completes a live sandbox purchase, grants an entitlement and reconciles a clean funnel, with one of every SKU type. Use it when a validated bet needs a shippable-fidelity slice, when billing and telemetry rails must exist before content is made, or when purchase intent must be testable against pre-committed thresholds. It never scales the slice to v1 - that is `fa-product-production-hardening`.
 license: MIT
 ---
 
@@ -75,7 +75,7 @@ Do not use when:
 
 ## References
 
-- [Unit economics model](../fa-unit-economics-model/SKILL.md)
+- [Unit economics model](../fa-product-unit-economics-model/SKILL.md)
 - [Money gate](../fa-product-money-gate/SKILL.md)
 - [Product process](../fa-product-process/SKILL.md)
-- [Product discovery team architecture](../../../docs/architecture/product-discovery-team.md)
+- [Product discovery team architecture](../../references/product-discovery-team.md)

@@ -1,6 +1,6 @@
 ---
 name: fa-product-gtm-launch
-description: Provides the Stage-9 go-to-market, launch and user-acquisition playbook for consumer one-off / in-app-purchase products - lock pricing/offer ladder before traffic, ASO/store-listing optimization with a store-page CVR gate, earned/owned demand priming, platform-featuring pitches, creator seeding, launch sequencing, paid UA only after organic CVR validates, a creative-testing engine, virality/referral with fraud detection, support/refund ops, and a blended-CAC-vs-LTV scale-decision control loop. Use to build a repeatable acquisition engine. Money-gated and net-of-fee aware (require positive defensible blended CAC:LTV with payback).
+description: Provides the go-to-market, launch and user-acquisition playbook (Stage 9) for consumer one-off / in-app-purchase products - locking the pricing and offer ladder before traffic, ASO and store-listing optimization behind a store-page CVR gate, earned and owned demand priming, platform-featuring pitches, creator seeding, launch sequencing, paid UA only once organic CVR validates, a creative-testing engine, virality and referral loops with fraud detection, and support / refund ops. Use it by building a repeatable acquisition engine and running the blended-CAC-vs-LTV control loop until scale is defensible with a financeable payback. Use it when a scale-ready title needs ASO, featuring, creators or paid UA stood up, when a store-page CVR test must gate downstream spend, or when someone asks how to launch and acquire users profitably. It never proves the retention that justifies that spend - that is `fa-product-soft-launch`.
 license: MIT
 ---
 
@@ -75,7 +75,7 @@ not last-click vanity installs.
 
 ## References
 
-- [Unit economics model](../fa-unit-economics-model/SKILL.md)
+- [Unit economics model](../fa-product-unit-economics-model/SKILL.md)
 - [Money gate](../fa-product-money-gate/SKILL.md)
 - [Product process](../fa-product-process/SKILL.md)
-- [Product discovery team architecture](../../../docs/architecture/product-discovery-team.md)
+- [Product discovery team architecture](../../references/product-discovery-team.md)

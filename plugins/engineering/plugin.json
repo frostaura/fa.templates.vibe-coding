@@ -1,7 +1,7 @@
 {
     "name": "engineering",
     "description": "Gaia's spec-driven software delivery lifecycle: intake, architecture, planning, implementation, testing, and release. Provides stage playbooks (architecture documentation, default tech stack, execution planning, engineering delivery, UI engineering, formal testing, and end-to-end process orchestration) plus the specialist agents (intake coordinator, solutions architect, implementation planner, software engineer, tester, release engineer) that take a goal from request to validated, released software through enforced QA and release gates.",
-    "version": "10.0.1",
+    "version": "12.1.0",
     "author": {
         "name": "FrostAura Technologies",
         "email": "support-plugins-engineering@frostaura.net"
@@ -9,10 +9,13 @@
     "homepage": "https://gaia.frostaura.net",
     "repository": "https://github.com/frostaura/ai.toolkit.gaia",
     "license": "MIT",
+    "dependencies": [
+        "foundation"
+    ],
     "keywords": [
         "engineering",
         "ai",
-        "contribution",
+        "software-delivery",
         "toolset",
         "frostaura",
         "gaia",
@@ -21,23 +24,6 @@
         "skills",
         "agents"
     ],
-    "category": "foundational-ai-contribution-toolset",
-    "tags": [
-        "engineering",
-        "ai",
-        "contribution",
-        "toolset",
-        "frostaura",
-        "gaia",
-        "technologies",
-        "planning",
-        "skills",
-        "agents"
-    ],
-    "_agentsDocumentationLink": "https://docs.claude.com/en/docs/claude-code/sub-agents",
-    "_skillsDocumentationLink": "https://agentskills.io/specification",
-    "_hooksDocumentationLink": "https://docs.claude.com/en/docs/claude-code/hooks",
-    "_mcpServersDocumentationLink": "https://docs.claude.com/en/docs/claude-code/mcp",
     "mcpServers": {
         "playwright": {
             "transport": "stdio",

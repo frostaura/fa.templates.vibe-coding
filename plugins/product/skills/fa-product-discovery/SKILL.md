@@ -1,6 +1,6 @@
 ---
 name: fa-product-discovery
-description: Provides Stage 1 product-discovery guidance for consumer one-off / in-app-purchase products - trend scanning (Sensor Tower, AppMagic, data.ai, store charts, Steam tags/wishlists, TikTok/Reddit/Product Hunt), opportunity sourcing, demand-signal harvesting as the cheapest kill gate, competitor teardowns, persona + JTBD + WTP-by-segment, and bottoms-up TAM/SAM/SOM sized net-of-fee. Use to find one buildable, monetizable bet and exit with an Opportunity Thesis, unit-economics model v0, and a GO/NO-GO/PIVOT call.
+description: Provides the market-discovery playbook (Stage 1) for consumer one-off / in-app-purchase products - trend scanning across market-intel tools (Sensor Tower, AppMagic, Appfigures, AppTweak), store charts, Steam tags/wishlists and social; demand-signal harvesting as the cheapest kill gate; competitor teardowns; personas, jobs-to-be-done and willingness-to-pay by segment; and bottoms-up TAM/SAM/SOM sized net of platform fee. Use it by gathering evidence for one buildable, monetizable bet and exiting with an Opportunity Thesis, unit-economics model v0 and a GO / NO-GO / PIVOT call. Use it when a consumer-product goal needs trend, demand and competitor evidence before any concept work, when an opportunity must be sized net-of-fee, or when someone asks what consumer product to build and whether anyone would actually pay for it. It never picks the final concept - that is `fa-product-ideation` - and it does not cover B2B seat-based SaaS.
 license: MIT
 ---
 
@@ -38,14 +38,16 @@ Do not use when:
 
 ## Core workflow
 
-1. Scan trends across market-intel (Sensor Tower / AppMagic / data.ai), store charts, Steam tags/wishlists, and TikTok/Reddit/Product Hunt; tag each as durable vs fad vs over-served and note the launch-window/seasonality.
+1. Scan trends across market-intel (Sensor Tower, AppMagic, Appfigures, AppTweak, SimilarWeb), store charts, Steam tags/wishlists, and TikTok/Reddit/Product Hunt; tag each as durable vs fad vs over-served and note the launch-window/seasonality.
 2. Source opportunities via review mining, frustration archaeology, monetization-gap, genre recombination, platform-capability arbitrage, and re-segmentation.
 3. Harvest demand signals as the CHEAPEST kill gate: keyword volume, wishlist velocity, fake-door taps, and social purchase-intent, scored against a pre-registered pass/fail BEFORE the data lands.
 4. Mine top-charts and RPD to confirm the segment actually spends money, not just attention.
 5. Tear down 3-6 direct competitors plus adjacents: map paywall placement and LLM-cluster 1-3 star reviews into addressable gaps.
 6. Build personas + JTBD (functional/emotional/social), anti-personas, and willingness-to-pay by segment.
-7. Size the market bottoms-up (TAM/SAM/SOM) NET of store fee; name the 15%/30% commission case explicitly.
+7. Size the market bottoms-up (TAM/SAM/SOM) NET of store fee; name the commission case per channel explicitly (15%/30% base tiers; US external-purchase links, EU DMA terms, and Play alternative billing carry different tiers — model the fee your actual channel pays).
 8. Initialize unit-economics model v0 and issue the GO / NO-GO / PIVOT call.
+
+Steps 1-6 are independent scan modes with no shared state — run trend scanning, opportunity sourcing, demand-signal harvesting, RPD mining, teardowns, and persona/JTBD work concurrently (parallel subagents where delegated); only sizing (7) and model v0 + the call (8) serialize on their outputs.
 
 ## Demand-signal kill gate
 
@@ -71,12 +73,12 @@ Do not use when:
 
 - the Opportunity Thesis names who, what job, why now, why pay, why us
 - demand thresholds were pre-registered and the result is recorded
-- TAM/SAM/SOM is bottoms-up and net-of-fee with the 15/30 case named
+- TAM/SAM/SOM is bottoms-up and net-of-fee with the per-channel fee case named
 - model v0 exists and the GO / NO-GO / PIVOT call is explicit
 
 ## References
 
-- [Unit economics model](../fa-unit-economics-model/SKILL.md)
+- [Unit economics model](../fa-product-unit-economics-model/SKILL.md)
 - [Money gate](../fa-product-money-gate/SKILL.md)
 - [Product process](../fa-product-process/SKILL.md)
-- [Product discovery team architecture](../../../docs/architecture/product-discovery-team.md)
+- [Product discovery team architecture](../../references/product-discovery-team.md)

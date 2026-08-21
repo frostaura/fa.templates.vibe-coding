@@ -1,6 +1,6 @@
 ---
 name: fa-product-production-hardening
-description: Provides Stage 6 production-and-hardening guidance for consumer one-off / in-app-purchase products - scaling content to v1 with tooling and post-launch runway, full art/audio/VFX to the lovable bar with licensing cleared, localization-at-scale with localized price tiers reconciled to net-by-geo, device/OS matrix and performance, backend/economy services with anti-cheat and IAP-fraud/refund-abuse defenses and load testing, an accessibility baseline, and multi-layer QA reconciling production IAP end-to-end. Use to reach feature/content-complete with a production-grade IAP/entitlement path.
+description: Provides the production and hardening playbook (Stage 6) for consumer one-off / in-app-purchase products - scaling content to v1 with tooling and post-launch runway, full art / audio / VFX to the lovable bar with licensing cleared, localization at scale with localized price tiers reconciled to net-by-geo, a device and OS matrix with performance budgets, backend and economy services with anti-cheat plus IAP-fraud and refund-abuse defenses and load testing, an accessibility baseline, and multi-layer QA reconciling production IAP end to end. Use it by closing the gap from a proven slice to feature/content-complete with a production-grade IAP and entitlement path. Use it when a passing vertical slice must become a shippable v1, when production billing must be reconciled end to end, or when device, performance, localization and QA matrices must be cleared before certification. It never clears ratings or store submission - that is `fa-product-compliance`.
 license: MIT
 ---
 
@@ -75,7 +75,7 @@ Do not use when:
 
 ## References
 
-- [Unit economics model](../fa-unit-economics-model/SKILL.md)
+- [Unit economics model](../fa-product-unit-economics-model/SKILL.md)
 - [Money gate](../fa-product-money-gate/SKILL.md)
 - [Product process](../fa-product-process/SKILL.md)
-- [Product discovery team architecture](../../../docs/architecture/product-discovery-team.md)
+- [Product discovery team architecture](../../references/product-discovery-team.md)

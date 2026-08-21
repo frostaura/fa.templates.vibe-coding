@@ -1,6 +1,6 @@
 ---
 name: fa-product-liveops
-description: Provides the Stage-10 live-ops operations playbook for consumer one-off / in-app-purchase products - a live-ops data/economy-health/experimentation foundation, a recurring live-ops calendar with safe rollback, lifecycle CRM/push/in-app, continuous one-variable monetization and store/price experiments, spend-spectrum segmentation and personalized offers, a guardrailed whale/high-value program, community/crisis ops, churn analysis and resurrection, and platform-policy/SDK monitoring. Use to run the steady-state revenue engine. Money-gated and net-of-fee aware (reconcile NET-of-fee revenue, guard retention/refunds, no auto-renew offers).
+description: Provides the live-ops operations playbook (Stage 10) for consumer one-off / in-app-purchase products - a live-ops data, economy-health and experimentation foundation, a recurring events / sales / limited-time-offer calendar with rollback kill-switches, lifecycle CRM and in-app messaging, one-variable monetization and store/price experiments, spend-spectrum segmentation with personalized offers, a guardrailed whale program, community and crisis ops, churn analysis and resurrection, and platform-policy / SDK monitoring. Use it by running the steady-state revenue engine, reconciling revenue net-of-fee while guarding retention and refunds. Use it when a launched title needs a live-ops calendar, CRM or ongoing experiments, when segmentation, a whale program or churn work must run, or when a monetization-pressure or platform-policy signal must be diagnosed. It never makes the end-of-life call - sunset, sequel and portfolio harvest are `fa-product-portfolio-retrospective`.
 license: MIT
 ---
 
@@ -75,7 +75,7 @@ treated as fragile — protect the experience and monitor spend-harm.
 
 ## References
 
-- [Unit economics model](../fa-unit-economics-model/SKILL.md)
+- [Unit economics model](../fa-product-unit-economics-model/SKILL.md)
 - [Money gate](../fa-product-money-gate/SKILL.md)
 - [Product process](../fa-product-process/SKILL.md)
-- [Product discovery team architecture](../../../docs/architecture/product-discovery-team.md)
+- [Product discovery team architecture](../../references/product-discovery-team.md)

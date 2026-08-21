@@ -1,62 +1,85 @@
 {
-    "_": "This file defines the plugin marketplace for FrostAura Labs, for Claude support. It includes metadata about the marketplace and a list of available plugins with their details and source information.",
     "name": "frostaura",
     "owner": {
-        "name": "FrostAura Labs",
+        "name": "FrostAura Technologies",
         "email": "support-plugins@frostaura.net"
     },
     "metadata": {
         "description": "Curated plugins from the FrostAura team.",
-        "version": "1.1.0"
+        "version": "1.3.0"
     },
     "plugins": [
         {
             "name": "foundation",
-            "description": "Foundational components that may be used across any solutions. Includes skills to create agents, skills. It includes a custom planner and so on.",
-            "version": "10.0.1",
+            "description": "Gaia's context layer: the instruction-and-memory cascade that lets an agent understand a whole tree rather than the one file it was pointed at. Provides the whole-tree entry point that establishes, re-derives and sweeps that layer across an existing directory tree, plus single-scope context authoring, memory-store maintenance, registry reconciliation, repository-durability checks, session close-out, and the house rules for authoring new skills, agents and plans — together with the context, repo-durability and skills auditor agents and the remote MCP wiring that persists tasks, memory and evolution lessons across machines and sessions. Required by the engineering and product plugins.",
+            "version": "12.1.0",
+            "category": "foundational-ai-contribution-toolset",
+            "tags": [
+                "foundation",
+                "ai",
+                "contribution",
+                "toolset",
+                "frostaura",
+                "gaia",
+                "technologies",
+                "planning",
+                "skills",
+                "agents"
+            ],
             "source": {
                 "source": "git-subdir",
                 "url": "https://github.com/frostaura/ai.toolkit.gaia.git",
                 "path": "./plugins/foundation",
                 "ref": "main"
-            },
-            "_source_for_local_development": "./plugins/foundation"
-        },
-        {
-            "name": "personal",
-            "description": "My personal collection of components I leverage in my personali life and work. Includes skills to create agents, skills. It includes a custom planner and so on.",
-            "version": "10.0.1",
-            "source": {
-                "source": "git-subdir",
-                "url": "https://github.com/frostaura/ai.toolkit.gaia.git",
-                "path": "./plugins/personal",
-                "ref": "main"
-            },
-            "_source_for_local_development": "./plugins/personal"
-        },
-        {
-            "name": "product",
-            "description": "A money-gated lifecycle for taking consumer one-off / in-app-purchase products from idea to validated bet through launch and live-ops. Provides 10 stage playbooks (discovery, ideation, monetization design, validation, vertical-slice/MVP, production hardening, compliance, soft-launch, GTM launch, live-ops, and portfolio retrospective) plus a shared money-gate and unit-economics discipline, orchestrated by a coordinator and specialist, reviewer, and synthesizer agents that fan out, adversarially review, and synthesize each stage against net-of-fee economics.",
-            "version": "10.0.1",
-            "source": {
-                "source": "git-subdir",
-                "url": "https://github.com/frostaura/ai.toolkit.gaia.git",
-                "path": "./plugins/product",
-                "ref": "main"
-            },
-            "_source_for_local_development": "./plugins/product"
+            }
         },
         {
             "name": "engineering",
             "description": "Gaia's spec-driven software delivery lifecycle: intake, architecture, planning, implementation, testing, and release. Provides stage playbooks (architecture documentation, default tech stack, execution planning, engineering delivery, UI engineering, formal testing, and end-to-end process orchestration) plus the specialist agents (intake coordinator, solutions architect, implementation planner, software engineer, tester, release engineer) that take a goal from request to validated, released software through enforced QA and release gates.",
-            "version": "10.0.1",
+            "version": "12.1.0",
+            "category": "software-delivery-toolset",
+            "tags": [
+                "engineering",
+                "ai",
+                "software-delivery",
+                "toolset",
+                "frostaura",
+                "gaia",
+                "technologies",
+                "planning",
+                "skills",
+                "agents"
+            ],
             "source": {
                 "source": "git-subdir",
                 "url": "https://github.com/frostaura/ai.toolkit.gaia.git",
                 "path": "./plugins/engineering",
                 "ref": "main"
-            },
-            "_source_for_local_development": "./plugins/engineering"
+            }
+        },
+        {
+            "name": "product",
+            "description": "A money-gated lifecycle for taking consumer one-off / in-app-purchase products from idea to validated bet through launch and live-ops. Provides 10 stage playbooks (discovery, ideation, monetization design, validation, vertical-slice/MVP, production hardening, compliance, soft-launch, GTM launch, live-ops, and portfolio retrospective) plus a shared money-gate and unit-economics discipline, orchestrated by a coordinator and specialist, reviewer, and synthesizer agents that fan out, adversarially review, and synthesize each stage against net-of-fee economics.",
+            "version": "12.1.0",
+            "category": "product-discovery-toolset",
+            "tags": [
+                "product",
+                "ai",
+                "product-discovery",
+                "monetization",
+                "unit-economics",
+                "money-gate",
+                "frostaura",
+                "gaia",
+                "skills",
+                "agents"
+            ],
+            "source": {
+                "source": "git-subdir",
+                "url": "https://github.com/frostaura/ai.toolkit.gaia.git",
+                "path": "./plugins/product",
+                "ref": "main"
+            }
         }
     ]
 }

@@ -1,0 +1,128 @@
+---
+name: fa-foundation-context-authoring
+description: Provides cascade-aware authoring for a scope's instruction file (CLAUDE.md or AGENTS.md) and its MEMORY.md topic store, keeping timeless rules strictly separate from dated state and holding every scope to its own delta over its parent. Use it by reading every context file in the scope end to end first, sorting each sentence into instruction or memory with the date/status/version test, then writing MEMORY.md as a pure index over frontmattered memory/ topic files. Use it when creating, rewriting or restructuring either file at a single scope whose surrounding cascade already exists, when a nested scope restates content it already inherits, when an instruction file has started asserting status, versions or progress, or when a memory store has no memory/ directory, carries malformed topic frontmatter, or has prose sitting in the index.
+license: MIT
+---
+
+# Context Authoring
+
+## Scope and when to use
+
+Use this skill when the *structure* of a scope's context pair is wrong or absent — you are creating a file, rewriting one, or moving content across the instruction/`MEMORY.md` line.
+
+Use this skill when:
+
+- creating or rewriting a scope's instruction file or `MEMORY.md`
+- an instruction file has started asserting dates, statuses, versions or progress
+- a nested scope restates rules it already inherits from a parent
+- a memory store is a single prose file rather than an index over `memory/` topics, or the audit reports index drift, malformed frontmatter or an invalid `type`
+
+Do not use this skill when:
+
+- there is no surrounding cascade yet — the whole tree is unbootstrapped, which is `fa-foundation-optimize-directory-tree`'s job, not a scope-by-scope authoring pass
+- the structure is sound and only the *facts* are stale — that is a memory refresh
+- the content is an ordered procedure with traps in it — that is a skill, per `fa-foundation-create-skill`
+- the material is reference documentation belonging in the consuming repo's own `docs/` layer
+
+## Required inputs
+
+- every context file already present in the scope, read end to end
+- the pair at every scope above this one, so the delta can be computed
+- the shipped cascade standard and the audit's finding codes
+- verified reality for anything you intend to record as state
+
+## Owned outputs
+
+- an instruction file that is timeless: mandate, architecture, conventions, commands, prohibitions
+- a `MEMORY.md` that is a pure index, plus `memory/` topic files with valid frontmatter
+- content moved to the correct side of the split, with the wrong-side copy deleted
+- a scope that states only its own delta and links upward for everything else
+
+## Decision tree
+
+- If a sentence carries a date, a status, a version, a "currently" or a "we decided", it is state — it goes in a `memory/` topic, never in the instruction file.
+- If it would still be true after a year of work, it is instruction.
+- If a parent already says it, delete it and link upward. **Write only the delta, never restate a parent** — duplication is exactly how a cascade drifts against itself, because the copies get edited on different days and nobody notices which one is lying.
+- If it is an ordered procedure with traps, it is neither file — it is a skill.
+- If you cannot verify a fact by inspection right now, do not record it at all.
+
+## Core workflow
+
+1. Read the whole scope before writing a line of it — both context files, every `memory/` topic, every local `SKILL.md`, plus the pair at each parent scope. Editing at a located insertion point is how a file ends up asserting one thing in its conventions section and the opposite three paragraphs down, and how a "new" rule gets added beside the weaker version of itself that was already there.
+2. Sort every existing sentence into instruction or memory with the test above. Misfiled state is the commonest defect and the most damaging: **one status line rots the whole instruction file**, because a reader who catches it stale stops trusting the rules printed beside it.
+3. Apply the refinement that settles the hard cases. A *structural inventory* is not state — "this scope owns these packages", "the API exposes these pillars", "the stack is .NET, EF Core and PostgreSQL" are facts about the shape of the thing and belong in the instruction file, because routing and navigation depend on them. What does not belong is *condition*: patch-level pins, progress, phase, dormancy, dates, counts that move on the next commit, credentials. The test is not "could this ever change" — everything can. It is "does an agent need this to find its way around, or to know how things are going right now?" **Navigation is instruction; condition is memory.**
+4. Compute the delta against the parents and delete everything inherited.
+5. Write the instruction file in this shape: what this is, in two or three sharp sentences · architecture and key concepts · conventions and non-obvious rules · how to build, test and run · where its docs live · what an agent must never do here.
+6. Write the memory store to the topic-store shape below — index first, then one topic file per concern.
+7. Run `${CLAUDE_PLUGIN_ROOT}/scripts/context-audit.py` and clear every mechanical finding before handing off.
+
+## The topic-store shape
+
+`MEMORY.md` is a **pure index**. Content lives in a `memory/` directory beside it, one topic file per concern, so a reader lists the index, skims frontmatter, and deep-reads only what the task needs. The index carries the scope heading and one line per topic — **nothing else**:
+
+```markdown
+# MEMORY — <scope name>
+
+- [Current state](memory/state.md) — one-line hook that carries the actual signal
+- [Live decisions](memory/decisions.md) — the decisions an agent must not relitigate
+```
+
+**The hook is not a label; it carries the signal itself.** "Deployment notes" is a wasted line. "Deploy decided, unpushed range still local, kill clock void once live" leaves a reader informed even if they stop at the index. A sentence of prose anywhere else in the index is index drift, and the audit flags it.
+
+Every topic file opens with exactly this block — four keys, in this order, no extras — so `head -7` returns the complete relevance signal plus the first body line:
+
+```markdown
+---
+name: <scope>-<topic>
+description: "one line — enough to judge relevance without opening the body"
+type: state
+last_verified: YYYY-MM-DD
+---
+```
+
+`name` is globally unique kebab-case. `type` is one of exactly ten values, **always singular** — the file may be `decisions.md`, the type is `decision`, and a plural silently defeats any tooling that filters on type: `state` · `decision` (recorded with its *why*, or the next agent reverses it on cost alone) · `gotcha` · `question` (naming its owner) · `watch` · `kill-record` · `alert` (read at every level passed through, so index these near the top) · `log` · `evidence` · `reference`. Keep a topic under ~60 lines; past that it is two topics. Restamp `last_verified` only for what you actually inspected, never for what you merely edited. Relative links inside a topic resolve from `memory/`, one level below the scope — prefix `../`.
+
+**Never describe a directory's file inventory from inside a file you are adding to that directory.** One pass wrote "this directory contains exactly one file" into four `MEMORY.md` files it was in the act of adding to those directories — false before the write completed. Describe dormancy and last real activity instead of file counts and mtimes, and warn explicitly when a context file's own mtime must not be read as scope activity.
+
+## Failure recovery
+
+| Failure mode | Recovery | Owner | Escalation |
+| --- | --- | --- | --- |
+| status found in an instruction file | move the sentence into a `memory/` topic, delete the original | author | re-read the whole file for siblings of it |
+| scope restates a parent | delete the restatement and link upward | author | fix the parent instead, if the parent is what is wrong |
+| `MEMORY.md` is prose, not an index | split into `memory/` topics, cut a hook per topic | author | audit sibling scopes for the same shape |
+| invalid `type` or malformed frontmatter | rewrite the four-key block; singularize the type | author | re-run the context audit |
+| a fact cannot be verified now | omit it, or record it as a `question` with an owner | author | escalate to the human owner |
+
+## Anti-patterns
+
+- do not edit at a located insertion point without reading the file to the end; a purely additive edit is the tell
+- do not write "follow best practices"; write the pin and the reason it exists, and never write aspiration in the present tense — if a team, customer or deployment does not exist yet, say so
+- do not record volatile integers such as ahead-counts or dirty-path counts; record the topology that stays true
+- do not leave an instruction file without a `MEMORY.md` beside it — both files, or neither
+
+## Handoff and downstream impact
+
+- tell the next agent which claims were verified by inspection and which were carried over unverified
+- tell skill maintainers when content you moved out was really a procedure and needs a skill
+- tell the human owner about any contradiction between scopes you could not resolve locally, and leave the audit clean so the next session's findings are genuinely new
+
+## Examples
+
+- **Good fit:** a scope's instruction file lists pinned patch versions and a "currently blocked on" line; split it, moving condition into `memory/state.md` while the structural stack statement stays put.
+- **Good fit:** a newly created nested scope whose file is 80% a copy of its parent's conventions; reduce it to its own delta.
+- **Not a fit:** every fact in a well-structured memory store is six months old and needs re-verification — that is a memory refresh, not a restructure.
+
+## Completion checklist
+
+- no date, status, version, "currently" or "we decided" survives in the instruction file
+- structural inventory stayed put; condition moved to memory
+- nothing in this scope restates a parent
+- `MEMORY.md` is an index only, every hook carries signal rather than a label, and every topic file has the four-key frontmatter, a singular `type` and an honest `last_verified`
+- the context audit runs clean, or every remaining finding is a deliberate judgement call
+
+## References
+
+- [The context cascade](../../references/context-cascade.md)
+- [Context audit findings](../../references/context-audit-findings.md)
+- [Ownership and conventions](../../references/ownership-and-conventions.md)

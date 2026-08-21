@@ -10,5 +10,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends curl && rm -rf 
 WORKDIR /app
 COPY --from=build /app/publish .
 ENV ASPNETCORE_URLS=http://+:8080
+ENV GAIA_DATA_DIR=/app/data
+# Task/memory/evolution stores are flat JSON — mount this or the data dies with the container.
+VOLUME ["/app/data"]
+RUN mkdir -p /app/data && chown -R $APP_UID /app/data
+USER $APP_UID
 EXPOSE 8080
+# Probe with a legacy initialize: `ping` was removed in spec 2026-07-28 and the server 400s it (verified).
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+  CMD curl -fsS -o /dev/null -X POST http://localhost:8080/mcp -H 'Content-Type: application/json' -H 'Accept: application/json, text/event-stream' \
+      -d '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"healthcheck","version":"0"}}}' || exit 1
 ENTRYPOINT ["dotnet", "Gaia.Mcp.Server.dll"]

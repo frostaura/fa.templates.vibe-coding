@@ -1,0 +1,21 @@
+{
+    "mcpServers": {
+        "gaia-http": {
+            "url": "http://localhost:5059/mcp",
+            "type": "http"
+        },
+        "gaia-stdio": {
+            "transport": "stdio",
+            "type": "stdio",
+            "command": "dotnet",
+            "env": {
+                "GAIA_DATA_DIR": "docs"
+            },
+            "args": [
+                "run",
+                "--project",
+                "src/Gaia.Mcp.Server/Gaia.Mcp.Server.csproj"
+            ]
+        }
+    }
+}

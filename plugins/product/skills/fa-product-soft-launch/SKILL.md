@@ -1,6 +1,6 @@
 ---
 name: fa-product-soft-launch
-description: Provides the Stage-8 build-iteration and soft-launch playbook for consumer one-off / in-app-purchase products - always-green trunk with feature-flags, a versioned telemetry/event taxonomy wired before external testers, closed/open beta hardening, soft-launch in cheap representative geos with attribution, reading D1/D7/D30 + conversion + ARPPU/ARPDAU by cohort/source, modeling pLTV vs CPI, one-variable A/B tuning, iterate-or-kill discipline, and clearing the multi-condition scale gate. Use to prove real-money retention before paid scale. Money-gated and net-of-fee aware (require net LTV > CPI + payback).
+description: Provides the build-iteration and soft-launch playbook (Stage 8) for consumer one-off / in-app-purchase products - an always-green trunk behind feature flags, a versioned telemetry and event taxonomy wired before external testers, closed and open beta hardening, soft-launch in cheap representative geos with attribution, reading D1/D7/D30 plus conversion and ARPPU/ARPDAU by cohort and source, modeling predicted LTV against CPI, one-variable A/B tuning, and iterate-or-kill discipline. Use it by proving real-money retention in a live market and clearing the multi-condition scale gate on net-of-fee economics before any paid spend. Use it when a certified build needs telemetry, beta hardening and a controlled soft-launch, when cohort retention and spend must be read against pre-set thresholds, or when the call is iterate, scale or kill. It never runs the acquisition engine past that gate - that is `fa-product-gtm-launch`.
 license: MIT
 ---
 
@@ -75,7 +75,7 @@ across cohorts and ≥2 sources is not a pass — it is noise.
 
 ## References
 
-- [Unit economics model](../fa-unit-economics-model/SKILL.md)
+- [Unit economics model](../fa-product-unit-economics-model/SKILL.md)
 - [Money gate](../fa-product-money-gate/SKILL.md)
 - [Product process](../fa-product-process/SKILL.md)
-- [Product discovery team architecture](../../../docs/architecture/product-discovery-team.md)
+- [Product discovery team architecture](../../references/product-discovery-team.md)

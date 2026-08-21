@@ -1,6 +1,6 @@
 ---
 name: fa-product-money-gate
-description: Provides the money-gate evaluation discipline for the product-discovery lifecycle - pre-registered thresholds, net-of-fee revenue math (store commission, refunds, chargebacks, fraud, tax), LTV:CAC and payback checks, a cashflow/working-capital check, deflated willingness-to-pay, and pass/fail/kill routing along loop-back edges. Use at every stage gate to decide advance, loop-back, or kill for consumer one-off / in-app-purchase products.
+description: Provides the money-gate evaluation discipline applied at every stage boundary of the consumer one-off / in-app-purchase product lifecycle - pre-registered thresholds, net-of-fee revenue math (store commission, refunds, chargebacks, fraud, tax), LTV:CAC and payback checks, a cashflow and working-capital check, deflated willingness-to-pay, and pass / fail / kill routing along explicit loop-back edges. Use it by converting a stage's evidence into an advance, loop-back or kill decision that a later stage may not quietly re-open. Use it when a stage has produced evidence and someone must decide whether to advance, when measured inputs (CPI, WTP, ARPPU, retention) arrive and the thresholds must be re-tested, or when a threshold is at risk and the choice is loop back or kill. It never maintains the model the numbers come from - that is `fa-product-unit-economics-model` - and it is not a software-release gate.
 license: MIT
 ---
 
@@ -37,7 +37,7 @@ Do not use when:
 ## Core workflow
 
 1. Confirm thresholds were pre-registered before this stage's evidence existed; if not, register them now and flag the goalpost-bias risk.
-2. Recompute revenue NET of: store commission (15% small-business / 30% standard), refunds, chargebacks, IAP/receipt fraud, and indirect tax where not store-remitted.
+2. Recompute revenue NET of: store commission at the rate each channel actually pays (15% small-business / 30% standard base tiers; US external-purchase links, EU DMA alternative terms, and Play external offers / User Choice Billing carry different rates), refunds, chargebacks, IAP/receipt fraud, and indirect tax where not store-remitted.
 3. Deflate any stated WTP (survey/conjoint) with a quantified haircut; require a money-on-the-line signal to confirm before it drives a build decision.
 4. Compute net blended LTV per install (IAP component net of fee + ad component net of rev-share) and compare to CPI.
 5. Require LTV:CAC ≥ 3:1 AND a financeable payback window (genre-appropriate; front-loaded for premium).
@@ -46,7 +46,7 @@ Do not use when:
 
 ## Net-of-fee math (worked)
 
-- A $4.99 IAP nets ~$4.24 at 15% or ~$3.49 at 30%, before refunds / fraud / tax.
+- A $4.99 IAP nets ~$4.24 at 15% or ~$3.49 at 30%, before refunds / fraud / tax; an external-link or alternative-billing sale nets at that channel's tier instead.
 - Never score a gate on gross, on a single optimistic case, or on un-paid-back LTV.
 
 ## Failure recovery
@@ -79,5 +79,5 @@ Do not use when:
 
 ## References
 
-- [Unit economics model](../fa-unit-economics-model/SKILL.md)
+- [Unit economics model](../fa-product-unit-economics-model/SKILL.md)
 - [Product process](../fa-product-process/SKILL.md)

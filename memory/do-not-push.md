@@ -1,23 +1,17 @@
 ---
 name: ai-toolkit-gaia-do-not-push
-description: "RED: the unpushed range deletes 21 tracked files — MCP server, CI workflow and .mcp — unmentioned; src/ is genuinely absent on disk; local build and CI are gone; recovery = git checkout origin/main -- src …"
+description: "AMBER (was RED): b9d2ee3's 21-file deletion is now countered by a STAGED, uncommitted restore of src/, CI and .mcp (founder-ordered 2026-08-21, build+run verified); push only AFTER that restore is committed — the committed range alone is still destructive"
 type: alert
 last_verified: 2026-08-21
 ---
 
 # ⚠ Read this before touching the repo or pushing
 
-**The unpushed range deletes the entire MCP server, the CI workflow and `.mcp`.** `main` is ahead-only of `origin/main`, so a plain `git push` **succeeds**. The oldest commit in the range, `b9d2ee3` ("context + durability pass 2026-07-24: commit working-tree state…"), removes **21 files**: all of `src/Gaia.Mcp.Server` (~800 LOC — `Program.cs`, the four tools, `ThreadSafeJsonStore`, `CompletionValidator`, the six models), `src/README.md`, `src/schemas/`, `src/Gaia.Mcp.Tests/README.md`, plus `.github/workflows/build-gaia-mcp.yml` and `.mcp`. Nothing in the commit message mentions a removal; the same commit *added* the `personal` plugin and left `Gaia.slnx`, `Dockerfile`, `.gitattributes` and two README links still pointing at `src/`. The commits on top of it (`ea88af9`, `6770272`, both 2026-07-30) are context-only and delete nothing — so **the destructive commit is buried in the middle of the range, not at the tip**, and no single-commit fix reaches it.
+**Status 2026-08-21 (evening): the founder called restore, and it is done — but only in the index.** All 21 files deleted by `b9d2ee3` — the entire `src/Gaia.Mcp.Server` (~800 LOC), `src/README.md`, `src/schemas/`, `src/Gaia.Mcp.Tests/README.md`, `.github/workflows/build-gaia-mcp.yml`, `.mcp` — were restored byte-identical from `origin/main` via `git checkout origin/main -- src .github/workflows/build-gaia-mcp.yml .mcp` and are **staged but uncommitted** (standing founder instruction this session: commit nothing). Verified after restore: `dotnet build Gaia.slnx` green (with `MSBuildEnableWorkloadResolver=false`, this volume's trap), and the server answers an MCP `initialize` on `localhost:5059`.
 
-Read as an accident: a catch-all commit run over a working tree whose `src/` was absent (iCloud eviction is the likely cause — this volume's standing trap).
+**Why this is amber, not closed:** the *committed* range (`origin/main..a5b434b`, 5 commits) still deletes those 21 files — `b9d2ee3` is buried mid-range, and no single-commit revert reaches it. A push of the commits **without first committing the staged restore** would still strip the server and CI from the public repo every FrostAura project installs from. The safe shape is now simple:
 
-Consequences as the repo stands locally: `src/` does not exist on disk, `dotnet build Gaia.slnx` fails (the one project it references is gone), `docker build` fails, `.github/workflows/` does not exist so there is **no CI at all**, and the README's `./src` and `./src/Gaia.Mcp.Server` links are dead. **The two "broken README links" the mechanical audit reports are a symptom of this deletion — do not "fix" them by removing the links; that would hide the only visible trace of the problem.**
+1. Commit the working tree (staged restore + the uncommitted v11.0.0 rework) — founder review first, per instruction.
+2. Then push. Net effect vs `origin/main` at that point: zero deletions; `git diff origin/main...HEAD --diff-filter=D` must confirm empty before the push. Run the repo-durability check regardless.
 
-Nothing is lost: `origin/main` is at `277888e` and still carries `src/`, the workflow and `.mcp`. **Do not push** — it would strip the server and CI from the public repo that every FrostAura project installs from. Recovery, from the repo root:
-
-```
-git checkout origin/main -- src .github/workflows/build-gaia-mcp.yml .mcp
-git commit -m "restore MCP server, CI workflow and .mcp lost in b9d2ee3"
-```
-
-Founder call, because it is product code, not context.
+Anyone unstaging, committing selectively around `src/`, or "cleaning" the index re-arms the original RED condition. History of the incident (accidental catch-all commit over an iCloud-evicted tree, deletion unmentioned in any message) is preserved in this file's git history and in the report at the session artifact.

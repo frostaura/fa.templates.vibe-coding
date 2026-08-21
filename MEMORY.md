@@ -1,8 +1,8 @@
 # MEMORY — ai.toolkit.gaia
 
-- [⚠ Read this before touching the repo or pushing](memory/do-not-push.md) — RED: the unpushed range deletes 21 tracked files (MCP server, CI workflow, .mcp), unmentioned; src/ is genuinely gone from disk; recovery = git checkout origin/main -- src …
-- [Current state](memory/state.md) — Shipped plugin product — 4 plugins v10.0.1 in 2 ecosystems; the server half is absent from the local tree; ahead-only but the unpushed range is destructive; remote MCP last verified live 2026-07-19
-- [Live decisions](memory/decisions.md) — Flat-JSON over EF+Postgres deliberately; public distribution is the division's one standing stealth exception; plugins pinned to ref:main not tags
-- [Gotchas](memory/gotchas.md) — dotnet test gate vacuous (zero test projects, exits 0); personal plugin.json pair already drifted; unpinned playwright MCP pull; root Dockerfile without HEALTHCHECK/VOLUME
-- [Open questions](memory/questions.md) — Placement (reads as Technologies); should the personal plugin exist separately; move plugin refs from main to tags
-- [Watch list](memory/watch.md) — 12 shipped skills link to a nonexistent doc; .gitattributes describes a dead symlink architecture; marketplace manifests disagree on owner; junk committed at root
+- [⚠ Read this before touching the repo or pushing](memory/do-not-push.md) — AMBER (was RED): b9d2ee3's 21-file deletion is countered by a STAGED, uncommitted restore of src/, CI and .mcp (founder-ordered 2026-08-21, build+run verified); push only after the restore is committed
+- [Current state](memory/state.md) — **v12.1.0 UNCOMMITTED on top of an uncommitted v12.0.0**: new `fa-foundation-optimize-directory-tree` (foundation 9→10), genericized `context-audit.py`, README rewritten into `docs/`; all 12 version sites at 12.1.0, metadata 1.3.0; origin still serves 10.0.1
+- [Live decisions](memory/decisions.md) — Flat-JSON deliberately; public distribution is the standing stealth exception; ref:main not tags; v11: Claude-Code-canonical agents, parallel-first; 12.1.0: README is not a catalog, `dependencies` stays out of the manifests, no new agent for the tree-bootstrap skill, five script genericization fixes
+- [Gotchas](memory/gotchas.md) — dotnet test gate vacuous; plugin.json pair invariant has no CI check; unpinned playwright MCP; MCP `ping` removed in spec 2026-07-28 (probe with initialize); sampling spec-deprecated (demo tool is deliberate)
+- [Open questions](memory/questions.md) — Placement (reads as Technologies); main→tags for plugin refs
+- [Watch list](memory/watch.md) — 12.0.0+12.1.0 uncommitted (README/CHANGELOG claim what origin doesn't serve); `context-audit.py` cannot see any plugin skill and `--group-dir` still defaults to `projects`; two foundation skills still route policy into AGENTS.md; Desktop install path documented by link, unconfirmed in the live product; 2MB icon at root; stale remote task store

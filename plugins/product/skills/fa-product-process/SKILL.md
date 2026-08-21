@@ -1,6 +1,6 @@
 ---
 name: fa-product-process
-description: Provides the money-gated lifecycle and coordination playbook for taking a consumer one-off / in-app-purchase product from idea to validated bet through launch and live-ops. Use it to classify a product request, run each of the 10 stages as fan-out -> adversarial review -> synthesis against one shared unit-economics model, and apply net-of-fee money gates with explicit loop-backs. Use when coordinating product discovery, monetization design, validation, soft-launch, or live-ops for non-SaaS consumer software.
+description: Provides the money-gated lifecycle and coordination playbook that takes a consumer one-off / in-app-purchase product from an idea to a validated bet and on through launch and live-ops. Use it by classifying the product request, running each of the 10 stages as fan-out -> adversarial review -> synthesis against one shared unit-economics model, and applying net-of-fee money gates with explicit loop-back edges. Use it when a consumer-product goal needs framing, discovery, monetization design, demand validation, soft-launch or live-ops coordination, when a stage needs review and a gate before it may advance, or when a gate has failed and the work must loop back to the right upstream stage. It never covers B2B seat-based SaaS, and it never runs software construction, testing or release gating - a validated bet is handed to the engineering plugin.
 license: MIT
 ---
 
@@ -55,8 +55,17 @@ Each stage exits only on a willingness-to-PAY gate (see `fa-product-money-gate`)
 
 - The coordinator is the only coordinator; specialists never call each other.
 - Per stage: fan out the owning specialist(s) in parallel → run ≥2 independent reviewers → synthesize.
+- Fan-out is literal concurrency: independent specialists — and the ≥2 reviewers — launch as multiple Task invocations in a single message. A run that serializes parallel-safe work is a defect.
+- Await only what gates the next decision; long stage work (scans, experiments, soft-launch reads) runs as background subagents while independent branches progress.
 - Reviewers emit traceable `CORRECTION from review:` notes that stay in the artifact.
 - One shared, versioned unit-economics model is the passed state; specialists update it, never re-derive it.
+
+## Parallel execution shape
+
+- Within a stage, artifacts with no data dependency are produced concurrently (e.g. S1 trend scan, teardowns, and persona/JTBD work; S4 interview, fake-door, and landing-page tracks). Model reads are free; model WRITES serialize through its steward.
+- The money gate is a hard barrier: no work downstream of a gate starts before it passes. Across bets, stages may progress concurrently when they do not contend on the same model.
+- Concurrent artifact edits require disjoint file scopes per agent; overlapping scopes need isolated git worktrees merged deliberately. Two agents in one scope overwrite each other.
+- Register parallel branches as sibling MCP tasks (`tasks_create`); gates, blockers, and proof are per-task, so branches complete independently without softening the completion contract.
 
 ## Gate and loop-back rules
 
@@ -70,6 +79,7 @@ Each stage exits only on a willingness-to-PAY gate (see `fa-product-money-gate`)
 - do not advance on gross or optimistic economics
 - do not skip review or strip reviewer corrections
 - do not run stages in parallel across a causal gate
+- do not serialize independent branches; name what is parallel and what truly depends
 - do not move thresholds after data lands
 - do not relabel a subscription as a repeated one-off
 
@@ -87,8 +97,8 @@ Each stage exits only on a willingness-to-PAY gate (see `fa-product-money-gate`)
 
 ## References
 
-- [Product discovery team architecture](../../../docs/architecture/product-discovery-team.md)
-- [Unit economics model](../fa-unit-economics-model/SKILL.md)
+- [Product discovery team architecture](../../references/product-discovery-team.md)
+- [Unit economics model](../fa-product-unit-economics-model/SKILL.md)
 - [Money gate](../fa-product-money-gate/SKILL.md)
-- [Gaia delivery policy](references/fa-delivery-policy.md)
-- [Gaia ownership and conventions](references/fa-ownership-and-conventions.md)
+- [Product delivery policy](../../references/delivery-policy.md)
+- [Product ownership and conventions](../../references/ownership-and-conventions.md)

@@ -1,6 +1,6 @@
 ---
 name: fa-product-monetization-design
-description: Provides Stage 3 monetization-design guidance for consumer one-off / in-app-purchase products - selecting a primary model (premium / freemium-IAP / free-ads / hybrid) against retention and platform, a price ladder with psychology, an IAP catalogue, ad-revenue economics, a faucet/sink economy balanced via cohort simulation, a conversion funnel with lifetime ARPPU, validation of net-of-fee unit economics with a cashflow check, and translation into product requirements. Use to design the money model and prove net LTV:CAC >= 3:1 with payback before requirements ship.
+description: Provides the money-model design playbook (Stage 3) for consumer one-off / in-app-purchase products - choosing a primary model (premium / freemium-IAP / free-ads / hybrid) against retention, audience and platform, a price ladder with pricing psychology, an IAP catalogue, ad-revenue economics, a faucet/sink economy balanced by cohort simulation, a conversion funnel with lifetime ARPPU, and net-of-fee validation with a cashflow check. Use it by designing the model around the selected concept, proving net LTV:CAC >= 3:1 with a payback window, then translating it into binding product requirements. Use it when a chosen concept needs pricing, an IAP catalogue or an in-game economy, when someone asks how this product should make money, or when unit economics must be proven before requirements ship. It never tests willingness-to-pay with real money - that is `fa-product-validation`.
 license: MIT
 ---
 
@@ -43,7 +43,7 @@ Do not use when:
 4. Model ad-revenue economics: mediation, eCPM by geo/format, ad ARPDAU, and rewarded feeds back into IAP.
 5. Balance the economy faucets and sinks; simulate a cohort at 30/60/90d, set the faucet:sink ratio, place the monetization gate, and guard against inflation.
 6. Define the conversion funnel and metrics (install->activated->retained->payer->repeat->whale) using LIFETIME ARPPU (not monthly), ARPDAU, and segments.
-7. Validate unit economics: net-of-fee at 15/30 plus refunds/chargebacks/fraud/tax, run a CASHFLOW/working-capital check, require LTV:CAC >= 3:1 with payback, and stress whale fragility.
+7. Validate unit economics: net of the fee each channel actually pays (15/30 base tiers; external-link and DMA alternative terms differ) plus refunds/chargebacks/fraud/tax, run a CASHFLOW/working-capital check, require LTV:CAC >= 3:1 with payback, and stress whale fragility.
 8. Translate to product requirements: shop surface, contextual offers, pass system, ads integration, remote-config economy, A/B plan, and analytics spec.
 
 ## Economy balancing
@@ -76,7 +76,7 @@ Do not use when:
 
 ## References
 
-- [Unit economics model](../fa-unit-economics-model/SKILL.md)
+- [Unit economics model](../fa-product-unit-economics-model/SKILL.md)
 - [Money gate](../fa-product-money-gate/SKILL.md)
 - [Product process](../fa-product-process/SKILL.md)
-- [Product discovery team architecture](../../../docs/architecture/product-discovery-team.md)
+- [Product discovery team architecture](../../references/product-discovery-team.md)

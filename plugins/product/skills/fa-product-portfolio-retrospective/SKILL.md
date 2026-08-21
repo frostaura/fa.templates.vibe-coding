@@ -1,6 +1,6 @@
 ---
 name: fa-product-portfolio-retrospective
-description: Provides the Stage-10 closure and portfolio-compounding playbook for consumer one-off / in-app-purchase products - end-of-life decision triggers and review cadence, a three-way continue/maintenance/sunset evaluation plus sequel/DLC, a humane sunset that honors recent one-off purchases, a portfolio retrospective that harvests capabilities and calibrates the unit-economics model, documenting realized priors, and transferring the audience/CRM/payer-base forward into a new Discovery cycle. Use to close a title and compound learnings back to Stage 1. Money-gated and net-of-fee aware (decisions run on NET-LTV vs operating cost and realized-vs-predicted calibration).
+description: Provides the closure and portfolio-compounding playbook (Stage 10) for consumer one-off / in-app-purchase products - end-of-life triggers and review cadence, a three-way continue / maintenance / sunset evaluation plus sequel and DLC options, a humane sunset that honors recent one-off purchases, a retrospective that harvests reusable capabilities and calibrates the unit-economics model, documenting realized priors, and carrying the audience, CRM and payer base forward into a new Discovery cycle. Use it by deciding the end-state on net LTV against operating cost and on realized-versus-predicted calibration, then compounding the learnings back to Stage 1. Use it when a live title trips an end-of-life trigger or its review cadence comes due, when a continue / maintenance / sunset call must be made, or when a title is being shut down and its payer base and tooling must survive it. It never runs day-to-day operations of a healthy title - that is `fa-product-liveops`.
 license: MIT
 ---
 
@@ -75,7 +75,7 @@ next cycle's unit-economics model starts smarter than this one did.
 
 ## References
 
-- [Unit economics model](../fa-unit-economics-model/SKILL.md)
+- [Unit economics model](../fa-product-unit-economics-model/SKILL.md)
 - [Money gate](../fa-product-money-gate/SKILL.md)
 - [Product process](../fa-product-process/SKILL.md)
-- [Product discovery team architecture](../../../docs/architecture/product-discovery-team.md)
+- [Product discovery team architecture](../../references/product-discovery-team.md)

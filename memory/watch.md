@@ -1,16 +1,20 @@
 ---
 name: ai-toolkit-gaia-watch
-description: "12 shipped skills link to a nonexistent doc; .gitattributes describes a dead symlink architecture; marketplace manifests disagree on owner; junk committed at root"
+description: "12.0.0+12.1.0 uncommitted — README/CHANGELOG claim what origin doesn't serve; context-audit.py cannot see any plugin skill, and --group-dir still defaults to projects; two foundation skills still route policy into AGENTS.md; 2MB icon at root; playwright MCP unpinned; stale remote task store"
 type: watch
-last_verified: 2026-07-24
+last_verified: 2026-08-21
 ---
 
 # Watch list
 
-- **12 product-plugin skills link to `../../../docs/architecture/product-discovery-team.md`, which resolves to `plugins/docs/architecture/…` and does not exist** — nor does any `docs/` directory at the repo root. Confirmed this pass across `fa-product-{discovery,ideation,monetization-design,validation,vertical-slice,production-hardening,compliance,soft-launch,gtm-launch,liveops,portfolio-retrospective,process}`. Shipped to every installed user. Upstream product content: fix it here, at the source, not in the repos that vendor it.
-- **`.gitattributes` describes an architecture that no longer exists** — `.claude` → `.github` symlinks repaired by "setup scripts in `/scripts`". There are zero symlinks in the index, zero on disk, no `/scripts`, and no `.github/agents/` or `.github/skills/`.
-- **Live shipped guidance points at nothing.** `fa-create-agent` and `fa-create-skill` still instruct mirroring changes across both `.claude/` and `.github/` trees — a layout the repo abandoned.
-- **The two marketplace manifests disagree on owner:** `.claude-plugin/` says "FrostAura **Labs**", `.github/plugin/` says "FrostAura **Technologies**". Nothing compares them.
-- `plugins/product/plugin.json` keywords, tags and `category` are still copy-pasted from foundation — they literally read `"foundation"` and `"foundational-ai-contribution-toolset"`.
-- `AGENTS.md` is a ~500-byte stub with no build commands and no conventions, while the README calls it the workflow contract.
-- Junk: a **2 MB `README.icon.png` committed at root** and referenced by absolute GitHub raw URL anyway; `fa-ownership-and-conventions.md` in 7 copies, `fa-delivery-policy.md` in 5.
+- **12.0.0 AND 12.1.0 sit uncommitted in the working tree, on top of the restored `src`/CI/`.mcp`.** Until the founder commits and pushes, `README.md`/`CHANGELOG.md` on disk describe releases that origin does not serve (origin: 4 plugins @ 10.0.1 incl. `personal`), and the restore exists only in the index. Any session that reads the tree without reading this store will misreport what ships.
+- **`context-audit.py` cannot validate a single one of the shipped plugin skills.** `check_skill_indexes` gates on `dirpath.parent.name in (".claude", ".github")`, and plugin skills live at `plugins/<name>/skills/` — so the frontmatter↔directory check, the one invariant that silently produces an uninvokable skill, never runs on any of them. Deliberately **not** fixed in 12.1.0 (it is a scoping question, not a bug in the check). The substitute is the by-hand loop in `docs/development.md`; run it on every skill change.
+- **`--group-dir` still defaults to `projects`.** 12.1.0 made the grouping directory configurable, which is what makes the script usable outside one org's shape — but a caller who does not pass `--group-dir packages` on a workspace monorepo still gets CLEAN over directories the script never entered. Silent-pass-by-default; the skill's step 7 passes it, nothing else does.
+- **`fa-foundation-create-agent` (lines 43, 99) and `fa-foundation-create-skill` (line 43) still route global policy into `AGENTS.md`**, against the interop-pointer doctrine now shipped in `fa-foundation-optimize-directory-tree/references/context-templates.md` and applied to this repo's own `AGENTS.md` in 12.1.0. The README/`CLAUDE.md` "workflow contract" framing is resolved; these two skills are not.
+- **This repo is public, and its own context layer is not written as if it were.** `CLAUDE.md` names the owner and links a path outside the repository; `memory/decisions.md` names the parent organization's internal structure. All of it is uncommitted today, so the decision is still free: genericize before the first commit, or accept it deliberately. Do not let a commit make the choice.
+- **2 MB `README.icon.png` committed at root**, referenced by absolute GitHub raw URL anyway.
+- **`npx @playwright/mcp@latest` remains unpinned** in the engineering plugin's MCP config (deliberately left — plugin.json edits were scoped; pin on the next manifest touch).
+- **The remote MCP task store for this project is stale** — records reference the pre-plugin `.github/skills/gaia-*` generation and a `todo` release task blocked on a v9.0.0 NEEDS_INPUT. Harmless, but don't treat the remote store as current repo state.
+- **The Claude Desktop / claude.ai / Cowork install path in the README is documented by link, not by click-path** — nothing in this repo corroborates the navigation string, the plan requirement, or the surface matrix beyond "sub-agents and hooks are Claude Code". Confirm in the live product, then either keep the link or replace it with verified steps and record the confirmation date in `state.md`.
+
+_Cleared items are deleted here, not struck through — a watch list carrying resolved rows stops being read. (Resolved 2026-08-21 and removed: `.vscode/` configs pointing at a deleted `src/`; the README/`CLAUDE.md` "AGENTS.md is the workflow contract" framing.)_

@@ -1,13 +1,3 @@
-# Contributing
+# AGENTS
 
-## Getting Started
-
-Assess the [README.md](./README.md) for the project to understand the purpose and scope.
-
-## Contributing Guidelines
-
-Always keep the README.md updated with any new features or changes. Follow the coding standards and best practices outlined in the project documentation. When doing so, be mindful of the length of the README.md file, as it should remain concise and focused on the most important information.
-
-## References
-
-- [`Project README.md`](./README.md).
+This file is an interop pointer, not a source of truth: how agents work in this repository is defined in [`CLAUDE.md`](./CLAUDE.md), and [`README.md`](./README.md) is the entry point for using the plugins. Do not accumulate policy here — if this file starts explaining rules instead of pointing at them, delete the explanation.
