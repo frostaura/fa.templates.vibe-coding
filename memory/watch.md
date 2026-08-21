@@ -17,10 +17,9 @@ last_verified: 2026-08-21
   Until the image is rebuilt and the stack redeployed, the hosted MCP still exposes
   `tasks_*`, `memory_*` and `evolve_*` while this tree says they are gone. Anyone reading
   the tree without reading this store will misreport what is actually running.
-- **The 13.0.0 commit deliberately deletes 14 files.** `git diff origin/main...HEAD
-  --diff-filter=D` will be non-empty for the first time since the `b9d2ee3` incident.
-  **Expected, enumerated in `state.md`, not a recurrence** — do not let a durability check
-  turn it into a restore.
+- **The 13.0.0 commit deliberately deletes 15 files** (the 14 tasks/memory/evolve sources
+  and schemas, plus the resolved `do-not-push.md` alert). **Expected, enumerated in
+  `state.md`, not a recurrence** — do not let a durability check turn it into a restore.
 - **The `frostaura` marketplace was uninstalled from this machine on 2026-08-21** (founder
   request): removed from `~/.claude/settings.json`, from
   `~/.claude/plugins/known_marketplaces.json`, and both `marketplaces/frostaura` and

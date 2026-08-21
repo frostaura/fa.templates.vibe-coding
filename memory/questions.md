@@ -1,16 +1,18 @@
 ---
 name: ai-toolkit-gaia-questions
-description: "BLOCKING BEFORE PUSH: the migration moves the Woolworths reverse-engineering from a private repo into this public one; one repo now ships two unrelated products; placement still reads as Technologies; main→tags"
+description: "Woolworths reverse-engineering is now PUBLISHED (founder-authorised 2026-08-21) and the terms/agreement question is live rather than hypothetical; one repo ships two unrelated products; placement reads as Technologies; main→tags"
 type: question
 last_verified: 2026-08-21
 ---
 
 # Open questions
 
-## ⚠ Blocking, before v13.0.0 is pushed: private → public
+## Published, 2026-08-21 — the exposure is now live, not hypothetical
 
-`fa.integrations` was **private**. This repo is **public**. The migration therefore does
-more than move code — it publishes work only its author has seen:
+**Decided:** the founder authorised the push with this stated, so v13.0.0 is on
+`origin/main`. `fa.integrations` was **private**; this repo is **public**; the Woolworths
+work is now published. What that means, kept here because it stopped being a question about
+whether and became a question about what to do next:
 
 - **`WoolworthsSearchClient` carries a Constructor.io key lifted from the Woolworths
   storefront bundle.** Not a secret leak — the key is served to every browser. What changes
@@ -24,11 +26,12 @@ more than move code — it publishes work only its author has seen:
   Tolerable for a private tool a founder ran against his own account; a different
   proposition attached to a public MIT-licensed repository.
 
-This is not an argument that the migration was wrong. It is the argument that **publishing
-is a separate decision from migrating, and it has not been made.** v13.0.0 is uncommitted
-and unpushed, so the choice is free: state the repo's stance explicitly (personal-use tool,
-no affiliation, no warranty); split the server into a private repo; approach Woolworths; or
-publish deliberately. **Founder's call — do not let a push make it by default.**
+**Still open, and now time-sensitive rather than preventable:** the README says nothing
+about the integration's stance. Worth adding deliberately — personal-use tool, no
+affiliation with or endorsement by Woolworths, no warranty — and worth deciding whether to
+approach them. Unpublishing is not a remedy once something is on a public repo; the
+remaining levers are framing, a vendor conversation, and being ready to remove the
+integration if asked.
 
 ## Inherited from `fa.integrations` — these did not die with the repo
 

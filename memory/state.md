@@ -15,8 +15,9 @@ before this change began.
 
 - **Removed all 15 `tasks_*` / `memory_*` / `evolve_*` tools** and everything behind them:
   `ThreadSafeJsonStore<T>`, `JsonTaskStore`, `CompletionValidator`, five models, the `GAIA_*`
-  error codes, `src/schemas/`. **14 files deleted.** No data directory; the container's
-  `/app/data` volume is gone.
+  error codes, `src/schemas/`. **14 files deleted** (6 models, 2 stores, 3 tools, the
+  validator, 2 schema docs) — **15 in the push range**, the extra being this store's own
+  resolved `do-not-push.md`. No data directory; the container's `/app/data` volume is gone.
 - **Removed `foundation`'s `mcpServers` block** — it wired `fa-gaia-remote` into every
   install to persist tasks/memory/evolution, and there is nothing left to persist to. **No
   plugin wires the server now.**
@@ -56,8 +57,7 @@ marketplace manifests agree ignoring `source`; zero broken relative links repo-w
 
 ## Before the next durability check
 
-**The v13.0.0 commit legitimately deletes 14 files**, so
-`git diff origin/main...HEAD --diff-filter=D` will be non-empty for the first time since the
-`b9d2ee3` incident. **Expected, enumerated above, not a recurrence** — do not let a check
-that flags it trigger a restore. Push safety is a *separate* question: see
-[`questions.md`](questions.md).
+**v13.0.0 legitimately deletes 15 files** — the 14 above plus the resolved `do-not-push.md`
+alert. `git diff origin/main...HEAD --diff-filter=D` therefore reports deletions for the
+first time since the `b9d2ee3` incident. **Expected, enumerated above, not a recurrence** —
+do not let a check that flags it trigger a restore.
